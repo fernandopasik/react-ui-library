@@ -14,14 +14,36 @@
   },
   "main": "",
   "scripts": {
+    "test": "nyc mocha",
     "lint": "eslint .; stylelint src/**/*.scss --syntax scss;"
   },
   "config": {
     "ghooks": {
       "commit-msg": "validate-commit-msg",
       "pre-commit": "npm run -s lint",
-      "pre-push": "npm run -s lint"
+      "pre-push": "npm run -s lint && npm test"
     }
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "all": true,
+    "require": [
+      "babel-register"
+    ],
+    "exclude": [
+      "src/utils/test.js",
+      "src/**/*.spec.js",
+      "test/",
+      "coverage/"
+    ],
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100,
+    "statements": 100
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -33,9 +55,14 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.11.0",
     "babel-register": "^6.9.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.4.1",
     "eslint": "^3.0.1",
     "eslint-config-fernandopasik": "^0.4.1",
     "ghooks": "^1.3.2",
+    "mocha": "^2.5.3",
+    "nyc": "^7.0.0",
+    "react-addons-test-utils": "^15.2.1",
     "stylelint": "^6.9.0",
     "stylelint-config-fernandopasik": "^0.1.0",
     "validate-commit-msg": "^2.6.1"
