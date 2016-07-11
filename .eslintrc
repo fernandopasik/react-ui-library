@@ -1,5 +1,5 @@
 {
-  "extends": [ "fernandopasik", "fernandopasik/es6", "fernandopasik/react" ],
+  "extends": [ "fernandopasik", "fernandopasik/es6", "fernandopasik/react", "fernandopasik/mocha" ],
   "env": {
     "browser": true,
     "mocha": true

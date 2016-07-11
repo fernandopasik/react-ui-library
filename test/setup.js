@@ -1,15 +1,21 @@
 import chai from 'chai';
+import chaiColors from 'chai-colors';
+import dirtyChai from 'dirty-chai';
 import { jsdom } from 'jsdom';
+import sass from 'node-sass';
 
-// Sass imports must not be in server-side rendering
-require.extensions['.scss'] = function () {
-  return;
+// Loads scss files and returns as string the compiled css
+require.extensions['.scss'] = function (module, file) {
+  // eslint-disable-next-line no-sync
+  module.exports = sass.renderSync({ file }).css.toString();
 };
 
 const exposedProperties = [ 'window', 'navigator', 'document' ];
 
 global.expect = chai.expect;
 chai.should();
+chai.use(chaiColors);
+chai.use(dirtyChai);
 
 global.document = jsdom('');
 global.window = document.defaultView;
