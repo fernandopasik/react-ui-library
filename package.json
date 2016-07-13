@@ -22,7 +22,8 @@
     "ghooks": {
       "commit-msg": "validate-commit-msg",
       "pre-commit": "npm run -s lint",
-      "pre-push": "npm run -s lint && npm test"
+      "pre-push": "npm run -s lint && npm test",
+      "prepare-commit-msg": "prepare-commit-msg-angular $2 $3"
     }
   },
   "nyc": {
@@ -67,6 +68,7 @@
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",
     "nyc": "^7.0.0",
+    "prepare-commit-msg-angular": "^0.2.0",
     "react-addons-test-utils": "^15.2.1",
     "stylelint": "^6.9.0",
     "stylelint-config-fernandopasik": "^0.1.0",
