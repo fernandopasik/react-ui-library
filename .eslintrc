@@ -2,7 +2,8 @@
   "extends": [ "fernandopasik", "fernandopasik/es6", "fernandopasik/react", "fernandopasik/mocha" ],
   "env": {
     "browser": true,
-    "mocha": true
+    "mocha": true,
+    "node": true
   },
   "globals": {
     "expect": true

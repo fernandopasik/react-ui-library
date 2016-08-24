@@ -1,0 +1,37 @@
+@import "./colors.scss";
+
+$base-font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
+$base-font-size: 16px !default;
+$base-font-color: $color-black !default;
+$base-line-height: 1.5 !default;
+$type-scale-factor: 1.36 !default;
+
+@function type-font-size($size: 1) {
+  $font-size: $base-font-size;
+
+  @if ($size > 1) {
+    @for $i from $size through 2 {
+      $font-size: $font-size * $type-scale-factor;
+    }
+  }
+
+  @elseif ($size < 0) {
+    @for $i from $size through -1 {
+      $font-size: $font-size / $type-scale-factor;
+    }
+  }
+
+  @return round($font-size);
+}
+
+@function type-line-height($font-size: type-font-size(1)) {
+  $line-height: $base-font-size * $base-line-height;
+  $i: 1;
+
+  @while ($line-height < $font-size) {
+    $line-height: $base-font-size * $base-line-height * $i;
+    $i: $i + 1;
+  }
+
+  @return $line-height;
+}

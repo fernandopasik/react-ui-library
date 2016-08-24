@@ -1,0 +1,11 @@
+@import "../settings/grid.scss";
+@import "../utils/clearfix.scss";
+
+.container {
+  @include clearfix;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $gutter;
+  padding-right: $gutter;
+}

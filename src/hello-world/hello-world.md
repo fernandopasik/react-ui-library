@@ -1,13 +1,17 @@
+---
+imports:
+  HelloWorld: ./hello-world.js
+---
 # Hello World
 
 This is an example component
 
-```html
+```render html
 <HelloWorld />
 ```
 
 You can set who to say Hello
 
-```html
-<HelloWorld who="Avenida" />
+```render html
+<HelloWorld who="Fernando" />
 ```

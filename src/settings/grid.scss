@@ -1,0 +1,5 @@
+@import "./fonts.scss";
+
+$baseline-grid: $base-font-size * $base-line-height !default;
+$gutter: $baseline-grid / 2 !default;
+$grid-column-count: 12 !default;

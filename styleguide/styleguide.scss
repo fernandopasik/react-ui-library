@@ -1,0 +1,26 @@
+.example {
+
+  .run {
+    padding: 12px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+  }
+
+  .source {
+    background-color: #333;
+    color: #ccc;
+    padding: 12px;
+
+    pre {
+      margin: 0;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+  }
+}
+
+.components > div {
+  margin-bottom: 48px;
+}
