@@ -38,11 +38,12 @@
     "require": [
       "babel-register"
     ],
+    "include": [
+      "src/"
+    ],
     "exclude": [
       "src/utils/test.js",
-      "src/**/*.spec.js",
-      "test/",
-      "coverage/"
+      "src/**/*.spec.js"
     ],
     "check-coverage": true,
     "lines": 100,
