@@ -23,8 +23,8 @@ describe('HelloWorld', () => {
   });
 
   it('can set who to say hello', () => {
-    const wrapper = shallow(<HelloWorld who="Avenida" />);
-    expect(wrapper.text()).to.equal('Hello Avenida');
+    const wrapper = shallow(<HelloWorld who="Fernando" />);
+    expect(wrapper.text()).to.equal('Hello Fernando');
   });
 
   it('use blue color for text', () => {
