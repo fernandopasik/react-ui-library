@@ -14,7 +14,7 @@
   },
   "main": "",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --open --inline",
     "lint": "eslint .; stylelint src/**/*.scss --syntax scss;",
     "test": "nyc mocha",
     "pretest": "rm -rf coverage .nyc_output",
