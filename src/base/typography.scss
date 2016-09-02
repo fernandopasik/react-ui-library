@@ -27,7 +27,14 @@ small {
 %h-shared {
   font-weight: 700;
   margin-top: $typography-margin;
+}
+
+%h-margin-bottom {
   margin-bottom: $typography-margin;
+}
+
+%h-no-margin-bottom {
+  margin-bottom: 0;
 }
 
 @for $h from 1 through 6 {
@@ -40,6 +47,15 @@ small {
   h#{$h},
   .h#{$h} {
     @extend %h-shared;
+
+    @if ($h < 3) {
+      @extend %h-margin-bottom;
+    }
+
+    @else {
+      @extend %h-no-margin-bottom;
+    }
+
     font-size: type-font-size($size);
     line-height: type-line-height(type-font-size($size));
   }
