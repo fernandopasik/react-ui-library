@@ -19,15 +19,11 @@
     "test": "nyc mocha",
     "pretest": "rm -rf coverage .nyc_output",
     "build": "npm run -s lint && npm test",
-    "travis": "npm run -s build"
-  },
-  "config": {
-    "ghooks": {
-      "commit-msg": "validate-commit-msg",
-      "pre-commit": "npm run -s lint",
-      "pre-push": "npm run -s lint && npm test",
-      "prepare-commit-msg": "prepare-commit-msg-angular $2 $3"
-    }
+    "travis": "npm run -s build",
+    "commitmsg": "validate-commit-msg",
+    "precommit": "npm run -s lint",
+    "prepush": "npm run -s lint && npm test",
+    "preparecommitmsg": "prepare-commit-msg-angular $2 $3"
   },
   "nyc": {
     "reporter": [
@@ -74,8 +70,8 @@
     "eslint-config-fernandopasik": "^0.4.4",
     "eslint-loader": "^1.5.0",
     "extract-text-webpack-plugin": "^1.0.1",
-    "ghooks": "^1.3.2",
     "html-webpack-plugin": "^2.22.0",
+    "husky": "^0.11.7",
     "json-loader": "^0.5.4",
     "mobile-detect": "^1.3.3",
     "mocha": "^3.0.2",
