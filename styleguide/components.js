@@ -1,3 +1,4 @@
+import ButtonComponent from '../src/button/button.md';
 import HelloWorldComponent from '../src/hello-world/hello-world.md';
 import React from 'react';
 import TypographyComponent from '../src/base/typography.md';
@@ -11,6 +12,7 @@ export default function Components() {
     <div className="components">
       <TypographyComponent />
       <HelloWorldComponent />
+      <ButtonComponent />
     </div>
   );
 }

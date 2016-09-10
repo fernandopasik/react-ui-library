@@ -19,12 +19,12 @@ describe('HelloWorld', () => {
 
   it('has a default who value', () => {
     const wrapper = shallow(<HelloWorld />);
-    expect(wrapper.text()).to.equal('Hello World');
+    expect(wrapper).to.have.text('Hello World');
   });
 
   it('can set who to say hello', () => {
     const wrapper = shallow(<HelloWorld who="Fernando" />);
-    expect(wrapper.text()).to.equal('Hello Fernando');
+    expect(wrapper).to.have.text('Hello Fernando');
   });
 
   it('use blue color for text', () => {
