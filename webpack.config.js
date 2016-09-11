@@ -52,6 +52,7 @@ module.exports = {
       }
     ]
   },
+  eslint: { failOnError: false },
   sassLoader: { outputStyle: 'expanded' },
   postcss() {
     return [ autoprefixer() ];
