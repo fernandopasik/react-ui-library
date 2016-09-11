@@ -19,6 +19,7 @@
     "test": "nyc mocha",
     "pretest": "rm -rf coverage .nyc_output",
     "build": "npm run -s lint && npm test",
+    "watch": "npm run test -- -w & npm start",
     "travis": "npm run -s build",
     "commitmsg": "validate-commit-msg",
     "precommit": "npm run -s lint",
