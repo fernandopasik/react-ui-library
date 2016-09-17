@@ -1,7 +1,15 @@
 import { Children } from 'react';
 
 export default {
+
   ...Children,
+
+  /**
+   * Filter children by type
+   * @param   {object} children - React component children
+   * @param {function} filterFn - Array filter callback
+   * @returns  {array}          - Filtered children
+   */
   filter(children, filterFn) {
     return Children
       .toArray(children)
@@ -17,16 +25,17 @@ export default {
    * @returns {object}          - Map of the types and rest
    */
   groupByType(children, types, rest) {
-    const group = {};
-    Children.forEach(children, child => {
-      if (types.includes(child.type)) {
-        group[child.type] = group[child.type] || [];
-        group[child.type] = group[child.type].concat(child.props.children);
-      } else {
-        group[rest] = group[rest] || [];
-        group[rest] = group[rest].concat(child);
-      }
-    });
-    return group;
+    return Children
+      .toArray(children)
+      .reduce((group, child) => {
+        const
+          isGrouped = types.includes(child.type),
+          addChild = isGrouped ? child.props.children : child,
+          key = isGrouped ? child.type : rest;
+        return {
+          ...group,
+          [key]: [ ...(group[key] || []), addChild ]
+        };
+      }, {});
   }
 };
