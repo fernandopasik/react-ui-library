@@ -1,0 +1,49 @@
+@import
+  "../settings/borders.scss",
+  "../settings/colors.scss",
+  "../settings/grid.scss";
+
+$panel-bg-color: $color-white !default;
+$panel-header-bg-color: $panel-bg-color !default;
+$panel-border: $default-border-color solid $default-border-width !default;
+$panel-border-radius: $default-border-radius !default;
+
+%panel-padding {
+  padding: $gutter;
+}
+
+.panel {
+  background-color: $panel-bg-color;
+  border: $panel-border;
+  border-radius: $panel-border-radius;
+  margin-bottom: $baseline-grid;
+}
+
+.panel-header {
+  @extend %panel-padding;
+  background-color: $panel-header-bg-color;
+  background-clip: content-box;
+
+  * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.panel-body {
+  @extend %panel-padding;
+
+  .panel-header + div & {
+    border-top: $panel-border;
+  }
+}
+
+.panel-footer {
+  @extend %panel-padding;
+  border-top: $panel-border;
+
+  * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

@@ -13,7 +13,7 @@ describe('Button', () => {
   it('can have content', () => {
     const wrapper = shallow(<Button><span>Accept</span></Button>);
     expect(wrapper.find('span')).to.have.text('Accept');
-    expect(wrapper).to.have.html().match(/<span .*>Accept<\/span>/);
+    expect(wrapper).to.have.html().match(/<span [^>]*>Accept<\/span>/);
   });
 
   it('if it has label, content is ignored', () => {
