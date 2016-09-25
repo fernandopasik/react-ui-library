@@ -3,4 +3,4 @@
 --recursive
 --reporter min
 --ui bdd
-test/setup.spec.js src/**/*.spec.js
+src/**/*.spec.js

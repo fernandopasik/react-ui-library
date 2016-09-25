@@ -25,7 +25,7 @@ describe('Panel', () => {
     );
     expect(wrapper.find('.panel-header')).to.have.length(1);
     expect(wrapper.find('.panel-header'))
-      .to.have.html().match(/<h2 [^>]*>Example title<\/h2>/);
+      .to.have.html().match(/<h2>Example title<\/h2>/);
     expect(wrapper.find('.panel-header')).to.not.have.html().match(/<header>/);
     expect(wrapper.find('.panel-body')).to.have.length(1);
     expect(wrapper.find('.panel-body')).to.have.text('This is content');
@@ -38,7 +38,7 @@ describe('Panel', () => {
     );
     expect(wrapper.find('.panel-footer')).to.have.length(1);
     expect(wrapper.find('.panel-footer'))
-      .to.have.html().match(/<button [^>]*>OK<\/button>/);
+      .to.have.html().match(/<button>OK<\/button>/);
     expect(wrapper.find('.panel-footer')).to.not.have.html().match(/<footer>/);
     expect(wrapper.find('.panel-body')).to.have.length(1);
     expect(wrapper.find('.panel-body')).to.have.text('This is content');

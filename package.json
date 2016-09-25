@@ -84,7 +84,6 @@
     "nyc": "^8.3.0",
     "postcss-loader": "^0.13.0",
     "prepare-commit-msg-angular": "^0.2.0",
-    "react-a11y": "^0.3.3",
     "react-addons-test-utils": "^15.3.2",
     "react-markdown-loader": "^1.1.4",
     "sass-loader": "^4.0.2",
