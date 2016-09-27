@@ -9,6 +9,7 @@ const
 module.exports = {
   entry: {
     styleguide: [
+      'babel-polyfill',
       'webpack-dev-server/client?http://localhost:8080/',
       // 'webpack/hot/only-dev-server',
       // reloads if it can't hot replace
