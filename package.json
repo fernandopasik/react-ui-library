@@ -16,14 +16,15 @@
   "scripts": {
     "start": "webpack-dev-server --open --inline",
     "lint": "eslint . && stylelint src/**/*.scss --syntax scss",
-    "test": "nyc mocha",
+    "test": "mocha",
+    "coverage": "nyc mocha",
     "pretest": "rm -rf coverage .nyc_output",
-    "build": "npm run -s lint && npm test",
+    "build": "npm run -s lint && npm run coverage",
     "watch": "npm run test -- -w & npm start",
     "travis": "npm run -s build",
     "commitmsg": "validate-commit-msg",
     "precommit": "npm run -s lint",
-    "prepush": "npm run -s lint && npm test",
+    "prepush": "npm run -s lint && npm run coverage",
     "preparecommitmsg": "prepare-commit-msg-angular $2 $3"
   },
   "nyc": {
