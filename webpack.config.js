@@ -55,7 +55,7 @@ module.exports = {
   eslint: { failOnError: false },
   sassLoader: { outputStyle: 'expanded' },
   postcss() {
-    return [ autoprefixer() ];
+    return [ autoprefixer({ browsers: [ '> 0.1%', 'last 2 versions' ]}) ];
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
