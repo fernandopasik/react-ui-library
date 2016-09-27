@@ -18,7 +18,7 @@
     "lint": "eslint . && stylelint src/**/*.scss --syntax scss",
     "test": "mocha",
     "coverage": "nyc mocha",
-    "pretest": "rm -rf coverage .nyc_output",
+    "precoverage": "rm -rf coverage .nyc_output",
     "build": "npm run -s lint && npm run coverage",
     "watch": "npm run test -- -w & npm start",
     "travis": "npm run -s build",
