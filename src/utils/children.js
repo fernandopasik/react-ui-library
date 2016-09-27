@@ -1,4 +1,4 @@
-import { Children } from 'react';
+import { Children, cloneElement } from 'react';
 
 export default {
 
@@ -37,5 +37,62 @@ export default {
           [key]: [ ...(group[key] || []), addChild ]
         };
       }, {});
+  },
+
+  /**
+   * Map children and its children
+   * @param   {object} children  - React component children
+   * @param {function} deepMapFn - Deep Map callback
+   * @returns  {array}           - Deep Mapped children
+   */
+  deepMap(children, deepMapFn) {
+    return Children
+      .map(children, child => {
+        if (child.props && child.props.children
+          && typeof child.props.children === 'object') {
+          // Clone the child that has children and map them too
+          return deepMapFn(cloneElement(child, {
+            ...child.props,
+            children: this.deepMap(child.props.children, deepMapFn)
+          }));
+        }
+        return deepMapFn(child);
+      });
+  },
+
+  /**
+   * ForEach children and its children
+   * @param   {object} children      - React component children
+   * @param {function} deepForEachFn - Deep Map callback
+   */
+  deepForEach(children, deepForEachFn) {
+    Children
+      .forEach(children, child => {
+        if (child.props && child.props.children
+          && typeof child.props.children === 'object') {
+          // Each inside the child that has children
+          this.deepForEach(child.props.children, deepForEachFn);
+        }
+        deepForEachFn(child);
+      });
+  },
+
+  /**
+   * Find in children and its children
+   * @param   {object} children   - React component children
+   * @param {function} deepFindFn - Deep Map callback
+   * @returns  {array}            - Child found
+   */
+  deepFind(children, deepFindFn) {
+    return Children
+      .toArray(children)
+      .find(child => {
+        if (child.props && child.props.children
+          && typeof child.props.children === 'object') {
+          // Each inside the child that has children
+          return this.deepFind(child.props.children, deepFindFn);
+        }
+        return deepFindFn(child);
+      });
   }
 };

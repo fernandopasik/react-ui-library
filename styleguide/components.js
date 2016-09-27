@@ -1,4 +1,5 @@
 import ButtonComponent from '../src/button/button.md';
+import FieldComponent from '../src/form/field/field.md';
 import HelloWorldComponent from '../src/hello-world/hello-world.md';
 import PanelComponent from '../src/panel/panel.md';
 import React from 'react';
@@ -15,6 +16,7 @@ export default function Components() {
       <HelloWorldComponent />
       <ButtonComponent />
       <PanelComponent />
+      <FieldComponent />
     </div>
   );
 }

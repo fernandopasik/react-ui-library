@@ -1,0 +1,117 @@
+@import
+  "../../settings/borders.scss",
+  "../../settings/colors.scss",
+  "../../settings/grid.scss";
+
+$field-border-color: $color-gray !default;
+$field-border-style: solid !default;
+$field-border-width: $default-border-width !default;
+$field-border-radius: $default-border-radius !default;
+$field-bg-color: $color-white !default;
+$field-focus-border-color: $color-blue !default;
+$field-focus-box-shadow: 0 0 3px $color-blue !default;
+$field-error-color: $color-red !default;
+$field-disabled-opacity: 0.5 !default;
+
+%field-item-block-layout {
+  display: block;
+  width: 100%;
+  vertical-align: middle;
+  line-height: $baseline-grid;
+}
+
+%field-item-inline-layout {
+  display: inline-block;
+  width: auto;
+}
+
+.field {
+  @extend %field-item-block-layout;
+
+  & + & {
+    margin-top: $gutter;
+  }
+
+  &.inline {
+    @extend %field-item-inline-layout;
+    margin-bottom: $gutter;
+
+    & + & {
+      margin-left: $gutter;
+      margin-top: 0;
+    }
+  }
+}
+
+.field-element {
+  @extend %field-item-block-layout;
+  padding: ($gutter - $field-border-width) $gutter;
+  background-color: $field-bg-color;
+  border: $field-border-width $field-border-style $field-border-color;
+  border-radius: $field-border-radius;
+
+  &:focus {
+    outline: 0;
+    border-color: $field-focus-border-color;
+    box-shadow: $field-focus-box-shadow;
+  }
+
+  .invalid & {
+    border-color: $field-error-color;
+  }
+
+  &:disabled,
+  &[disabled],
+  &[readonly] {
+    cursor: not-allowed;
+    opacity: $field-disabled-opacity;
+  }
+
+  &[type="color"] {
+    min-height: $baseline-grid * 2;
+    min-width: $baseline-grid * 2;
+  }
+
+  &[type="search"]::-webkit-search-cancel-button {
+    appearance: searchfield-cancel-button;
+  }
+
+  .inline & {
+    @extend %field-item-inline-layout;
+  }
+}
+
+.field-label {
+  @extend %field-item-block-layout;
+  padding: $gutter 0;
+
+  .inline & {
+    @extend %field-item-inline-layout;
+    padding-right: $gutter;
+  }
+
+  .disabled &,
+  .readonly & {
+    opacity: $field-disabled-opacity;
+  }
+
+  .icon-required {
+    color: $field-error-color;
+    margin-left: $gutter / 3;
+
+    &:after {
+      content: "*";
+    }
+  }
+}
+
+.field-error {
+  @extend %field-item-block-layout;
+  padding: $gutter 0;
+  color: $field-error-color;
+
+  .inline & {
+    @extend %field-item-inline-layout;
+    padding-left: $gutter;
+  }
+}
