@@ -9,3 +9,47 @@
   padding-left: $gutter;
   padding-right: $gutter;
 }
+
+.row {
+  @include clearfix;
+  margin-left: -$gutter;
+  margin-right: -$gutter;
+}
+
+@for $i from 1 through $grid-column-count {
+  .cols-#{$i} {
+    width: 100% / $grid-column-count * $i;
+  }
+}
+
+[class*=cols] {
+  float: left;
+  min-height: 1px;
+  padding-left: $gutter;
+  padding-right: $gutter;
+}
+
+.split {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+  .left,
+  .center,
+  .right {
+    display: table-cell;
+    vertical-align: top;
+  }
+
+  .left {
+    text-align: left;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .right {
+    text-align: right;
+  }
+}
