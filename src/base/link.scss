@@ -1,0 +1,19 @@
+@import "../settings/colors.scss";
+
+$link-color: $color-blue !default;
+$link-decoration: none !default;
+$link-hover-color: lighten($link-color, 10%) !default;
+$link-hover-decoration: $link-decoration !default;
+$link-transition: color 0.15s ease-in-out !default;
+
+
+a {
+  color: $link-color;
+  text-decoration: $link-decoration;
+  transition: $link-transition;
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+}
