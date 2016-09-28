@@ -6,12 +6,12 @@ imports:
 
 This is an example component
 
-```render html
+```render jsx
 <HelloWorld />
 ```
 
 You can set who to say Hello
 
-```render html
+```render jsx
 <HelloWorld who="Fernando" />
 ```
