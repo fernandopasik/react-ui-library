@@ -18,7 +18,7 @@ Default font size is 16px with a vertical rythym of 24px
 <p>Mauris accumsan nisl risus, quis faucibus justo lacinia quis. Duis ultrices fringilla diam. Vestibulum elementum justo id leo viverra, a consequat nisi posuere.</p>
 ```
 
-## Titles sizes
+## Sizes
 
 All the h1...h6 sizes
 
@@ -29,10 +29,6 @@ All the h1...h6 sizes
 <h4>H4 title</h4>
 <h5>H5 title</h5>
 <h6>H6 title</h6>
-```
-
-## Small text size
-
-```render html
-<small>This is a smaller font size</small>
+<p>Paragraph</p>
+<small>Small text</small>
 ```

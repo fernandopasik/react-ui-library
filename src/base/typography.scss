@@ -6,7 +6,7 @@ $typography-margin: $base-font-size * $base-line-height;
 
 body {
   color: $base-font-color;
-  background-color: $color-gray-lightest;
+  background-color: $color-lightest-gray;
   font-family: $base-font-family;
   font-size: $base-font-size;
   font-style: normal;
@@ -17,6 +17,7 @@ body {
 p {
   margin-top: $typography-margin;
   margin-bottom: $typography-margin;
+  line-height: $base-line-height;
 }
 
 small {
