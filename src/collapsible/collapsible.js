@@ -18,10 +18,29 @@ export default class Collapsible extends Component {
   }
 
   /**
-   * Right when mounted measure the header's height
+   * Right when mounted measure the content's height
    */
   componentDidMount() {
-    this.setState({ height: this._content.clientHeight });
+    this.setState({ height: this.getHeight() });
+  }
+
+  /**
+   * If children change remeasure the content's height
+   */
+  componentDidUpdate() {
+    setTimeout(() => {
+      if (this.state.height !== this.getHeight()) {
+        this.setState({ height: this.getHeight() });
+      }
+    });
+  }
+
+  /**
+   * Measure content's height
+   * @returns {string} - Height in pixels
+   */
+  getHeight() {
+    return this._content.getBoundingClientRect().height;
   }
 
   /**
