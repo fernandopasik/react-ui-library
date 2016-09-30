@@ -52,6 +52,7 @@ export default class Collapsible extends Component {
     const
       { children, collapsed } = this.props,
       height = collapsed ? 0 : this.state.height,
+      collapsibleCSS = classnames('collapsible', { collapsed }),
       child = cloneElement(children, {
         ...children.props,
         className: classnames(children.props
@@ -59,7 +60,7 @@ export default class Collapsible extends Component {
         ref: content => { this._content = content; }
       });
 
-    return <div className="collapsible" style={{ height }}>{ child }</div>;
+    return <div className={ collapsibleCSS } style={{ height }}>{ child }</div>;
   }
 }
 

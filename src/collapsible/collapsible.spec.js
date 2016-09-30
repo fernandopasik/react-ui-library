@@ -8,17 +8,21 @@ import sinon from 'sinon';
 describe('Collapsible', () => {
 
   it('it\'s a box that wraps content', () => {
-    const wrapper = shallow(<Collapsible><div>Example</div></Collapsible>);
-    expect(wrapper.find('.collapsible')).to.have.length(1);
-    expect(wrapper.find('.collapsible-content')).to.have.length(1);
-    expect(wrapper.find('.collapsible-content')).to.have.text('Example');
+    const
+      wrapper = shallow(<Collapsible><div>Test</div></Collapsible>),
+      $collapsible = wrapper.find('.collapsible'),
+      $content = wrapper.find('.collapsible-content');
+    expect($collapsible).to.have.length(1);
+    expect($content).to.have.length(1);
+    expect($content).to.have.text('Test');
   });
 
   it('when collapsed collapsible height is 0', () => {
-    const wrapper = shallow(
-      <Collapsible collapsed><div>Example</div></Collapsible>
-    );
-    expect(wrapper.find('.collapsible')).to.have.attr('style', 'height:0;');
+    const
+      wrapper = shallow(<Collapsible collapsed><div>Test</div></Collapsible>),
+      $collapsible = wrapper.find('.collapsible');
+    expect($collapsible).to.have.className('collapsed');
+    expect($collapsible).to.have.attr('style', 'height:0;');
   });
 
   it('when not collapsed collapsible height is the same as content', () => {
@@ -26,7 +30,6 @@ describe('Collapsible', () => {
       stub = sinon.stub(Collapsible.prototype, 'getHeight').returns('100px'),
       wrapper = mount(<Collapsible><div>100px</div></Collapsible>,
         { attachTo: setReactRoot() });
-
     expect(wrapper).to.have.style('height', '100px');
     stub.restore();
   });

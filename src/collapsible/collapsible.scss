@@ -1,4 +1,7 @@
 .collapsible {
-  overflow: hidden;
   transition: height 0.4s ease-out;
+
+  &.collapsed {
+    overflow: hidden;
+  }
 }
