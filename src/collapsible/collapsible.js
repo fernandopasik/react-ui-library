@@ -1,7 +1,8 @@
 /* eslint-disable react/no-set-state, react/no-did-mount-set-state */
 import './collapsible.scss';
 import React, { cloneElement, Component, PropTypes } from 'react';
-import classnames from 'classnames';
+
+const transitionTime = 400;
 
 /**
  * Collapsible
@@ -14,27 +15,66 @@ export default class Collapsible extends Component {
    */
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { style: {}};
   }
 
   /**
    * Right when mounted measure the content's height
    */
   componentDidMount() {
-    this.setState({ height: this.getHeight() });
-  }
-
-  /**
-   * If children change remeasure the content's height
-   */
-  componentDidUpdate() {
-    setTimeout(() => {
-      if (this.state.height !== this.getHeight()) {
-        this.setState({ height: this.getHeight() });
+    this.setState({
+      style: {
+        height: this.props.collapsed ? 0 : this.getHeight(),
+        overflow: this.props.collapsed ? 'hidden' : 'visible'
       }
     });
   }
 
+  /**
+   * When collapsing changes reset the content's height
+   * @param {object} nextProps - Next props
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.collapsed !== this.props.collapsed && !this.updating) {
+      this.toggleCollapse(nextProps.collapsed);
+    }
+  }
+
+  /**
+   * If content changes reset the content's height
+   */
+  componentDidUpdate() {
+    if (this.state.height !== this.getHeight() && !this.updating) {
+      this.toggleCollapse(this.props.collapsed);
+    }
+  }
+
+  /**
+   * Collapse or uncollapse
+   * changing height and overflow
+   * @param {boolean} collapsed - True if it's collapsed
+   */
+  toggleCollapse(collapsed) {
+    this.updating = true;
+    this.setState({
+      style: {
+        height: collapsed ? 0 : this.getHeight(),
+        overflow: 'hidden'
+      }
+    });
+
+    setTimeout(() => {
+      this.setState({
+        style: {
+          height: collapsed ? 0 : this.getHeight(),
+          overflow: collapsed ? 'hidden' : 'visible'
+        }
+      });
+      this.updating = false;
+    }, transitionTime);
+  }
+
+  /* istanbul ignore next */
   /**
    * Measure content's height
    * @returns {string} - Height in pixels
@@ -50,17 +90,14 @@ export default class Collapsible extends Component {
   render() {
 
     const
-      { children, collapsed } = this.props,
-      height = collapsed ? 0 : this.state.height,
-      collapsibleCSS = classnames('collapsible', { collapsed }),
+      { children } = this.props,
+      { style } = this.state,
       child = cloneElement(children, {
         ...children.props,
-        className: classnames(children.props
-          && children.props.className, 'collapsible-content'),
         ref: content => { this._content = content; }
       });
 
-    return <div className={ collapsibleCSS } style={{ height }}>{ child }</div>;
+    return <div className="collapsible" style={ style }>{ child }</div>;
   }
 }
 

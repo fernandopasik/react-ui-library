@@ -1,53 +1,69 @@
 import { mount, shallow } from 'enzyme';
 import Collapsible from './collapsible.js';
 import React from 'react';
-import { setReactRoot } from '../utils/test.js';
 import sinon from 'sinon';
 
 
 describe('Collapsible', () => {
 
+  let clock, getHeight;
+
+  before(() => {
+    clock = sinon.useFakeTimers();
+    getHeight = sinon.stub(Collapsible.prototype, 'getHeight');
+  });
+
+  after(() => {
+    clock.restore();
+    getHeight.restore();
+  });
+
   it('it\'s a box that wraps content', () => {
-    const
-      wrapper = shallow(<Collapsible><div>Test</div></Collapsible>),
-      $collapsible = wrapper.find('.collapsible'),
-      $content = wrapper.find('.collapsible-content');
-    expect($collapsible).to.have.length(1);
-    expect($content).to.have.length(1);
-    expect($content).to.have.text('Test');
+    const wrapper = shallow(<Collapsible><div>Test</div></Collapsible>);
+    expect(wrapper).to.have.className('collapsible');
+    expect(wrapper).to.have.length(1);
+    expect(wrapper).to.have.to.have.exactly(2).descendants('div');
+    expect(wrapper).to.have.text('Test');
   });
 
   it('when collapsed collapsible height is 0', () => {
-    const
-      wrapper = shallow(<Collapsible collapsed><div>Test</div></Collapsible>),
-      $collapsible = wrapper.find('.collapsible');
-    expect($collapsible).to.have.className('collapsed');
-    expect($collapsible).to.have.attr('style', 'height:0;');
+    const wrapper = mount(<Collapsible collapsed><div>Test</div></Collapsible>);
+    expect(wrapper).to.have.style('height', '0px');
+    expect(wrapper).to.have.style('overflow', 'hidden');
   });
 
   it('when not collapsed collapsible height is the same as content', () => {
-    const
-      stub = sinon.stub(Collapsible.prototype, 'getHeight').returns('100px'),
-      wrapper = mount(<Collapsible><div>100px</div></Collapsible>,
-        { attachTo: setReactRoot() });
+    getHeight.returns('100px');
+    const wrapper = mount(<Collapsible><div>100</div></Collapsible>);
+    clock.tick(401);
     expect(wrapper).to.have.style('height', '100px');
-    stub.restore();
+    expect(wrapper).to.have.style('overflow', 'visible');
   });
 
-  it('when not collapsed and content changes re calculate height', done => {
-    const
-      stub = sinon.stub(Collapsible.prototype, 'getHeight').returns('100px'),
-      wrapper = mount(<Collapsible><div>100px</div></Collapsible>,
-        { attachTo: setReactRoot() });
+  it('when not collapsed and then collapses height changes', () => {
+    getHeight.returns('100px');
+    const wrapper = mount(<Collapsible collapsed><div>100</div></Collapsible>);
+    clock.tick(401);
+    expect(wrapper).to.have.style('height', '0px');
+    expect(wrapper).to.have.style('overflow', 'hidden');
+
+    // Collapse it
+    wrapper.setProps({ collapsed: false });
+    clock.tick(401);
+    expect(wrapper).to.have.style('height', '100px');
+    expect(wrapper).to.have.style('overflow', 'visible');
+  });
+
+  it('when not collapsed and content changes re calculate height', () => {
+    getHeight.returns('100px');
+    const wrapper = mount(<Collapsible><div>100</div></Collapsible>);
     expect(wrapper).to.have.style('height', '100px');
 
     // Change content
-    stub.returns('200px');
-    wrapper.setProps({ children: <div>200px</div> });
-    setTimeout(() => {
-      expect(wrapper).to.have.style('height', '200px');
-      stub.restore();
-      done();
-    }, 100);
+    getHeight.returns('200px');
+    wrapper.setProps({ children: <div>200</div> });
+    clock.tick(401);
+    expect(wrapper).to.have.style('height', '200px');
+    expect(wrapper).to.have.style('overflow', 'visible');
   });
 });
