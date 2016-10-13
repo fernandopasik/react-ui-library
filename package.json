@@ -58,7 +58,7 @@
     "react-dom": "^15.3.2"
   },
   "devDependencies": {
-    "autoprefixer": "^6.5.0",
+    "autoprefixer": "^6.5.1",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-istanbul": "^2.0.1",
@@ -74,7 +74,7 @@
     "css-loader": "^0.25.0",
     "dirty-chai": "^1.2.2",
     "enzyme": "^2.4.1",
-    "eslint-config-fernandopasik": "^0.4.11",
+    "eslint-config-fernandopasik": "^0.4.13",
     "eslint-loader": "^1.5.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.22.0",
