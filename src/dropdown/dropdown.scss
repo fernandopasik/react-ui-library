@@ -1,0 +1,89 @@
+@import
+  "../settings/borders.scss",
+  "../settings/grid.scss",
+  "../utils/arrow.scss";
+
+$options-bg-color: $color-white;
+$options-border-color: $default-border-color !default;
+$options-border-style: solid !default;
+$options-border-width: $default-border-width !default;
+$options-border-radius: $default-border-radius !default;
+$options-box-shadow: 0 3px 7px rgba($color-black, 0.3);
+$option-padding: $gutter !default;
+$option-hover-bg-color: rgba($color-black, 0.1) !default;
+$option-selected-bg-color: $color-blue !default;
+$option-selected-color: $color-white !default;
+$option-transition: none 0.15s ease-in-out !default;
+$option-transition-property: border-color, background-color, color !default;
+
+
+.dropdown {
+  position: relative;
+
+  .options {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+
+    background-color: $options-bg-color;
+    border: $options-border-width $options-border-style $options-border-color;
+    border-radius: $options-border-radius;
+    box-shadow: $options-box-shadow;
+  }
+
+  .option {
+    line-height: $baseline-grid;
+    padding: ($option-padding - $options-border-width) $option-padding $option-padding;
+    cursor: pointer;
+    user-select: none;
+    border-top: $options-border-width $options-border-style rgba($options-border-color, 0.5);
+    transition: $option-transition;
+    transition-property: $option-transition-property;
+
+    &:hover {
+      background-color: $option-hover-bg-color;
+    }
+
+    &.active,
+    &.selected {
+      background-color: $option-selected-bg-color;
+      color: $option-selected-color;
+    }
+
+    &:first-child {
+      border-top: none;
+    }
+
+    &:last-child {
+      padding-bottom: $option-padding - $options-border-width;
+    }
+  }
+
+  // If a button is present add down arrow
+  > .button {
+    padding-right: $gutter * 2.5;
+    position: relative;
+
+    &:after {
+      @include arrow("down", $gutter, $gutter * 0.75, currentColor);
+      content: "";
+      display: inline-block;
+      position: relative;
+      right: -$gutter * 0.75;
+      margin-right: -$gutter;
+    }
+  }
+
+  &.is-open {
+    > .button {
+      &:after {
+        transform: rotate3d(0, 0, 1, 180deg);
+      }
+    }
+  }
+}
