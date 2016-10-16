@@ -77,19 +77,19 @@ export default class Dropdown extends Component {
         onClick: this.toggleOpen
       });
 
-    if (size) {
-      attributes.style = { maxHeight: `${optionHeight * (size + 0.5)}px` };
+    if (size && options && size < options.length) {
+      attributes.style = {
+        maxHeight: `${optionHeight * (size + 0.5)}px`,
+        overflow: 'scroll'
+      };
     }
 
-    if (options && size < options.length) {
-      attributes.style = { ...(attributes.style || {}), overflow: 'scroll' };
-    }
 
     return (
-      <div className={ cssClass } { ...attributes }>
+      <div className={ cssClass }>
         { child }
         { this.state.isOpen
-          && <ul className="options">
+          && <ul className="options" { ...attributes }>
             { options && options.map((option, index) =>
               <li
                 className="option"

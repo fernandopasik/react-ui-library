@@ -113,7 +113,17 @@ describe('Dropdown', () => {
     const wrapper = shallow(
       <Dropdown caption="Menu" options={ options } size={ 2 } />
     );
-    expect(wrapper).to.have.style('overflow', 'scroll');
-    expect(wrapper).to.have.style('max-height');
+    wrapper.find(Button).simulate('click');
+    expect(wrapper.find('.options')).to.have.style('overflow', 'scroll');
+    expect(wrapper.find('.options')).to.have.style('max-height');
+  });
+
+  it('when options less than size doesn\'t cap', () => {
+    const wrapper = shallow(
+      <Dropdown caption="Menu" options={ options } size={ 4 } />
+    );
+    wrapper.find(Button).simulate('click');
+    expect(wrapper.find('.options')).to.not.have.style('overflow', 'scroll');
+    expect(wrapper.find('.options')).to.not.have.style('max-height');
   });
 });
