@@ -29,7 +29,6 @@ $option-transition-property: border-color, background-color, color !default;
     top: 100%;
     left: 0;
     z-index: 1;
-
     background-color: $options-bg-color;
     border: $options-border-width $options-border-style $options-border-color;
     border-radius: $options-border-radius;
@@ -71,6 +70,7 @@ $option-transition-property: border-color, background-color, color !default;
 
     &:after {
       @include arrow("down", $gutter, $gutter * 0.75, currentColor);
+
       content: "";
       display: inline-block;
       position: relative;

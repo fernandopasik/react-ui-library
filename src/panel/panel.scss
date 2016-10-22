@@ -21,6 +21,7 @@ $panel-border-radius: $default-border-radius !default;
 
 .panel-header {
   @extend %panel-padding;
+
   background-color: $panel-header-bg-color;
   background-clip: content-box;
 
@@ -40,6 +41,7 @@ $panel-border-radius: $default-border-radius !default;
 
 .panel-footer {
   @extend %panel-padding;
+
   border-top: $panel-border;
 
   * {

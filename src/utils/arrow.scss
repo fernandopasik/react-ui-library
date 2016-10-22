@@ -2,6 +2,7 @@
   @if not index(up right down left, $direction) {
     @error "Direction must be either `up`, `right`, `down` or `left`.";
   }
+
   display: block;
   width: 0;
   height: 0;
