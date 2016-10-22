@@ -34,6 +34,7 @@ $field-disabled-opacity: 0.5 !default;
 
   &.inline {
     @extend %field-item-inline-layout;
+
     margin-bottom: $gutter;
 
     & + & {
@@ -45,6 +46,7 @@ $field-disabled-opacity: 0.5 !default;
 
 .field-element {
   @extend %field-item-block-layout;
+
   padding: ($gutter - $field-border-width) $gutter;
   background-color: $field-bg-color;
   border: $field-border-width $field-border-style $field-border-color;
@@ -83,10 +85,12 @@ $field-disabled-opacity: 0.5 !default;
 
 .field-label {
   @extend %field-item-block-layout;
+
   padding: $gutter 0;
 
   .inline & {
     @extend %field-item-inline-layout;
+
     padding-right: $gutter;
   }
 
@@ -107,11 +111,13 @@ $field-disabled-opacity: 0.5 !default;
 
 .field-error {
   @extend %field-item-block-layout;
+
   padding: $gutter 0;
   color: $field-error-color;
 
   .inline & {
     @extend %field-item-inline-layout;
+
     padding-left: $gutter;
   }
 }

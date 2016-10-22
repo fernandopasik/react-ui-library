@@ -15,7 +15,7 @@
   "main": "",
   "scripts": {
     "start": "webpack-dev-server --open --inline",
-    "lint": "eslint . && stylelint src/**/*.scss --syntax scss",
+    "lint": "eslint . && stylelint 'styleguide/*.scss' 'src/**/*.scss' --syntax scss",
     "test": "mocha",
     "coverage": "nyc mocha",
     "precoverage": "rm -rf coverage .nyc_output",
