@@ -10,11 +10,12 @@ import Select from './select.js';
  * @returns  {JSX} template - Component template
  */
 export default function Field(props) {
+  const {
+    className, component, disabled, error, id, inline, onChange, label,
+    readOnly, required, ...other
+  } = props;
+
   const
-    {
-      className, component, disabled, error, id, inline, label,
-      readOnly, required, ...other
-    } = props,
     invalid = Boolean(error),
     Element = inline ? 'span' : 'div',
     FormElement = component === 'select' ? Select : component,
@@ -22,6 +23,14 @@ export default function Field(props) {
       , { disabled, inline, invalid, readonly: readOnly }, className),
     ariaAttrs = !invalid ? {}
       : { 'aria-invalid': invalid, 'aria-describedby': `${id}-error` };
+
+  const handleChange = function (event) {
+    if (event.target && event.target.value) {
+      onChange(event.target.value);
+    } else {
+      onChange(event);
+    }
+  };
 
   return (
     <Element className={ fieldCSS }>
@@ -41,6 +50,7 @@ export default function Field(props) {
         className="field-element"
         disabled={ disabled }
         id={ id }
+        onChange={ handleChange }
         readOnly={ readOnly }
         required={ required }
         { ...other }
@@ -77,6 +87,9 @@ Field.propTypes = {
   min: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   minLength: PropTypes.number,
   name: PropTypes.string,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
   pattern: PropTypes.string,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,

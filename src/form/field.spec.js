@@ -2,6 +2,7 @@ import Field from './field.js';
 import React from 'react';
 import Select from './select.js';
 import { shallow } from 'enzyme';
+import { spy } from 'sinon';
 
 describe('Field', () => {
 
@@ -224,5 +225,40 @@ describe('Field', () => {
       />
     );
     expect(wrapper).to.have.exactly(1).descendants(Select);
+  });
+
+  describe('events', () => {
+
+    it('onChange handler on simple input', () => {
+      const
+        handler = spy(),
+        wrapper = shallow(
+          <Field id="user" name="user" onChange={ handler } />
+        );
+      wrapper.find('input')
+        .simulate('change', { target: { value: 'Fernando' } });
+      expect(handler).to.have.been.called();
+      expect(handler).to.have.been.calledWith('Fernando');
+    });
+
+    it('onChange handler on select input', () => {
+      const
+        handler = spy(),
+        wrapper = shallow(
+          <Field
+            component="select"
+            id="user"
+            label="Choose a color"
+            name="user"
+            onChange={ handler }
+            options={ [ 'red', 'green', 'blue' ] }
+            placeholder="Choose a color"
+          />
+        );
+      wrapper.find(Select).dive().find('select')
+        .simulate('change', { target: { value: 'green' } });
+      expect(handler).to.have.been.called();
+      expect(handler).to.have.been.calledWith('green');
+    });
   });
 });

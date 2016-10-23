@@ -27,7 +27,7 @@ export default class Select extends Component {
    */
   handleDropdown(value) {
     this.setState({ value });
-    this.props.onSelect(value);
+    this.props.onChange(value);
   }
 
   /**
@@ -36,7 +36,7 @@ export default class Select extends Component {
    */
   handleSelect(event) {
     this.setState({ value: event.target.value });
-    this.props.onSelect(event.target.value);
+    this.props.onChange(event.target.value);
   }
 
   /**
@@ -71,10 +71,10 @@ export default class Select extends Component {
           </div>
         </Dropdown>
         <select
-          onChange={ this.handleSelect }
           ref={ ref => { this._select = ref; } }
           value={ this.state.value }
           { ...other }
+          onChange={ this.handleSelect }
         >
           { placeholder && <option value="">{ placeholder }</option> }
           { options && options.map((option, id) =>
@@ -91,7 +91,7 @@ export default class Select extends Component {
 Select.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.string,
-  onSelect: PropTypes.func,
+  onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({

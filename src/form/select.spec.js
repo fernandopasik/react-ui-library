@@ -84,11 +84,11 @@ describe('Select', () => {
     expect($fakeSelect.childAt(3)).to.have.text('Blue Color');
   });
 
-  it('onSelect handler through select change', () => {
+  it('onChange handler through select change', () => {
     const
       handler = spy(),
       wrapper = mount(
-        <Select onSelect={ handler } options={ options } placeholder="Choose" />
+        <Select onChange={ handler } options={ options } placeholder="Choose" />
       ),
       $select = wrapper.find('select'),
       $fakeSelectOption = wrapper.find('.selected-option');
@@ -103,11 +103,11 @@ describe('Select', () => {
     expect(handler).to.have.been.calledWith('blue');
   });
 
-  it('onSelect handler through fake select click', () => {
+  it('onChange handler through fake select click', () => {
     const
       handler = spy(),
       wrapper = mount(
-        <Select onSelect={ handler } options={ options } placeholder="Choose" />
+        <Select onChange={ handler } options={ options } placeholder="Choose" />
       ),
       $select = wrapper.find('select'),
       $fakeSelectOption = wrapper.find('.selected-option');
