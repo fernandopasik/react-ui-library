@@ -1,6 +1,7 @@
 import ButtonComponent from '../src/button/button.md';
 import DropdownComponent from '../src/dropdown/dropdown.md';
 import FieldComponent from '../src/form/field.md';
+import FormComponent from '../src/form/form.md';
 import HelloWorldComponent from '../src/hello-world/hello-world.md';
 import LayoutComponent from '../src/base/layout.md';
 import LinkComponent from '../src/base/link.md';
@@ -23,6 +24,7 @@ export default function Components() {
       <DropdownComponent />
       <PanelComponent />
       <FieldComponent />
+      <FormComponent />
     </div>
   );
 }
