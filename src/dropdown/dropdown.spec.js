@@ -2,7 +2,7 @@ import { mount, shallow } from 'enzyme';
 import Button from '../button/button.js';
 import Dropdown from './dropdown.js';
 import React from 'react';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 const options = [ 'red', 'green', 'blue' ];
 
@@ -82,17 +82,17 @@ describe('Dropdown', () => {
     expect(wrapper).to.have.state('isOpen', true);
   });
 
-  it('callback when option clicked', () => {
+  it('handler when option clicked', () => {
     const
-      callback = sinon.spy(),
+      handler = spy(),
       wrapper = shallow(
-        <Dropdown caption="Menu" onSelect={ callback } options={ options } />
+        <Dropdown caption="Menu" onSelect={ handler } options={ options } />
       );
 
     wrapper.find('.trigger').simulate('click');
     wrapper.find('.options').childAt(1).simulate('click');
-    expect(callback).to.have.been.called();
-    expect(callback).to.have.been.calledWith('green');
+    expect(handler).to.have.been.called();
+    expect(handler).to.have.been.calledWith('green');
   });
 
   it('closes when option clicked', () => {

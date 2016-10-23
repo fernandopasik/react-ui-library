@@ -2,7 +2,7 @@ import { mount, shallow } from 'enzyme';
 import Dropdown from '../dropdown/dropdown.js';
 import React from 'react';
 import Select from './select.js';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 const options = [ 'red', 'green', 'blue' ];
 
@@ -84,11 +84,11 @@ describe('Select', () => {
     expect($fakeSelect.childAt(3)).to.have.text('Blue Color');
   });
 
-  it('onSelect callback through select change', () => {
+  it('onSelect handler through select change', () => {
     const
-      spy = sinon.spy(),
+      handler = spy(),
       wrapper = mount(
-        <Select onSelect={ spy } options={ options } placeholder="Choose" />
+        <Select onSelect={ handler } options={ options } placeholder="Choose" />
       ),
       $select = wrapper.find('select'),
       $fakeSelectOption = wrapper.find('.selected-option');
@@ -99,15 +99,15 @@ describe('Select', () => {
     expect(wrapper).to.have.state('value', 'blue');
     expect($fakeSelectOption).to.have.text('blue');
     expect($select).to.have.value('blue');
-    expect(spy).to.have.been.exactly.calledOnce();
-    expect(spy).to.have.been.calledWith('blue');
+    expect(handler).to.have.been.exactly.calledOnce();
+    expect(handler).to.have.been.calledWith('blue');
   });
 
-  it('onSelect callback through fake select click', () => {
+  it('onSelect handler through fake select click', () => {
     const
-      spy = sinon.spy(),
+      handler = spy(),
       wrapper = mount(
-        <Select onSelect={ spy } options={ options } placeholder="Choose" />
+        <Select onSelect={ handler } options={ options } placeholder="Choose" />
       ),
       $select = wrapper.find('select'),
       $fakeSelectOption = wrapper.find('.selected-option');
@@ -119,7 +119,7 @@ describe('Select', () => {
     expect(wrapper).to.have.state('value', 'green');
     expect($fakeSelectOption).to.have.text('green');
     expect($select).to.have.value('green');
-    expect(spy).to.have.been.exactly.calledOnce();
-    expect(spy).to.have.been.calledWith('green');
+    expect(handler).to.have.been.exactly.calledOnce();
+    expect(handler).to.have.been.calledWith('green');
   });
 });

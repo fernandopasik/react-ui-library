@@ -1,7 +1,7 @@
 import { mount, shallow } from 'enzyme';
+import { stub, useFakeTimers } from 'sinon';
 import Collapsible from './collapsible.js';
 import React from 'react';
-import sinon from 'sinon';
 
 
 describe('Collapsible', () => {
@@ -9,8 +9,8 @@ describe('Collapsible', () => {
   let clock, getHeight;
 
   before(() => {
-    clock = sinon.useFakeTimers();
-    getHeight = sinon.stub(Collapsible.prototype, 'getHeight');
+    clock = useFakeTimers();
+    getHeight = stub(Collapsible.prototype, 'getHeight');
   });
 
   after(() => {

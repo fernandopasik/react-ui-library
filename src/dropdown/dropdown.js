@@ -45,7 +45,7 @@ export default class Dropdown extends Component {
   }
 
   /**
-   * Callback when an option is clicked
+   * Handler when an option is clicked
    * @param {string} value - Clicked option value
    * @returns {function}   - Event handler function
    */

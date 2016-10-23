@@ -1,7 +1,7 @@
 import Button from './button.js';
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 describe('Button', () => {
 
@@ -26,7 +26,7 @@ describe('Button', () => {
 
   it('when click executes handler', () => {
     const
-      handler = sinon.spy(),
+      handler = spy(),
       wrapper = shallow(<Button caption="Accept" onClick={ handler } />);
     wrapper.simulate('click');
     expect(handler).to.have.been.called();
@@ -34,7 +34,7 @@ describe('Button', () => {
 
   it('can be disabled', () => {
     const
-      handler = sinon.spy(),
+      handler = spy(),
       wrapper = shallow(
         <Button caption="Accept" disabled onClick={ handler } />
       );
