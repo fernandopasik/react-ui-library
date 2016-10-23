@@ -7,8 +7,6 @@ import Dropdown from '../dropdown/dropdown.js';
 /**
  * Select
  * Form controller with custom styles
- * @param {Object} props    - React props
- * @returns  {JSX} template - Component template
  */
 export default class Select extends Component {
 
