@@ -75,3 +75,15 @@ Instead of value you can set a defaultValue
 ```render jsx
 <Field defaultValue="Fernando" id="user9" name="user" />
 ```
+
+## Select field
+
+```render jsx
+<Field component="select" id="user10" label="Choose a color" name="user" options={ [ 'red', 'green', 'blue' ] } placeholder="Choose a color" />
+```
+
+Inline
+
+```render jsx
+<Field component="select" id="user10" inline name="user" label="Choose a color" options={ [ 'red', 'green', 'blue' ] } placeholder="Choose a color" />
+```

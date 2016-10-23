@@ -74,6 +74,8 @@ export default class Dropdown extends Component {
         caption={ caption }
       />, {
         ...(children ? children.props : {}),
+        className: classnames('trigger',
+          children ? children.props.className : ''),
         onClick: this.toggleOpen
       });
 

@@ -63,8 +63,8 @@ $option-transition-property: border-color, background-color, color !default;
     }
   }
 
-  // If a button is present add down arrow
-  > .button {
+  // Trigger has a down arrow
+  > .trigger {
     padding-right: $gutter * 2.5;
     position: relative;
 
@@ -73,14 +73,14 @@ $option-transition-property: border-color, background-color, color !default;
 
       content: "";
       display: inline-block;
-      position: relative;
-      right: -$gutter * 0.75;
-      margin-right: -$gutter;
+      position: absolute;
+      right: $gutter * 0.75;
+      top: $option-padding + ($baseline-grid - $gutter) / 2;
     }
   }
 
   &.is-open {
-    > .button {
+    > .trigger {
       &:after {
         transform: rotate3d(0, 0, 1, 180deg);
       }

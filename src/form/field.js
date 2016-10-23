@@ -1,6 +1,7 @@
 import './field.scss';
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
+import Select from './select.js';
 
 /**
  * Field
@@ -11,11 +12,12 @@ import classnames from 'classnames';
 export default function Field(props) {
   const
     {
-      className, disabled, error, id, inline, label,
+      className, component, disabled, error, id, inline, label,
       readOnly, required, ...other
     } = props,
     invalid = Boolean(error),
     Element = inline ? 'span' : 'div',
+    FormElement = component === 'select' ? Select : component,
     fieldCSS = classnames('field'
       , { disabled, inline, invalid, readonly: readOnly }, className),
     ariaAttrs = !invalid ? {}
@@ -33,8 +35,9 @@ export default function Field(props) {
               title="Required"
             />
           }
-        </label> }
-      <input
+        </label>
+      }
+      <FormElement
         className="field-element"
         disabled={ disabled }
         id={ id }
@@ -56,6 +59,7 @@ Field.propTypes = {
   autoComplete: PropTypes.bool,
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
+  component: PropTypes.string,
   defaultValue: PropTypes.string,
   disabled: PropTypes.bool,
   error: PropTypes.string,
@@ -88,4 +92,4 @@ Field.propTypes = {
   ])
 };
 
-Field.defaultProps = { type: 'text' };
+Field.defaultProps = { component: 'input', type: 'text' };

@@ -1,5 +1,6 @@
 import Field from './field.js';
 import React from 'react';
+import Select from './select.js';
 import { shallow } from 'enzyme';
 
 describe('Field', () => {
@@ -209,5 +210,19 @@ describe('Field', () => {
       expect($input).to.not.have.attr('aria-invalid');
       expect($input).to.not.have.attr('aria-describedby');
     });
+  });
+
+  it('can wrap a select field', () => {
+    const wrapper = shallow(
+      <Field
+        component="select"
+        id="user"
+        label="Choose a color"
+        name="user"
+        options={ [ 'red', 'green', 'blue' ] }
+        placeholder="Choose a color"
+      />
+    );
+    expect(wrapper).to.have.exactly(1).descendants(Select);
   });
 });

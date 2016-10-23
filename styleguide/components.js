@@ -1,6 +1,6 @@
 import ButtonComponent from '../src/button/button.md';
 import DropdownComponent from '../src/dropdown/dropdown.md';
-import FieldComponent from '../src/form/field/field.md';
+import FieldComponent from '../src/form/field.md';
 import HelloWorldComponent from '../src/hello-world/hello-world.md';
 import LayoutComponent from '../src/base/layout.md';
 import LinkComponent from '../src/base/link.md';

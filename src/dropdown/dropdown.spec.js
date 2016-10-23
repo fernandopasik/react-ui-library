@@ -9,21 +9,23 @@ const options = [ 'red', 'green', 'blue' ];
 describe('Dropdown', () => {
 
   it('by defult adds a button as trigger', () => {
-    expect(shallow(<Dropdown caption="Menu" />))
-      .to.have.exactly(1).descendants(Button);
+    const wrapper = shallow(<Dropdown caption="Menu" />);
+    expect(wrapper).to.have.exactly(1).descendants(Button);
+    expect(wrapper).to.have.exactly(1).descendants('.trigger');
   });
 
   it('wrap trigger elements', () => {
-    expect(shallow(<Dropdown><Button caption="Menu" /></Dropdown>))
-      .to.have.exactly(1).descendants(Button);
+    const wrapper = shallow(<Dropdown><Button caption="Menu" /></Dropdown>);
+    expect(wrapper).to.have.exactly(1).descendants(Button);
+    expect(wrapper).to.have.exactly(1).descendants('.trigger');
   });
 
   it('click on trigger element toggles open or close', () => {
     const wrapper = shallow(<Dropdown caption="Menu" />);
     expect(wrapper).to.have.state('isOpen', false);
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.trigger').simulate('click');
     expect(wrapper).to.have.state('isOpen', true);
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.trigger').simulate('click');
     expect(wrapper).to.have.state('isOpen', false);
   });
 
@@ -76,7 +78,7 @@ describe('Dropdown', () => {
   it('open when trigger clicked', () => {
     const wrapper = shallow(<Dropdown caption="Menu" options={ options } />);
     expect(wrapper).to.have.state('isOpen', false);
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.trigger').simulate('click');
     expect(wrapper).to.have.state('isOpen', true);
   });
 
@@ -87,7 +89,7 @@ describe('Dropdown', () => {
         <Dropdown caption="Menu" onSelect={ callback } options={ options } />
       );
 
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.trigger').simulate('click');
     wrapper.find('.options').childAt(1).simulate('click');
     expect(callback).to.have.been.called();
     expect(callback).to.have.been.calledWith('green');
@@ -95,7 +97,7 @@ describe('Dropdown', () => {
 
   it('closes when option clicked', () => {
     const wrapper = shallow(<Dropdown caption="Menu" options={ options } />);
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.trigger').simulate('click');
     wrapper.find('.options').childAt(1).simulate('click');
     expect(wrapper).to.have.state('isOpen', false);
     expect(wrapper.find('.options')).to.have.length(0);
@@ -103,7 +105,7 @@ describe('Dropdown', () => {
 
   it('closes when click outside', () => {
     const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.trigger').simulate('click');
     document.body.click();
     expect(wrapper).to.have.state('isOpen', false);
     expect(wrapper.find('.options')).to.have.length(0);
@@ -113,7 +115,7 @@ describe('Dropdown', () => {
     const wrapper = shallow(
       <Dropdown caption="Menu" options={ options } size={ 2 } />
     );
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.trigger').simulate('click');
     expect(wrapper.find('.options')).to.have.style('overflow', 'scroll');
     expect(wrapper.find('.options')).to.have.style('max-height');
   });
@@ -122,7 +124,7 @@ describe('Dropdown', () => {
     const wrapper = shallow(
       <Dropdown caption="Menu" options={ options } size={ 4 } />
     );
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.trigger').simulate('click');
     expect(wrapper.find('.options')).to.not.have.style('overflow', 'scroll');
     expect(wrapper.find('.options')).to.not.have.style('max-height');
   });
