@@ -1,5 +1,4 @@
 /* eslint-disable react/no-set-state, react/no-did-mount-set-state */
-import './collapsible.scss';
 import React, { cloneElement, Component, PropTypes } from 'react';
 
 const transitionTime = 400;
@@ -22,9 +21,10 @@ export default class Collapsible extends Component {
    * Right when mounted measure the content's height
    */
   componentDidMount() {
+    this.height = this.getHeight();
     this.setState({
       style: {
-        height: this.props.collapsed ? 0 : this.getHeight(),
+        height: this.props.collapsed ? 0 : this.height,
         overflow: this.props.collapsed ? 'hidden' : 'visible'
       }
     });
@@ -44,7 +44,8 @@ export default class Collapsible extends Component {
    * If content changes reset the content's height
    */
   componentDidUpdate() {
-    if (this.state.height !== this.getHeight() && !this.updating) {
+    if (this.height !== this.getHeight() && !this.updating) {
+      this.height = this.getHeight();
       this.toggleCollapse(this.props.collapsed);
     }
   }
@@ -58,7 +59,8 @@ export default class Collapsible extends Component {
     this.updating = true;
     this.setState({
       style: {
-        height: collapsed ? 0 : this.getHeight(),
+        height: collapsed ? 0 : this.height,
+        transition: `height ${transitionTime / 1000}s ease-out`,
         overflow: 'hidden'
       }
     });

@@ -42,6 +42,20 @@ describe('Collapsible', () => {
 
   it('when not collapsed and then collapses height changes', () => {
     getHeight.returns('100px');
+    const wrapper = mount(<Collapsible><div>100</div></Collapsible>);
+    clock.tick(401);
+    expect(wrapper).to.have.style('height', '100px');
+    expect(wrapper).to.have.style('overflow', 'visible');
+
+    // Collapse it
+    wrapper.setProps({ collapsed: true });
+    clock.tick(401);
+    expect(wrapper).to.have.style('height', '0px');
+    expect(wrapper).to.have.style('overflow', 'hidden');
+  });
+
+  it('when collapsed and then decollapses height changes', () => {
+    getHeight.returns('100px');
     const wrapper = mount(<Collapsible collapsed><div>100</div></Collapsible>);
     clock.tick(401);
     expect(wrapper).to.have.style('height', '0px');
