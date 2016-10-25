@@ -111,6 +111,17 @@ describe('Dropdown', () => {
     expect(wrapper.find('.options')).to.have.length(0);
   });
 
+  it('removes click outside listener', () => {
+    const
+      handler = spy(),
+      wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+    wrapper.instance().close = handler;
+    wrapper.find('.trigger').simulate('click');
+    wrapper.unmount();
+    document.body.click();
+    expect(handler).to.not.have.been.called();
+  });
+
   it('can cap the maximum options visible', () => {
     const wrapper = shallow(
       <Dropdown caption="Menu" options={ options } size={ 2 } />

@@ -27,6 +27,13 @@ export default class Dropdown extends Component {
   }
 
   /**
+   * When component unmounts remove click outside listener
+   */
+  componentWillUnmount() {
+    document.removeEventListener('click', this.close);
+  }
+
+  /**
    * Closes the dropdown element
    */
   close() {
