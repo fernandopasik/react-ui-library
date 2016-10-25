@@ -1,5 +1,7 @@
 --compilers js:babel-register
---require test/setup.js
+--require test/setup.dom.js
+--require test/setup.chai.js
+--require test/setup.sass.js
 --recursive
 --reporter min
 --ui bdd
