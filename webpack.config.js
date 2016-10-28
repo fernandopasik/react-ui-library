@@ -4,7 +4,8 @@ const
   autoprefixer = require('autoprefixer'),
   StyleLintPlugin = require('stylelint-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin');
+  ExtractTextPlugin = require('extract-text-webpack-plugin'),
+  WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
   entry: {
@@ -59,6 +60,7 @@ module.exports = {
     return [ autoprefixer({ browsers: [ '> 0.1%', 'last 3 versions' ] }) ];
   },
   plugins: [
+    new WebpackNotifierPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new StyleLintPlugin({ syntax: 'scss' }),
     new ExtractTextPlugin('styleguide.css'),
