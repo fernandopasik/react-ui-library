@@ -1,7 +1,7 @@
+import { mount, shallow } from 'enzyme';
 import Field from './field.js';
 import React from 'react';
 import Select from './select.js';
-import { shallow } from 'enzyme';
 import { spy } from 'sinon';
 
 describe('Field', () => {
@@ -232,7 +232,7 @@ describe('Field', () => {
     it('onChange handler on simple input', () => {
       const
         handler = spy(),
-        wrapper = shallow(
+        wrapper = mount(
           <Field id="user" name="user" onChange={ handler } />
         );
       wrapper.find('input')
@@ -244,7 +244,7 @@ describe('Field', () => {
     it('onChange handler on select input', () => {
       const
         handler = spy(),
-        wrapper = shallow(
+        wrapper = mount(
           <Field
             component="select"
             id="user"
@@ -255,7 +255,7 @@ describe('Field', () => {
             placeholder="Choose a color"
           />
         );
-      wrapper.find(Select).dive().find('select')
+      wrapper.find(Select).find('select')
         .simulate('change', { target: { value: 'green' } });
       expect(handler).to.have.been.called();
       expect(handler).to.have.been.calledWith('green');
