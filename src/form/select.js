@@ -26,6 +26,7 @@ export default class Select extends Component {
    * @param {string} value - Selected dropdown value
    */
   handleDropdown(value) {
+    // istanbul ignore else
     if (value !== this._select.value) {
       this.setState({ value });
       this._select.value = value;
