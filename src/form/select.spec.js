@@ -95,12 +95,14 @@ describe('Select', () => {
 
     expect($select).to.have.value('');
     expect($fakeSelectOption).to.have.text('Choose');
+    $select.get(0).value = 'blue';
+    $select.get(0).dispatchEvent(new window.Event('change', { bubbles: true }));
     $select.simulate('change', { target: { value: 'blue' } });
     expect(wrapper).to.have.state('value', 'blue');
     expect($fakeSelectOption).to.have.text('blue');
     expect($select).to.have.value('blue');
     expect(handler).to.have.been.exactly.calledOnce();
-    expect(handler).to.have.been.calledWith('blue');
+    expect(handler).to.have.been.calledWithMatch({ target: { value: 'blue' } });
   });
 
   it('onChange handler through fake select click', () => {
@@ -120,6 +122,7 @@ describe('Select', () => {
     expect($fakeSelectOption).to.have.text('green');
     expect($select).to.have.value('green');
     expect(handler).to.have.been.exactly.calledOnce();
-    expect(handler).to.have.been.calledWith('green');
+    expect(handler)
+      .to.have.been.calledWithMatch({ target: { value: 'green' } });
   });
 });
