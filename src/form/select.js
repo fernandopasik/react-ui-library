@@ -22,6 +22,13 @@ export default class Select extends Component {
   }
 
   /**
+   * Forward checkValidity to the select element
+   */
+  checkValidity() {
+    this._select.checkValidity();
+  }
+
+  /**
    * When dropdown change update select value
    * @param {string} value - Selected dropdown value
    */
@@ -32,7 +39,9 @@ export default class Select extends Component {
       this._select.value = value;
       const event = new window.Event('change', { bubbles: true });
       this._select.dispatchEvent(event);
-      this.props.onChange(event);
+      if (this.props.onChange) {
+        this.props.onChange(event);
+      }
     }
   }
 
@@ -42,7 +51,9 @@ export default class Select extends Component {
    */
   handleSelect(event) {
     this.setState({ value: event.target.value });
-    this.props.onChange(event);
+    if (this.props.onChange) {
+      this.props.onChange(event);
+    }
   }
 
   /**
@@ -51,7 +62,7 @@ export default class Select extends Component {
    */
   render() {
     let dropdownOptions = [];
-    const { className, options, placeholder, ...other } = this.props;
+    const { className, onInvalid, options, placeholder, ...other } = this.props;
     const selectCSS = classnames('selected-option', className);
 
     if (placeholder) {
@@ -79,6 +90,7 @@ export default class Select extends Component {
         <select
           { ...other }
           onChange={ this.handleSelect }
+          onInvalid={ onInvalid }
           ref={ ref => { this._select = ref; } }
         >
           { placeholder && <option value="">{ placeholder }</option> }
@@ -97,6 +109,7 @@ Select.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.string,
   onChange: PropTypes.func,
+  onInvalid: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({

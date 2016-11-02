@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { mount, shallow } from 'enzyme';
 import Field from './field.js';
 import React from 'react';
@@ -180,21 +181,16 @@ describe('Field', () => {
   describe('error message', () => {
 
     it('render', () => {
+      let $error = '';
       const
-        wrapper = shallow(
-          <Field
-            error="The field is required"
-            id="user"
-            label="User"
-            name="user"
-          />
-        ),
-        $error = wrapper.find('.field-error'),
+        wrapper = mount(<Field id="user" label="User" name="user" required />),
         $input = wrapper.find('input');
 
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      $error = wrapper.find('.field-error');
       expect(wrapper).to.have.className('invalid');
       expect($error).to.be.present();
-      expect($error).to.have.text('The field is required');
+      expect($error).to.have.text('This is a required field.');
       expect($error).to.have.id('user-error');
       expect($input).to.have.attr('aria-invalid', 'true');
       expect($input).to.have.attr('aria-describedby', 'user-error');
@@ -202,11 +198,10 @@ describe('Field', () => {
 
     it('by default is hidden', () => {
       const
-        wrapper = shallow(<Field id="user" label="User" name="user" />),
-        $error = wrapper.find('.field-error'),
+        wrapper = mount(<Field id="user" label="User" name="user" required />),
         $input = wrapper.find('input');
 
-      expect($error).to.not.be.present();
+      expect(wrapper.find('.field-error')).to.not.be.present();
       expect(wrapper).to.not.have.className('invalid');
       expect($input).to.not.have.attr('aria-invalid');
       expect($input).to.not.have.attr('aria-describedby');
@@ -217,9 +212,9 @@ describe('Field', () => {
     const wrapper = shallow(
       <Field
         component="select"
-        id="user"
+        id="color"
         label="Choose a color"
-        name="user"
+        name="color"
         options={ [ 'red', 'green', 'blue' ] }
         placeholder="Choose a color"
       />
@@ -247,9 +242,9 @@ describe('Field', () => {
         wrapper = mount(
           <Field
             component="select"
-            id="user"
+            id="color"
             label="Choose a color"
-            name="user"
+            name="color"
             onChange={ handler }
             options={ [ 'red', 'green', 'blue' ] }
             placeholder="Choose a color"
@@ -259,6 +254,241 @@ describe('Field', () => {
         .simulate('change', { target: { value: 'green' } });
       expect(handler).to.have.been.called();
       expect(handler).to.have.been.calledWith('green');
+    });
+  });
+
+  describe('validation', () => {
+
+    it('if no invalid event then error hidden', () => {
+      const
+        wrapper = mount(<Field id="email" name="email" type="email" />),
+        $input = wrapper.find('input');
+      $input.get(0).value = 'notanemail';
+      $input.simulate('change', { target: { value: 'notanemail' } });
+      expect(wrapper).to.have.state('invalid', false);
+      expect(wrapper).to.have.state('errorMessage', '');
+      expect(wrapper).to.not.have.descendants('.field-error');
+    });
+
+    it('if onchange before invalid then error hidden', () => {
+      const
+        wrapper = mount(<Field id="email" name="email" type="email" />),
+        $input = wrapper.find('input');
+      $input.get(0).value = 'notanemail';
+      $input.simulate('change', { target: { value: 'notanemail' } });
+      expect(wrapper).to.have.state('invalid', false);
+      expect(wrapper).to.have.state('errorMessage', '');
+      // Activate validation and show message
+      $input.get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'This value is not an email.');
+    });
+
+    it('onchange after invalid can make the error go away', () => {
+      const
+        wrapper = mount(<Field id="email" name="email" type="email" />),
+        $input = wrapper.find('input');
+      // Input invalid data
+      $input.get(0).value = 'notanemail';
+      $input.simulate('change', { target: { value: 'notanemail' } });
+      // Activate validation
+      $input.get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'This value is not an email.');
+      // Input correct data
+      $input.get(0).value = 'email@domain.com';
+      $input.simulate('change', { target: { value: 'email@domain.com' } });
+      expect(wrapper).to.have.state('invalid', false);
+      expect(wrapper).to.have.state('errorMessage', '');
+    });
+
+    it('if validate prop then do validation from mount', () => {
+      const
+        wrapper = mount(<Field defaultValue="notanemail" id="email" name="email" type="email" validate />);
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'This value is not an email.');
+    });
+
+    it('required', () => {
+      const wrapper = mount(<Field id="user" name="user" required />);
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'This is a required field.');
+    });
+
+    it('type', () => {
+      const wrapper = mount(<Field defaultValue="notanemail" id="email" name="email" type="email" />);
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'This value is not an email.');
+    });
+
+    it('pattern', () => {
+      const wrapper = mount(<Field defaultValue="(11)123456789" id="tel" name="tel" pattern="^[\d]*$" type="tel" />);
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'This value is invalid.');
+    });
+
+    it('required comes before type', () => {
+      const wrapper = mount(<Field id="email" name="email" required type="email" />);
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'This is a required field.');
+    });
+
+    it('type comes before pattern', () => {
+      const wrapper = mount(<Field defaultValue="notanemail" id="email" name="email" pattern="^[\d]*$" type="email" />);
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'This value is not an email.');
+    });
+
+    it('required custom error message', () => {
+      const wrapper = mount(
+        <Field
+          errorMessages={{ valueMissing: 'You must input this field.' }}
+          id="user"
+          name="user"
+          required
+        />
+      );
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'You must input this field.');
+    });
+
+    it('type custom error message', () => {
+      const wrapper = mount(
+        <Field
+          defaultValue="notanemail"
+          errorMessages={{ typeMismatch: 'You did not input an email value.' }}
+          id="email"
+          name="email"
+          type="email"
+        />
+      );
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'You did not input an email value.');
+    });
+
+    it('pattern custom error message', () => {
+      const wrapper = mount(
+        <Field
+          defaultValue="(11)123456789"
+          errorMessages={{ patternMismatch: 'You input an invalid value.' }}
+          id="tel"
+          name="tel"
+          pattern="^[\d]*$"
+          type="tel"
+        />
+      );
+      wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+      expect(wrapper).to.have.state('invalid', true);
+      expect(wrapper).to.have.state('errorMessage', 'You input an invalid value.');
+    });
+
+    describe('Select Field', () => {
+
+      it('if no invalid event then error hidden', () => {
+        const
+          wrapper = mount(
+            <Field
+              component="select"
+              id="color"
+              name="color"
+              options={ [ 'red', 'green', 'blue' ] }
+              placeholder="Choose a color"
+              required
+            />
+          ),
+          $select = wrapper.find('select');
+        $select.get(0).value = 'red';
+        $select.simulate('change', { target: { value: 'red' } });
+        expect(wrapper).to.have.state('invalid', false);
+        expect(wrapper).to.have.state('errorMessage', '');
+        expect(wrapper).to.not.have.descendants('.field-error');
+      });
+
+      it('if onchange before invalid then error hidden', () => {
+        const
+          wrapper = mount(
+            <Field
+              component="select"
+              id="color"
+              name="color"
+              options={ [ 'red', 'green', 'blue' ] }
+              placeholder="Choose a color"
+              required
+            />
+          ),
+          $select = wrapper.find('select');
+        expect(wrapper).to.have.state('invalid', false);
+        expect(wrapper).to.have.state('errorMessage', '');
+        // Activate validation and show message
+        $select.get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+        expect(wrapper).to.have.state('invalid', true);
+        expect(wrapper).to.have.state('errorMessage', 'This is a required field.');
+      });
+
+      it('onchange after invalid can make the error go away', () => {
+        const
+          wrapper = mount(
+            <Field
+              component="select"
+              id="color"
+              name="color"
+              options={ [ 'red', 'green', 'blue' ] }
+              placeholder="Choose a color"
+              required
+            />
+          ),
+          $select = wrapper.find('select');
+        // Activate validation
+        $select.get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+        expect(wrapper).to.have.state('invalid', true);
+        expect(wrapper).to.have.state('errorMessage', 'This is a required field.');
+        // Input correct data
+        $select.get(0).value = 'red';
+        $select.simulate('change', { target: { value: 'red' } });
+        expect(wrapper).to.have.state('invalid', false);
+        expect(wrapper).to.have.state('errorMessage', '');
+      });
+
+      it('if validate prop then do validation from mount', () => {
+        const
+          wrapper = mount(
+            <Field
+              component="select"
+              id="color"
+              name="color"
+              options={ [ 'red', 'green', 'blue' ] }
+              placeholder="Choose a color"
+              required
+              validate
+            />
+          );
+        expect(wrapper).to.have.state('invalid', true);
+        expect(wrapper).to.have.state('errorMessage', 'This is a required field.');
+      });
+
+      it('required', () => {
+        const wrapper = mount(
+          <Field
+            component="select"
+            id="color"
+            name="color"
+            options={ [ 'red', 'green', 'blue' ] }
+            placeholder="Choose a color"
+            required
+            validate
+          />
+        );
+        wrapper.find('select').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
+        expect(wrapper).to.have.state('invalid', true);
+        expect(wrapper).to.have.state('errorMessage', 'This is a required field.');
+      });
     });
   });
 });

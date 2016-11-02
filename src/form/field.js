@@ -1,3 +1,4 @@
+/* eslint-disable react/no-set-state */
 import './field.scss';
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
@@ -17,7 +18,19 @@ export default class Field extends Component {
    */
   constructor(props) {
     super(props);
+    this.state = { errorMessage: '', invalid: false };
     this.handleChange = this.handleChange.bind(this);
+    this.handleInvalid = this.handleInvalid.bind(this);
+  }
+
+  /**
+   * Component mounted on DOM
+   */
+  componentDidMount() {
+    const elem = this._formElem;
+    if (this.props.validate && elem.checkValidity) {
+      elem.checkValidity();
+    }
   }
 
   /**
@@ -25,9 +38,51 @@ export default class Field extends Component {
    * @param {object} event - DOM event object
    */
   handleChange(event) {
+    if (this.state.invalid || this.props.validate) {
+      this.validate(event.target);
+    }
     // istanbul ignore else
     if (this.props.onChange) {
       this.props.onChange(event.target.value);
+    }
+  }
+
+  /**
+   * When Invalid value stop default browser validation popups
+   * and do custom field validation
+   * @param {object} event - DOM event object
+   */
+  handleInvalid(event) {
+    event.preventDefault();
+    this.setState({ invalid: true });
+    this.validate(event.target);
+  }
+
+  /**
+   * Analyze validity and set error message
+   * @param {object} elem - Form element to be validated
+   */
+  validate(elem) {
+    const { errorMessages, type } = this.props;
+    if (elem.validity && !elem.validity.valid) {
+      if (elem.validity.valueMissing) {
+        this.setState({
+          errorMessage: errorMessages.valueMissing || 'This is a required field.',
+          invalid: true
+        });
+      } else if (elem.validity.typeMismatch) {
+        this.setState({
+          errorMessage: errorMessages.typeMismatch || `This value is not an ${type}.`,
+          invalid: true
+        });
+      } else {
+        this.setState({
+          errorMessage: errorMessages.patternMismatch || 'This value is invalid.',
+          invalid: true
+        });
+      }
+    } else {
+      this.setState({ errorMessage: '', invalid: false });
     }
   }
 
@@ -37,12 +92,13 @@ export default class Field extends Component {
    */
   render() {
     const {
-      className, component, disabled, error, id, inline, label,
-      readOnly, required, ...other
+      className, component, disabled, id, inline, label,
+      readOnly, required, errorMessages, validate, ...other // eslint-disable-line no-unused-vars
     } = this.props;
 
+    const { errorMessage, invalid } = this.state;
+
     const
-      invalid = Boolean(error),
       Element = inline ? 'span' : 'div',
       FormElement = component === 'select' ? Select : component,
       fieldCSS = classnames('field'
@@ -71,13 +127,14 @@ export default class Field extends Component {
           disabled={ disabled }
           id={ id }
           onChange={ this.handleChange }
+          onInvalid={ this.handleInvalid }
           readOnly={ readOnly }
           ref={ ref => { this._formElem = ref; } }
           required={ required }
         />
-        { error
+        { errorMessage
           && <Element className="field-error" id={ `${id}-error` }>
-            { error }
+            { errorMessage }
           </Element>
         }
       </Element>
@@ -92,7 +149,11 @@ Field.propTypes = {
   component: PropTypes.string,
   defaultValue: PropTypes.string,
   disabled: PropTypes.bool,
-  error: PropTypes.string,
+  errorMessages: PropTypes.shape({
+    patternMismatch: PropTypes.string,
+    typeMismatch: PropTypes.string,
+    valueMissing: PropTypes.string
+  }),
   form: PropTypes.string,
   formaction: PropTypes.string,
   formenctype: PropTypes.string,
@@ -110,6 +171,7 @@ Field.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
+  onInvalid: PropTypes.func,
   pattern: PropTypes.string,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
@@ -122,7 +184,8 @@ Field.propTypes = {
     'text', 'email', 'number', 'password', 'hidden',
     'tel', 'url', 'color', 'search', 'range',
     'date', 'datetime-local', 'week', 'month'
-  ])
+  ]),
+  validate: PropTypes.bool
 };
 
-Field.defaultProps = { component: 'input', type: 'text' };
+Field.defaultProps = { component: 'input', errorMessages: {}, type: 'text' };

@@ -35,6 +35,7 @@ imports:
     name="country"
     options={ [ 'Argentina', 'Italy', 'United Kingdom' ] }
     placeholder="Choose a country"
+    required
   />
   <footer>
     <span id="form-data"></span>

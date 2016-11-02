@@ -1,5 +1,6 @@
 --compilers js:babel-register
 --require test/setup.dom.js
+--require test/setup.polyfills.js
 --require test/setup.chai.js
 --require test/setup.sass.js
 --recursive

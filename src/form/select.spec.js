@@ -96,7 +96,6 @@ describe('Select', () => {
     expect($select).to.have.value('');
     expect($fakeSelectOption).to.have.text('Choose');
     $select.get(0).value = 'blue';
-    $select.get(0).dispatchEvent(new window.Event('change', { bubbles: true }));
     $select.simulate('change', { target: { value: 'blue' } });
     expect(wrapper).to.have.state('value', 'blue');
     expect($fakeSelectOption).to.have.text('blue');

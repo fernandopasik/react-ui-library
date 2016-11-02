@@ -19,13 +19,13 @@ Optional parameter for labels
 Error messages are displayed under the form element
 
 ```render jsx
-<Field id="user2" label="User Name" error="Invalid value" name="user" required />
+<Field id="user2" label="User Name" name="user" required validate />
 ```
 
 Can be displayed inline
 
 ```render jsx
-<Field error="Invalid value" id="user3" inline label="User Name" name="user" required />
+<Field id="user3" inline label="User Name" name="user" required validate />
 ```
 
 ## Form Element attributes
