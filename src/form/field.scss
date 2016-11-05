@@ -42,6 +42,10 @@ $field-disabled-opacity: 0.5 !default;
       margin-top: 0;
     }
   }
+
+  .dropdown {
+    @extend %field-item-block-layout;
+  }
 }
 
 .field-element {

@@ -16,9 +16,18 @@ $option-selected-color: $color-white !default;
 $option-transition: none 0.15s ease-in-out !default;
 $option-transition-property: border-color, background-color, color !default;
 
+%dropdown-user-interaction {
+  cursor: default;
+  user-select: none;
+}
 
 .dropdown {
+  display: inline-block;
   position: relative;
+
+  .selected-option {
+    @extend %dropdown-user-interaction;
+  }
 
   .options {
     display: inline-block;
@@ -36,10 +45,10 @@ $option-transition-property: border-color, background-color, color !default;
   }
 
   .option {
+    @extend %dropdown-user-interaction;
+
     line-height: $baseline-grid;
     padding: ($option-padding - $options-border-width) $option-padding $option-padding;
-    cursor: pointer;
-    user-select: none;
     border-top: $options-border-width $options-border-style rgba($options-border-color, 0.5);
     transition: $option-transition;
     transition-property: $option-transition-property;
@@ -85,5 +94,10 @@ $option-transition-property: border-color, background-color, color !default;
         transform: rotate3d(0, 0, 1, 180deg);
       }
     }
+  }
+
+  // Space between them
+  & + & {
+    margin-left: $gutter;
   }
 }
