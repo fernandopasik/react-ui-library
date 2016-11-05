@@ -142,4 +142,16 @@ describe('Select', () => {
     expect(handler).to.have.been.exactly.calledOnce();
     expect(handler).to.have.been.calledWithMatch({ target: { value: 'green' } });
   });
+
+  it('onFocus and onBlur sets style', () => {
+    const
+      wrapper = mount(<Select options={ options } placeholder="Choose" />),
+      $select = wrapper.find('select'),
+      $selectedOption = wrapper.find('.selected-option');
+    expect($selectedOption).to.not.have.className('focus');
+    $select.simulate('focus');
+    expect($selectedOption).to.have.className('focus');
+    $select.simulate('blur');
+    expect($selectedOption).to.not.have.className('focus');
+  });
 });

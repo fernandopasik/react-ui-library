@@ -18,6 +18,8 @@ export default class Select extends Component {
     super(props);
     this.state = { value: props.defaultValue };
     this.handleDropdown = this.handleDropdown.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
 
@@ -26,6 +28,20 @@ export default class Select extends Component {
    */
   checkValidity() {
     this._select.checkValidity();
+  }
+
+  /**
+   * When blurred remove class for focus styles
+   */
+  handleBlur() {
+    this.setState({ focus: false });
+  }
+
+  /**
+   * When focused set class for focus styles
+   */
+  handleFocus() {
+    this.setState({ focus: true });
   }
 
   /**
@@ -62,8 +78,10 @@ export default class Select extends Component {
    */
   render() {
     let dropdownOptions = [];
-    const { className, onInvalid, options, placeholder, ...other } = this.props;
-    const selectCSS = classnames('selected-option', className);
+    const
+      { className, onInvalid, options, placeholder, ...other } = this.props,
+      { focus } = this.state;
+    const selectCSS = classnames('selected-option', className, { focus });
 
     if (placeholder) {
       dropdownOptions = dropdownOptions.concat(
@@ -89,7 +107,9 @@ export default class Select extends Component {
         </Dropdown>
         <select
           { ...other }
+          onBlur={ this.handleBlur }
           onChange={ this.handleSelect }
+          onFocus={ this.handleFocus }
           onInvalid={ onInvalid }
           ref={ ref => { this._select = ref; } }
         >
