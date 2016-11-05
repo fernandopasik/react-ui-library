@@ -127,7 +127,7 @@ describe('Dropdown', () => {
       <Dropdown caption="Menu" options={ options } size={ 2 } />
     );
     wrapper.find('.trigger').simulate('click');
-    expect(wrapper.find('.options')).to.have.style('overflow', 'scroll');
+    expect(wrapper.find('.options')).to.have.style('overflow-y', 'scroll');
     expect(wrapper.find('.options')).to.have.style('max-height');
   });
 

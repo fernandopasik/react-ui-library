@@ -89,7 +89,7 @@ export default class Dropdown extends Component {
     if (size && options && size < options.length) {
       attributes.style = {
         maxHeight: `${optionHeight * (size + 0.5)}px`,
-        overflow: 'scroll'
+        'overflow-y': 'scroll'
       };
     }
 
