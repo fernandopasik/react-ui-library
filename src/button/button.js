@@ -9,27 +9,16 @@ import classnames from 'classnames';
  */
 export default function Button(props) {
 
-  const
-    cssClasses = classnames(
-      'button',
-      props.display,
-      props.size,
-      props.className,
-      { block: props.block },
-      { active: props.active }
-    ),
-    attributes = {
-      disabled: props.disabled,
-      id: props.id,
-      onClick: !props.disabled && props.onClick,
-      type: props.type
-    };
+  const {
+    active, block, caption, children, className, disabled, display,
+    id, onBlur, onClick, onFocus, onKeyUp, size, tabIndex, type
+  } = props;
 
-  return (
-    <button className={ cssClasses } { ...attributes }>
-      { props.caption || props.children }
-    </button>
-  );
+  const
+    cssClasses = classnames('button', display, size, className, { block, active }),
+    attributes = { disabled, id, onBlur, onClick, onFocus, onKeyUp, tabIndex, type };
+
+  return <button className={ cssClasses } { ...attributes }>{ caption || children }</button>;
 }
 
 
@@ -42,7 +31,11 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   display: PropTypes.oneOf([ 'primary', 'link' ]),
   id: PropTypes.string,
+  onBlur: PropTypes.func,
   onClick: PropTypes.func,
+  onFocus: PropTypes.func,
+  onKeyUp: PropTypes.func,
   size: PropTypes.oneOf([ 'large', 'small' ]),
+  tabIndex: PropTypes.string,
   type: PropTypes.oneOf([ 'button', 'submit', 'reset' ])
 };

@@ -6,8 +6,7 @@ import { spy } from 'sinon';
 describe('Button', () => {
 
   it('can have a label', () => {
-    const wrapper = shallow(<Button caption="Accept" />);
-    expect(wrapper).to.have.text('Accept');
+    expect(shallow(<Button caption="Accept" />)).to.have.text('Accept');
   });
 
   it('can have content', () => {
@@ -17,9 +16,7 @@ describe('Button', () => {
   });
 
   it('if it has label, content is ignored', () => {
-    const wrapper = shallow(
-      <Button caption="Accept"><span>Ignored</span></Button>
-    );
+    const wrapper = shallow(<Button caption="Accept"><span>Ignored</span></Button>);
     expect(wrapper).to.have.text('Accept');
     expect(wrapper).to.have.html().not.match(/Ignored/);
   });
@@ -33,25 +30,15 @@ describe('Button', () => {
   });
 
   it('can be disabled', () => {
-    const
-      handler = spy(),
-      wrapper = shallow(
-        <Button caption="Accept" disabled onClick={ handler } />
-      );
-    expect(wrapper).to.be.disabled();
-    wrapper.simulate('click');
-    expect(handler).to.not.have.been.called();
+    expect(shallow(<Button caption="Accept" disabled />)).to.be.disabled();
   });
 
   it('can be set as active', () => {
-    const wrapper = shallow(<Button active caption="Accept" />);
-    expect(wrapper).to.have.className('active');
+    expect(shallow(<Button active caption="Accept" />)).to.have.className('active');
   });
 
   it('can have a custom id or class set', () => {
-    const wrapper = shallow(
-      <Button caption="Accept" className="test" id="test1" />
-    );
+    const wrapper = shallow(<Button caption="Accept" className="test" id="test1" />);
     expect(wrapper).to.have.className('test');
     expect(wrapper).to.have.id('test1');
   });
@@ -75,7 +62,6 @@ describe('Button', () => {
   });
 
   it('can span full width', () => {
-    const wrapper = shallow(<Button block caption="Accept" />);
-    expect(wrapper).to.have.className('block');
+    expect(shallow(<Button block caption="Accept" />)).to.have.className('block');
   });
 });
