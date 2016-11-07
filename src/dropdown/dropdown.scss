@@ -53,6 +53,7 @@ $option-transition-property: border-color, background-color, color !default;
     transition: $option-transition;
     transition-property: $option-transition-property;
 
+    &.focus,
     &:hover {
       background-color: $option-hover-bg-color;
     }

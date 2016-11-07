@@ -112,6 +112,7 @@ export default class Select extends Component {
           onFocus={ this.handleFocus }
           onInvalid={ onInvalid }
           ref={ ref => { this._select = ref; } }
+          tabIndex="-1"
         >
           { placeholder && <option value="">{ placeholder }</option> }
           { options && options.map((option, id) =>

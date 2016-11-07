@@ -76,7 +76,7 @@ export default class Collapsible extends Component {
     }, transitionTime);
   }
 
-  /* istanbul ignore next */
+  // istanbul ignore next
   /**
    * Measure content's height
    * @returns {string} - Height in pixels

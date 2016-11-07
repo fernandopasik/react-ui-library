@@ -30,7 +30,7 @@ export function getCSSValue(element, property) {
 
   let value;
 
-  /* istanbul ignore if  */
+  // istanbul ignore if
   if (element.currentStyle) {
     value = element.currentStyle[property];
   } else {
