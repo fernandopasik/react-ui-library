@@ -28,12 +28,12 @@ export default class Dropdown extends Component {
     this.setFocusedOption = this.setFocusedOption.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
     this.handleSelectBlur = this.handleSelectBlur.bind(this);
-    this.handleSelectMouseDown = this.handleSelectMouseDown.bind(this);
     this.handleSelectKeyDown = this.handleSelectKeyDown.bind(this);
     this.handleSelectKeyUp = this.handleSelectKeyUp.bind(this);
     this.handleTriggerKeyUp = this.handleTriggerKeyUp.bind(this);
     this.handleOptionFocused = this.handleOptionFocused.bind(this);
     this.handleOptionSelected = this.handleOptionSelected.bind(this);
+    this.handleOptionsMouseDown = this.handleOptionsMouseDown.bind(this);
   }
 
   /**
@@ -114,10 +114,10 @@ export default class Dropdown extends Component {
   }
 
   /**
-   * Avoid blur to be fired before click
+   * Avoid blur to be fired before click an option
    * @param {object} event - DOM event object
    */
-  handleSelectMouseDown(event) {
+  handleOptionsMouseDown(event) {
     event.preventDefault();
   }
 
@@ -217,7 +217,7 @@ export default class Dropdown extends Component {
       { caption, children, options, size } = this.props,
       cssClass = classnames('dropdown', { 'is-open': isOpen }),
       attributes = {};
-    const child = cloneElement(children
+    const trigger = cloneElement(children
       || <Button
         arrow={ this.state.isOpen ? 'up' : 'down' }
         caption={ caption }
@@ -243,12 +243,16 @@ export default class Dropdown extends Component {
         onBlur={ this.handleSelectBlur }
         onKeyDown={ this.handleSelectKeyDown }
         onKeyUp={ this.handleSelectKeyUp }
-        onMouseDown={ this.handleSelectMouseDown }
         tabIndex="-1"
       >
-        { child }
+        { trigger }
         { this.state.isOpen
-          && <ul className="options" ref={ ref => { this._list = ref; } } role="listbox" { ...attributes }>
+          && <ul
+            className="options"
+            onMouseDown={ this.handleOptionsMouseDown }
+            ref={ ref => { this._list = ref; } }
+            role="listbox" { ...attributes }
+          >
             { options && options.map((option, index) =>
               <li
                 className={ classnames('option', { focus: this.state.optionFocused === index }) }

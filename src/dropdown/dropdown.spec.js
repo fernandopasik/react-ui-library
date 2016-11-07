@@ -122,7 +122,7 @@ describe('Dropdown', () => {
       const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
       wrapper.find('.trigger').simulate('click');
       expect(wrapper).to.have.state('isOpen', true);
-      wrapper.simulate('mousedown');
+      wrapper.find('.options').simulate('mousedown');
       wrapper.simulate('blur');
       expect(wrapper).to.have.state('isOpen', false);
       expect(wrapper.find('.options')).to.have.length(0);
