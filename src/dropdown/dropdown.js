@@ -20,9 +20,12 @@ export default class Dropdown extends Component {
   constructor(props) {
     super(props);
 
+    this._options = [];
+
     this.state = { isOpen: Boolean(props.isOpen) };
     this.close = this.close.bind(this);
     this.select = this.select.bind(this);
+    this.setFocusedOption = this.setFocusedOption.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
     this.handleSelectBlur = this.handleSelectBlur.bind(this);
     this.handleSelectMouseDown = this.handleSelectMouseDown.bind(this);
@@ -57,6 +60,28 @@ export default class Dropdown extends Component {
       this.props.onSelect(value);
     }
     this.close();
+  }
+
+  /**
+   * Sets focus and scrolls container to an option element
+   * @param {number} index - Index of the element to set focused
+   */
+  setFocusedOption(index) {
+    const
+      { size, options } = this.props,
+      elem = this._options[index];
+
+    // istanbul ignore next
+    // When limited size and capped scroll to visible is needed
+    if (size && options && size < options.length) {
+      if (elem.offsetTop + elem.offsetHeight > this._list.offsetHeight) {
+        this._list.scrollTop = elem.offsetTop + elem.offsetHeight - this._list.offsetHeight;
+      } else if (elem.offsetTop < this._list.scrollTop) {
+        this._list.scrollTop = elem.offsetTop;
+      }
+    }
+
+    this.setState({ optionFocused: index });
   }
 
   /**
@@ -126,15 +151,15 @@ export default class Dropdown extends Component {
         case 38: // up arrow
           event.preventDefault();
           if (optionFocused > 0) {
-            this.setState({ optionFocused: optionFocused - 1 });
+            this.setFocusedOption(optionFocused - 1);
           }
           break;
         case 40: // down arrow
           event.preventDefault();
           if (optionFocused === null) {
-            this.setState({ optionFocused: 0 });
+            this.setFocusedOption(optionFocused - 0);
           } else if (optionFocused < options.length - 1) {
-            this.setState({ optionFocused: optionFocused + 1 });
+            this.setFocusedOption(optionFocused + 1);
           }
           break;
         case 13: // enter
@@ -162,7 +187,7 @@ export default class Dropdown extends Component {
    */
   handleOptionFocused(index) {
     return () => {
-      this.setState({ optionFocused: index });
+      this.setFocusedOption(index);
     };
   }
 
@@ -223,7 +248,7 @@ export default class Dropdown extends Component {
       >
         { child }
         { this.state.isOpen
-          && <ul className="options" role="listbox" { ...attributes }>
+          && <ul className="options" ref={ ref => { this._list = ref; } } role="listbox" { ...attributes }>
             { options && options.map((option, index) =>
               <li
                 className={ classnames('option', { focus: this.state.optionFocused === index }) }
@@ -232,6 +257,7 @@ export default class Dropdown extends Component {
                 onFocus={ this.handleOptionFocused(index) }
                 onKeyUp={ this.handleOptionSelected(option.value || option) }
                 onMouseOver={ this.handleOptionFocused(index) }
+                ref={ ref => { this._options[index] = ref; } }
                 role="option"
                 tabIndex="-1"
               >

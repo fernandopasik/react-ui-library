@@ -26,5 +26,5 @@ Can provide children triggers
 Can put a limit to visible options
 
 ```render jsx
-<Dropdown caption="Menu" options={ [ 'About us', 'Products', 'Contact' ] } size={ 2 } />
+<Dropdown caption="Menu" options={ [ 'About us', 'Our Team', 'Products', 'Accessories', 'Contact' ] } size={ 2 } />
 ```
