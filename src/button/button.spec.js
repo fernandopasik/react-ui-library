@@ -11,20 +11,19 @@ describe('Button', () => {
 
   it('can have content', () => {
     const wrapper = shallow(<Button><span>Accept</span></Button>);
+    expect(wrapper).to.have.exactly(1).descendants('span');
     expect(wrapper.find('span')).to.have.text('Accept');
-    expect(wrapper).to.have.html().match(/<span>Accept<\/span>/);
   });
 
   it('if it has label, content is ignored', () => {
     const wrapper = shallow(<Button caption="Accept"><span>Ignored</span></Button>);
     expect(wrapper).to.have.text('Accept');
-    expect(wrapper).to.have.html().not.match(/Ignored/);
+    expect(wrapper).to.not.have.descendants('span');
   });
 
   it('when click executes handler', () => {
-    const
-      handler = spy(),
-      wrapper = shallow(<Button caption="Accept" onClick={ handler } />);
+    const handler = spy();
+    const wrapper = shallow(<Button caption="Accept" onClick={ handler } />);
     wrapper.simulate('click');
     expect(handler).to.have.been.called();
   });

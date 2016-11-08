@@ -7,7 +7,7 @@ import { spy } from 'sinon';
 
 describe('Field', () => {
 
-  describe('simple field', () => {
+  describe('form element', () => {
 
     it('spans an input element', () => {
       expect(shallow(<Field />)).to.have.exactly(1).descendants('input');
@@ -22,8 +22,7 @@ describe('Field', () => {
     });
 
     it('add name', () => {
-      expect(shallow(<Field name="user" />).find('input'))
-        .to.have.attr('name', 'user');
+      expect(shallow(<Field name="user" />).find('input')).to.have.attr('name', 'user');
     });
 
     it('if no type then default to text', () => {
@@ -31,37 +30,23 @@ describe('Field', () => {
     });
 
     it('valid types', () => {
-      expect(shallow(<Field type="text" />))
-        .to.have.descendants('input[type="text"]');
-      expect(shallow(<Field type="email" />))
-        .to.have.descendants('input[type="email"]');
-      expect(shallow(<Field type="number" />))
-        .to.have.descendants('input[type="number"]');
-      expect(shallow(<Field type="password" />))
-        .to.have.descendants('input[type="password"]');
-      expect(shallow(<Field type="search" />))
-        .to.have.descendants('input[type="search"]');
-      expect(shallow(<Field type="tel" />))
-        .to.have.descendants('input[type="tel"]');
-      expect(shallow(<Field type="url" />))
-        .to.have.descendants('input[type="url"]');
-      expect(shallow(<Field type="color" />))
-        .to.have.descendants('input[type="color"]');
-      expect(shallow(<Field type="range" />))
-        .to.have.descendants('input[type="range"]');
-      expect(shallow(<Field type="date" />))
-        .to.have.descendants('input[type="date"]');
-      expect(shallow(<Field type="datetime-local" />))
-        .to.have.descendants('input[type="datetime-local"]');
-      expect(shallow(<Field type="week" />))
-        .to.have.descendants('input[type="week"]');
-      expect(shallow(<Field type="month" />))
-        .to.have.descendants('input[type="month"]');
+      expect(shallow(<Field type="text" />)).to.have.descendants('input[type="text"]');
+      expect(shallow(<Field type="email" />)).to.have.descendants('input[type="email"]');
+      expect(shallow(<Field type="number" />)).to.have.descendants('input[type="number"]');
+      expect(shallow(<Field type="password" />)).to.have.descendants('input[type="password"]');
+      expect(shallow(<Field type="search" />)).to.have.descendants('input[type="search"]');
+      expect(shallow(<Field type="tel" />)).to.have.descendants('input[type="tel"]');
+      expect(shallow(<Field type="url" />)).to.have.descendants('input[type="url"]');
+      expect(shallow(<Field type="color" />)).to.have.descendants('input[type="color"]');
+      expect(shallow(<Field type="range" />)).to.have.descendants('input[type="range"]');
+      expect(shallow(<Field type="date" />)).to.have.descendants('input[type="date"]');
+      expect(shallow(<Field type="datetime-local" />)).to.have.descendants('input[type="datetime-local"]');
+      expect(shallow(<Field type="week" />)).to.have.descendants('input[type="week"]');
+      expect(shallow(<Field type="month" />)).to.have.descendants('input[type="month"]');
     });
 
     it('set a default value', () => {
-      expect(shallow(<Field defaultValue="Username" />).find('input'))
-        .to.have.attr('value', 'Username');
+      expect(shallow(<Field defaultValue="Username" />).find('input')).to.have.attr('value', 'Username');
     });
 
     it('can be disabled', () => {
@@ -77,8 +62,7 @@ describe('Field', () => {
     });
 
     it('can be a required field', () => {
-      expect(shallow(<Field required />).find('input'))
-        .to.have.attr('required');
+      expect(shallow(<Field required />).find('input')).to.have.attr('required');
     });
 
     it('a placeholder text can be set', () => {
@@ -92,36 +76,20 @@ describe('Field', () => {
     });
 
     it('number validation attributes can be set', () => {
-      const
-        wrapper = shallow(
-          <Field max={ 3 } min={ 1 } step={ 1 } type="number" />
-        ),
-        $input = wrapper.find('input');
+      const $input = shallow(<Field max={ 3 } min={ 1 } step={ 1 } type="number" />).find('input');
       expect($input).to.have.attr('max', '3');
       expect($input).to.have.attr('min', '1');
       expect($input).to.have.attr('step', '1');
     });
 
     it('text length validation attributes can be set', () => {
-      const
-        wrapper = shallow(<Field maxLength={ 3 } minLength={ 1 } />),
-        $input = wrapper.find('input');
+      const $input = shallow(<Field maxLength={ 3 } minLength={ 1 } />).find('input');
       expect($input).to.have.attr('maxlength', '3');
       expect($input).to.have.attr('minlength', '1');
     });
 
     it('other input attributes can be set', () => {
-      const
-        wrapper = shallow(
-          <Field
-            autoComplete
-            autoFocus
-            size={ 20 }
-            spellCheck
-            tabIndex={ -1 }
-          />
-        ),
-        $input = wrapper.find('input');
+      const $input = shallow(<Field autoComplete autoFocus size={ 20 } spellCheck tabIndex={ -1 } />).find('input');
       expect($input).to.have.attr('autocomplete');
       expect($input).to.have.attr('spellcheck');
       expect($input).to.have.attr('size', '20');
@@ -132,9 +100,7 @@ describe('Field', () => {
   describe('label', () => {
 
     it('render', () => {
-      const
-        wrapper = shallow(<Field id="user" label="User Name" name="user" />),
-        $label = wrapper.find('label');
+      const $label = shallow(<Field id="user" label="User Name" name="user" />).find('label');
       expect($label).to.be.present();
       expect($label).to.have.text('User Name');
       expect($label).to.have.attr('for', 'user');
@@ -145,9 +111,8 @@ describe('Field', () => {
     });
 
     it('when field is required has an icon', () => {
-      const
-        wrapper = shallow(<Field label="User" name="user" required />),
-        $icon = wrapper.find('.icon-required');
+      const wrapper = shallow(<Field label="User" name="user" required />);
+      const $icon = wrapper.find('.icon-required');
       expect($icon).to.be.present();
       expect($icon).to.have.attr('aria-label');
       expect($icon).to.have.attr('title');
@@ -158,9 +123,7 @@ describe('Field', () => {
   describe('display inline', () => {
 
     it('no divs present', () => {
-      const wrapper = shallow(
-        <Field id="user" inline name="user" />
-      );
+      const wrapper = shallow(<Field id="user" inline name="user" />);
       expect(wrapper).to.have.className('inline');
       expect(wrapper).to.not.have.tagName('div');
       expect(wrapper).to.have.tagName('span');
@@ -182,10 +145,8 @@ describe('Field', () => {
 
     it('render', () => {
       let $error = '';
-      const
-        wrapper = mount(<Field id="user" label="User" name="user" required />),
-        $input = wrapper.find('input');
-
+      const wrapper = mount(<Field id="user" label="User" name="user" required />);
+      const $input = wrapper.find('input');
       wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
       $error = wrapper.find('.field-error');
       expect(wrapper).to.have.className('invalid');
@@ -197,10 +158,8 @@ describe('Field', () => {
     });
 
     it('by default is hidden', () => {
-      const
-        wrapper = mount(<Field id="user" label="User" name="user" required />),
-        $input = wrapper.find('input');
-
+      const wrapper = mount(<Field id="user" label="User" name="user" required />);
+      const $input = wrapper.find('input');
       expect(wrapper.find('.field-error')).to.not.be.present();
       expect(wrapper).to.not.have.className('invalid');
       expect($input).to.not.have.attr('aria-invalid');
@@ -209,7 +168,7 @@ describe('Field', () => {
   });
 
   it('can wrap a select field', () => {
-    const wrapper = shallow(
+    expect(shallow(
       <Field
         component="select"
         id="color"
@@ -218,40 +177,33 @@ describe('Field', () => {
         options={ [ 'red', 'green', 'blue' ] }
         placeholder="Choose a color"
       />
-    );
-    expect(wrapper).to.have.exactly(1).descendants(Select);
+    )).to.have.exactly(1).descendants(Select);
   });
 
   describe('events', () => {
 
     it('onChange handler on simple input', () => {
-      const
-        handler = spy(),
-        wrapper = mount(
-          <Field id="user" name="user" onChange={ handler } />
-        );
-      wrapper.find('input')
-        .simulate('change', { target: { value: 'Fernando' } });
+      const handler = spy();
+      const wrapper = mount(<Field id="user" name="user" onChange={ handler } />);
+      wrapper.find('input').simulate('change', { target: { value: 'Fernando' } });
       expect(handler).to.have.been.called();
       expect(handler).to.have.been.calledWith('Fernando');
     });
 
     it('onChange handler on select input', () => {
-      const
-        handler = spy(),
-        wrapper = mount(
-          <Field
-            component="select"
-            id="color"
-            label="Choose a color"
-            name="color"
-            onChange={ handler }
-            options={ [ 'red', 'green', 'blue' ] }
-            placeholder="Choose a color"
-          />
-        );
-      wrapper.find(Select).find('select')
-        .simulate('change', { target: { value: 'green' } });
+      const handler = spy();
+      const wrapper = mount(
+        <Field
+          component="select"
+          id="color"
+          label="Choose a color"
+          name="color"
+          onChange={ handler }
+          options={ [ 'red', 'green', 'blue' ] }
+          placeholder="Choose a color"
+        />
+      );
+      wrapper.find(Select).find('select').simulate('change', { target: { value: 'green' } });
       expect(handler).to.have.been.called();
       expect(handler).to.have.been.calledWith('green');
     });
@@ -260,9 +212,8 @@ describe('Field', () => {
   describe('validation', () => {
 
     it('if no invalid event then error hidden', () => {
-      const
-        wrapper = mount(<Field id="email" name="email" type="email" />),
-        $input = wrapper.find('input');
+      const wrapper = mount(<Field id="email" name="email" type="email" />);
+      const $input = wrapper.find('input');
       $input.get(0).value = 'notanemail';
       $input.simulate('change', { target: { value: 'notanemail' } });
       expect(wrapper).to.have.state('invalid', false);
@@ -271,9 +222,8 @@ describe('Field', () => {
     });
 
     it('if onchange before invalid then error hidden', () => {
-      const
-        wrapper = mount(<Field id="email" name="email" type="email" />),
-        $input = wrapper.find('input');
+      const wrapper = mount(<Field id="email" name="email" type="email" />);
+      const $input = wrapper.find('input');
       $input.get(0).value = 'notanemail';
       $input.simulate('change', { target: { value: 'notanemail' } });
       expect(wrapper).to.have.state('invalid', false);
@@ -285,9 +235,8 @@ describe('Field', () => {
     });
 
     it('onchange after invalid can make the error go away', () => {
-      const
-        wrapper = mount(<Field id="email" name="email" type="email" />),
-        $input = wrapper.find('input');
+      const wrapper = mount(<Field id="email" name="email" type="email" />);
+      const $input = wrapper.find('input');
       // Input invalid data
       $input.get(0).value = 'notanemail';
       $input.simulate('change', { target: { value: 'notanemail' } });
@@ -303,8 +252,7 @@ describe('Field', () => {
     });
 
     it('if validate prop then do validation from mount', () => {
-      const
-        wrapper = mount(<Field defaultValue="notanemail" id="email" name="email" type="email" validate />);
+      const wrapper = mount(<Field defaultValue="notanemail" id="email" name="email" type="email" validate />);
       expect(wrapper).to.have.state('invalid', true);
       expect(wrapper).to.have.state('errorMessage', 'This value is not an email.');
     });
@@ -392,18 +340,17 @@ describe('Field', () => {
     describe('Select Field', () => {
 
       it('if no invalid event then error hidden', () => {
-        const
-          wrapper = mount(
-            <Field
-              component="select"
-              id="color"
-              name="color"
-              options={ [ 'red', 'green', 'blue' ] }
-              placeholder="Choose a color"
-              required
-            />
-          ),
-          $select = wrapper.find('select');
+        const wrapper = mount(
+          <Field
+            component="select"
+            id="color"
+            name="color"
+            options={ [ 'red', 'green', 'blue' ] }
+            placeholder="Choose a color"
+            required
+          />
+        );
+        const $select = wrapper.find('select');
         $select.get(0).value = 'red';
         $select.simulate('change', { target: { value: 'red' } });
         expect(wrapper).to.have.state('invalid', false);
@@ -412,18 +359,17 @@ describe('Field', () => {
       });
 
       it('if onchange before invalid then error hidden', () => {
-        const
-          wrapper = mount(
-            <Field
-              component="select"
-              id="color"
-              name="color"
-              options={ [ 'red', 'green', 'blue' ] }
-              placeholder="Choose a color"
-              required
-            />
-          ),
-          $select = wrapper.find('select');
+        const wrapper = mount(
+          <Field
+            component="select"
+            id="color"
+            name="color"
+            options={ [ 'red', 'green', 'blue' ] }
+            placeholder="Choose a color"
+            required
+          />
+        );
+        const $select = wrapper.find('select');
         expect(wrapper).to.have.state('invalid', false);
         expect(wrapper).to.have.state('errorMessage', '');
         // Activate validation and show message
@@ -433,18 +379,17 @@ describe('Field', () => {
       });
 
       it('onchange after invalid can make the error go away', () => {
-        const
-          wrapper = mount(
-            <Field
-              component="select"
-              id="color"
-              name="color"
-              options={ [ 'red', 'green', 'blue' ] }
-              placeholder="Choose a color"
-              required
-            />
-          ),
-          $select = wrapper.find('select');
+        const wrapper = mount(
+          <Field
+            component="select"
+            id="color"
+            name="color"
+            options={ [ 'red', 'green', 'blue' ] }
+            placeholder="Choose a color"
+            required
+          />
+        );
+        const $select = wrapper.find('select');
         // Activate validation
         $select.get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
         expect(wrapper).to.have.state('invalid', true);
@@ -457,18 +402,17 @@ describe('Field', () => {
       });
 
       it('if validate prop then do validation from mount', () => {
-        const
-          wrapper = mount(
-            <Field
-              component="select"
-              id="color"
-              name="color"
-              options={ [ 'red', 'green', 'blue' ] }
-              placeholder="Choose a color"
-              required
-              validate
-            />
-          );
+        const wrapper = mount(
+          <Field
+            component="select"
+            id="color"
+            name="color"
+            options={ [ 'red', 'green', 'blue' ] }
+            placeholder="Choose a color"
+            required
+            validate
+          />
+        );
         expect(wrapper).to.have.state('invalid', true);
         expect(wrapper).to.have.state('errorMessage', 'This is a required field.');
       });

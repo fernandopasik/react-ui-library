@@ -24,9 +24,8 @@ describe('Dropdown', () => {
   describe('options', () => {
 
     it('array of strings', () => {
-      const
-        wrapper = shallow(<Dropdown caption="Menu" isOpen options={ options } />),
-        $options = wrapper.find('.options');
+      const wrapper = shallow(<Dropdown caption="Menu" isOpen options={ options } />);
+      const $options = wrapper.find('.options');
       expect(wrapper).to.have.exactly(1).descendants('.dropdown');
       expect(wrapper).to.have.exactly(1).descendants('.options');
       expect(wrapper).to.have.exactly(3).descendants('.option');
@@ -41,9 +40,8 @@ describe('Dropdown', () => {
         { label: 'Green Color', value: 'green' },
         { label: 'Blue Color', value: 'blue' }
       ];
-      const
-        wrapper = shallow(<Dropdown caption="Menu" isOpen options={ options } />),
-        $options = wrapper.find('.options');
+      const wrapper = shallow(<Dropdown caption="Menu" isOpen options={ options } />);
+      const $options = wrapper.find('.options');
       expect(wrapper).to.have.exactly(1).descendants('.dropdown');
       expect(wrapper).to.have.exactly(1).descendants('.options');
       expect(wrapper).to.have.exactly(3).descendants('.option');
@@ -67,18 +65,16 @@ describe('Dropdown', () => {
     });
 
     it('when trigger key pressed space', () => {
-      const
-        wrapper = mount(<Dropdown caption="Menu" options={ options } />),
-        $trigger = wrapper.find('.trigger');
+      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const $trigger = wrapper.find('.trigger');
       expect(wrapper).to.have.state('isOpen', false);
       $trigger.simulate('keyup', { which: 32 });
       expect(wrapper).to.have.state('isOpen', true);
     });
 
     it('when trigger key pressed enter', () => {
-      const
-        wrapper = mount(<Dropdown caption="Menu" options={ options } />),
-        $trigger = wrapper.find('.trigger');
+      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const $trigger = wrapper.find('.trigger');
       expect(wrapper).to.have.state('isOpen', false);
       $trigger.simulate('keyup', { which: 13 });
       expect(wrapper).to.have.state('isOpen', true);
@@ -92,27 +88,24 @@ describe('Dropdown', () => {
     });
 
     it('when trigger key pressed space', () => {
-      const
-        wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />),
-        $trigger = wrapper.find('.trigger');
+      const wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />);
+      const $trigger = wrapper.find('.trigger');
       expect(wrapper).to.have.state('isOpen', true);
       $trigger.simulate('keyup', { which: 32 });
       expect(wrapper).to.have.state('isOpen', false);
     });
 
     it('when trigger key pressed enter', () => {
-      const
-        wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />),
-        $trigger = wrapper.find('.trigger');
+      const wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />);
+      const $trigger = wrapper.find('.trigger');
       expect(wrapper).to.have.state('isOpen', true);
       $trigger.simulate('keyup', { which: 13 });
       expect(wrapper).to.have.state('isOpen', false);
     });
 
     it('when trigger key pressed esc', () => {
-      const
-        wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />),
-        $trigger = wrapper.find('.trigger');
+      const wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />);
+      const $trigger = wrapper.find('.trigger');
       expect(wrapper).to.have.state('isOpen', true);
       $trigger.simulate('keyup', { which: 27 });
       expect(wrapper).to.have.state('isOpen', false);
@@ -138,9 +131,8 @@ describe('Dropdown', () => {
     });
 
     it('removes click outside listener', () => {
-      const
-        handler = spy(),
-        wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const handler = spy();
+      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
       wrapper.instance().close = handler;
       wrapper.find('.trigger').simulate('click');
       wrapper.unmount();
@@ -160,9 +152,8 @@ describe('Dropdown', () => {
   describe('select', () => {
 
     it('when option clicked', () => {
-      const
-        handler = spy(),
-        wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const handler = spy();
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
       wrapper.find('.trigger').simulate('click');
       wrapper.find('.options').childAt(1).simulate('click');
       expect(handler).to.have.been.called();
@@ -170,9 +161,8 @@ describe('Dropdown', () => {
     });
 
     it('when option press enter', () => {
-      const
-        handler = spy(),
-        wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const handler = spy();
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
       wrapper.find('.trigger').simulate('keyup', { which: 13 });
       wrapper.find('.options').childAt(1).simulate('keyup', { which: 13 });
       expect(handler).to.have.been.called();
@@ -180,9 +170,8 @@ describe('Dropdown', () => {
     });
 
     it('when option press space', () => {
-      const
-        handler = spy(),
-        wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const handler = spy();
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.find('.options').childAt(1).simulate('keyup', { which: 32 });
       expect(handler).to.have.been.called();
@@ -190,18 +179,16 @@ describe('Dropdown', () => {
     });
 
     it('not when option press other key', () => {
-      const
-        handler = spy(),
-        wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const handler = spy();
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.find('.options').childAt(1).simulate('keyup', { which: 33 });
       expect(handler).to.not.have.been.called();
     });
 
     it('cycling selection with arrows and press enter to select', () => {
-      const
-        handler = spy(),
-        wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const handler = spy();
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 40 });
@@ -213,9 +200,8 @@ describe('Dropdown', () => {
     });
 
     it('cycling selection with arrows has limits on length', () => {
-      const
-        handler = spy(),
-        wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const handler = spy();
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 40 });
@@ -232,9 +218,8 @@ describe('Dropdown', () => {
     });
 
     it('cycling selection with arrows, then hover other option and press enter to select', () => {
-      const
-        handler = spy(),
-        wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const handler = spy();
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.find('.options').childAt(1).simulate('mouseover');
@@ -262,17 +247,17 @@ describe('Dropdown', () => {
   });
 
   it('disable scroll on page', () => {
-    const
-      keyboardEvent = keyCode => new window.KeyboardEvent('keydown', { bubbles: true, keyCode }),
-      handler = spy(),
-      wrapper = mount(<Dropdown caption="Menu" options={ options } />, { attachTo: setReactRoot() });
+    const keyboardEvent = keyCode => new window.KeyboardEvent('keydown', { bubbles: true, keyCode });
+    const handler = spy();
+    const wrapper = mount(<Dropdown caption="Menu" options={ options } />, { attachTo: setReactRoot() });
+    const $dropdown = wrapper.find('.dropdown');
     window.addEventListener('keydown', handler);
-    wrapper.find('.dropdown').get(0).dispatchEvent(keyboardEvent(40));
-    wrapper.find('.dropdown').get(0).dispatchEvent(keyboardEvent(38));
-    wrapper.find('.dropdown').get(0).dispatchEvent(keyboardEvent(13));
-    wrapper.find('.dropdown').get(0).dispatchEvent(keyboardEvent(32));
+    $dropdown.get(0).dispatchEvent(keyboardEvent(40));
+    $dropdown.get(0).dispatchEvent(keyboardEvent(38));
+    $dropdown.get(0).dispatchEvent(keyboardEvent(13));
+    $dropdown.get(0).dispatchEvent(keyboardEvent(32));
     expect(handler).to.not.have.been.called();
-    wrapper.find('.dropdown').get(0).dispatchEvent(keyboardEvent(31));
+    $dropdown.get(0).dispatchEvent(keyboardEvent(31));
     expect(handler).to.have.been.calledOnce();
   });
 });

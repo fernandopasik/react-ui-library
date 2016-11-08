@@ -28,10 +28,8 @@ describe('HelloWorld', () => {
   });
 
   it('use blue color for text', () => {
-    const
-      wrapper = mount(<HelloWorld />, { attachTo: setReactRoot() }),
-      $helloWorld = wrapper.find('.hello-world').get(0);
-
+    const wrapper = mount(<HelloWorld />, { attachTo: setReactRoot() });
+    const $helloWorld = wrapper.find('.hello-world').get(0);
     getCSSValue($helloWorld, 'color').should.not.be.empty();
     getCSSValue($helloWorld, 'color').should.be.colored('#3a99d8');
   });

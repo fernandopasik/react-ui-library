@@ -46,7 +46,6 @@ describe('Collapsible', () => {
     clock.tick(401);
     expect(wrapper).to.have.style('height', '100px');
     expect(wrapper).to.have.style('overflow', 'visible');
-
     // Collapse it
     wrapper.setProps({ collapsed: true });
     clock.tick(401);
@@ -60,7 +59,6 @@ describe('Collapsible', () => {
     clock.tick(401);
     expect(wrapper).to.have.style('height', '0px');
     expect(wrapper).to.have.style('overflow', 'hidden');
-
     // Collapse it
     wrapper.setProps({ collapsed: false });
     clock.tick(401);
@@ -72,7 +70,6 @@ describe('Collapsible', () => {
     getHeight.returns('100px');
     const wrapper = mount(<Collapsible><div>100</div></Collapsible>);
     expect(wrapper).to.have.style('height', '100px');
-
     // Change content
     getHeight.returns('200px');
     wrapper.setProps({ children: <div>200</div> });

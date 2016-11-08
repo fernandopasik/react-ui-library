@@ -5,114 +5,70 @@ import { shallow } from 'enzyme';
 describe('Children', () => {
 
   it('filter', () => {
-    const
-      Filtered = props =>
-        <div>
-          { Children.filter(props.children, item => item.type === 'span') }
-        </div>,
-      wrapper = shallow(
-        <Filtered>
-          <span>1</span>
-          <span>2</span>
-          <strong>3</strong>
-        </Filtered>
-      );
+    const Filtered = props => <div>{ Children.filter(props.children, item => item.type === 'span') }</div>;
     Filtered.propTypes = { children: PropTypes.node };
-
-    expect(wrapper.find('span')).to.have.length(2);
-    expect(wrapper.find('strong')).to.have.length(0);
+    const wrapper = shallow(<Filtered><span>1</span><span>2</span><strong>3</strong></Filtered>);
+    expect(wrapper).to.have.exactly(2).descendants('span');
+    expect(wrapper).to.not.have.descendants('strong');
   });
 
   it('group by type', () => {
-    const
-      Grouped = props =>
-        <div>
-          <div className="spans">
-            { Children.groupByType(props.children, [ 'span' ], 'rest').span }
-          </div>
-          <div className="rest">
-            { Children.groupByType(props.children, [ 'span' ], 'rest').rest }
-          </div>
-        </div>,
-      wrapper = shallow(
-        <Grouped>
-          <span><b>1</b></span>
-          <span><b>2</b></span>
-          <strong>3</strong>
-        </Grouped>
-      );
+    const Grouped = props => (
+      <div>
+        <div className="spans">{ Children.groupByType(props.children, [ 'span' ], 'rest').span }</div>
+        <div className="rest">{ Children.groupByType(props.children, [ 'span' ], 'rest').rest }</div>
+      </div>
+    );
     Grouped.propTypes = { children: PropTypes.node };
-
-    expect(wrapper.find('.spans').find('b')).to.have.length(2);
-    expect(wrapper.find('.spans').find('strong')).to.have.length(0);
-    expect(wrapper.find('.rest').find('span')).to.have.length(0);
-    expect(wrapper.find('.rest').find('strong')).to.have.length(1);
+    const wrapper = shallow(
+      <Grouped><span><b>1</b></span><span><b>2</b></span><strong>3</strong></Grouped>
+    );
+    expect(wrapper.find('.spans')).to.have.exactly(2).descendants('b');
+    expect(wrapper.find('.spans')).to.not.have.descendants('strong');
+    expect(wrapper.find('.rest')).to.not.have.descendants('span');
+    expect(wrapper.find('.rest')).to.have.exactly(1).descendants('strong');
   });
 
   it('deep map', () => {
-    const
-      DeepMapped = props =>
-        <div>
-          { Children.deepMap(props.children,
-            child => child.type === 'b'
-              ? cloneElement(child, { ...child.props, className: 'mapped' })
-              : child
-          ) }
-        </div>,
-      wrapper = shallow(
-        <DeepMapped>
-          <b>1</b>
-          <b>2</b>
-          <span><b>3</b></span>
-          <div><div><b>4</b></div></div>
-        </DeepMapped>
-      );
+    const DeepMapped = props => (
+      <div>
+        { Children.deepMap(props.children,
+          child => child.type === 'b'
+            ? cloneElement(child, { ...child.props, className: 'mapped' })
+            : child
+        ) }
+      </div>
+    );
     DeepMapped.propTypes = { children: PropTypes.node };
-
-    expect(wrapper.find('.mapped')).to.have.length(4);
+    const wrapper = shallow(
+      <DeepMapped><b>1</b><b>2</b><span><b>3</b></span><div><div><b>4</b></div></div></DeepMapped>
+    );
+    expect(wrapper).to.have.exactly(4).descendants('.mapped');
   });
 
   it('deep each', () => {
-    const
-      texts = [],
-      DeepForEached = props =>
-        <div>
-          { Children.deepForEach(props.children, child => {
-            if (child.type === 'b') {
-              texts.push(child.props.children);
-            }
-          }) }
-        </div>;
-    shallow(
-      <DeepForEached>
-        <b>1</b>
-        <b>2</b>
-        <span><b>3</b></span>
-        <div><div><b>4</b></div></div>
-      </DeepForEached>
+    const texts = [];
+    const DeepForEached = props => (
+      <div>
+        { Children.deepForEach(props.children, child => {
+          if (child.type === 'b') {
+            texts.push(child.props.children);
+          }
+        }) }
+      </div>
     );
     DeepForEached.propTypes = { children: PropTypes.node };
-
+    shallow(
+      <DeepForEached><b>1</b><b>2</b><span><b>3</b></span><div><div><b>4</b></div></div></DeepForEached>
+    );
     expect(texts).to.eql([ '1', '2', '3', '4' ]);
   });
 
   it('deep find', () => {
-    const
-      DeepFound = props =>
-        <div>
-          { Children.deepFind(props.children, child => child.type === 'i') }
-        </div>,
-      wrapper = shallow(
-        <DeepFound>
-          <b>1</b>
-          <b>2</b>
-          <span><b>3</b></span>
-          <i>4</i>
-        </DeepFound>
-      );
+    const DeepFound = props => (<div>{ Children.deepFind(props.children, child => child.type === 'i') }</div>);
     DeepFound.propTypes = { children: PropTypes.node };
-
-    expect(wrapper.find('i')).to.have.length(1);
-    expect(wrapper.find('i')).to.have.text('4');
+    const wrapper = shallow(<DeepFound><b>1</b><b>2</b><span><b>3</b></span><i>4</i></DeepFound>);
+    expect(wrapper).to.have.exactly(1).descendants('i');
+    expect(wrapper).to.have.text('4');
   });
 });
