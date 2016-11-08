@@ -214,32 +214,28 @@ export default class Dropdown extends Component {
   render() {
     const
       { isOpen } = this.state,
-      { caption, children, options, size } = this.props,
-      cssClass = classnames('dropdown', { 'is-open': isOpen }),
-      attributes = {};
-    const trigger = cloneElement(children
-      || <Button
-        arrow={ this.state.isOpen ? 'up' : 'down' }
-        caption={ caption }
-      />, {
+      { caption, children, options, size } = this.props;
+    const listStyle = {};
+    const trigger = cloneElement(
+      children || <Button arrow={ this.state.isOpen ? 'up' : 'down' } caption={ caption } />,
+      {
         ...(children ? children.props : {}),
         className: classnames('trigger',
           children ? children.props.className : ''),
         onClick: this.toggleOpen,
         onKeyUp: this.handleTriggerKeyUp,
         tabIndex: '0'
-      });
+      }
+    );
 
     if (size && options && size < options.length) {
-      attributes.style = {
-        maxHeight: `${optionHeight * (size + 0.5)}px`,
-        overflowY: 'scroll'
-      };
+      listStyle.maxHeight = `${optionHeight * (size + 0.5)}px`;
+      listStyle.overflowY = 'scroll';
     }
 
     return (
       <div
-        className={ cssClass }
+        className={ classnames('dropdown', { 'is-open': isOpen }) }
         onBlur={ this.handleSelectBlur }
         onKeyDown={ this.handleSelectKeyDown }
         onKeyUp={ this.handleSelectKeyUp }
@@ -251,7 +247,8 @@ export default class Dropdown extends Component {
             className="options"
             onMouseDown={ this.handleOptionsMouseDown }
             ref={ ref => { this._list = ref; } }
-            role="listbox" { ...attributes }
+            role="listbox"
+            style={ listStyle }
           >
             { options && options.map((option, index) =>
               <li
