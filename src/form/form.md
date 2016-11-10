@@ -37,6 +37,14 @@ imports:
     placeholder="Choose a country"
     required
   />
+  <Field
+    component="textarea"
+    id="comments"
+    label="Leave your comments"
+    name="comments"
+    required
+    rows={ 3 }
+  />
   <footer>
     <span id="form-data"></span>
     <Button type="submit" display="primary" caption="Send" />

@@ -76,6 +76,26 @@ Instead of value you can set a defaultValue
 <Field defaultValue="Fernando" id="user9" name="user" />
 ```
 
+## Multi-line or textarea field
+
+```render jsx
+<Field id="comments01" label="Please leave your comments" multiLine name="comments" placeholder="Comments here..." rows={ 4 } />
+
+<Field component="textarea" id="comments02" label="Please leave your comments" name="comments" placeholder="Comments here..." rows={ 4 } />
+```
+
+Inline
+
+```render jsx
+<Field id="comments03" inline label="Please leave your comments" multiLine name="comments" placeholder="Comments here..." />
+```
+
+Enable Resize
+
+```render jsx
+<Field id="comments03" label="Please leave your comments" multiLine name="comments" placeholder="Comments here..." resize />
+```
+
 ## Select field
 
 ```render jsx

@@ -92,19 +92,26 @@ export default class Field extends Component {
    */
   render() {
     const {
-      className, component, disabled, id, inline, label,
-      readOnly, required, errorMessages, validate, ...other // eslint-disable-line no-unused-vars
+      className, component, disabled, id, inline, label, readOnly, required,
+      errorMessages, multiLine, resize, validate, ...other // eslint-disable-line no-unused-vars
     } = this.props;
 
     const { errorMessage, invalid } = this.state;
-
+    let FormElement;
     const
       Element = inline ? 'span' : 'div',
-      FormElement = component === 'select' ? Select : component,
       fieldCSS = classnames('field'
         , { disabled, inline, invalid, readonly: readOnly }, className),
       ariaAttrs = !invalid ? {}
-        : { 'aria-invalid': invalid, 'aria-describedby': `${id}-error` };
+        : { 'aria-invalid': invalid, 'aria-describedby': `${id}-error` },
+      // eslint-disable-next-line no-nested-ternary
+      elementStyle = { resize: !resize ? 'none' : resize === true ? 'both' : resize };
+
+    FormElement = component === 'select' ? Select : component;
+
+    if (multiLine && component === 'input') {
+      FormElement = 'textarea';
+    }
 
     return (
       <Element className={ fieldCSS }>
@@ -131,6 +138,7 @@ export default class Field extends Component {
           readOnly={ readOnly }
           ref={ ref => { this._formElem = ref; } }
           required={ required }
+          style={ elementStyle }
         />
         { errorMessage
           && <Element className="field-error" id={ `${id}-error` }>
@@ -146,7 +154,8 @@ Field.propTypes = {
   autoComplete: PropTypes.bool,
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
-  component: PropTypes.string,
+  cols: PropTypes.number,
+  component: PropTypes.oneOf([ 'input', 'select', 'textarea' ]),
   defaultValue: PropTypes.string,
   disabled: PropTypes.bool,
   errorMessages: PropTypes.shape({
@@ -167,6 +176,7 @@ Field.propTypes = {
   maxLength: PropTypes.number,
   min: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   minLength: PropTypes.number,
+  multiLine: PropTypes.bool,
   name: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
@@ -176,6 +186,11 @@ Field.propTypes = {
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
+  resize: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf([ 'none', 'both', 'horizontal', 'vertical', 'inherit' ])
+  ]),
+  rows: PropTypes.number,
   size: PropTypes.number,
   spellCheck: PropTypes.bool,
   step: PropTypes.number,
@@ -185,7 +200,8 @@ Field.propTypes = {
     'tel', 'url', 'color', 'search', 'range',
     'date', 'datetime-local', 'week', 'month'
   ]),
-  validate: PropTypes.bool
+  validate: PropTypes.bool,
+  wrap: PropTypes.oneOf([ 'hard', 'soft' ])
 };
 
 Field.defaultProps = { component: 'input', errorMessages: {}, type: 'text' };

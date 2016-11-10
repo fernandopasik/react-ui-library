@@ -167,19 +167,6 @@ describe('Field', () => {
     });
   });
 
-  it('can wrap a select field', () => {
-    expect(shallow(
-      <Field
-        component="select"
-        id="color"
-        label="Choose a color"
-        name="color"
-        options={ [ 'red', 'green', 'blue' ] }
-        placeholder="Choose a color"
-      />
-    )).to.have.exactly(1).descendants(Select);
-  });
-
   describe('events', () => {
 
     it('onChange handler on simple input', () => {
@@ -337,7 +324,39 @@ describe('Field', () => {
       expect(wrapper).to.have.state('errorMessage', 'You input an invalid value.');
     });
 
+    describe('Multiline or textarea', () => {
+
+      it('wrap a textarea element', () => {
+        expect(shallow(<Field id="comments" multiLine name="comments" />))
+          .to.have.exactly(1).descendants('textarea');
+        expect(shallow(<Field component="textarea" id="comments" name="comments" />))
+          .to.have.exactly(1).descendants('textarea');
+      });
+
+      it('resize', () => {
+        expect(shallow(<Field id="comments" multiLine name="comments" />).find('textarea'))
+          .to.have.style('resize', 'none');
+        expect(shallow(<Field id="comments" multiLine name="comments" resize />).find('textarea'))
+          .to.have.style('resize', 'both');
+        expect(shallow(<Field id="comments" multiLine name="comments" resize="vertical" />).find('textarea'))
+          .to.have.style('resize', 'vertical');
+      });
+    });
+
     describe('Select Field', () => {
+
+      it('wrap a select component', () => {
+        expect(shallow(
+          <Field
+            component="select"
+            id="color"
+            label="Choose a color"
+            name="color"
+            options={ [ 'red', 'green', 'blue' ] }
+            placeholder="Choose a color"
+          />
+        )).to.have.exactly(1).descendants(Select);
+      });
 
       it('if no invalid event then error hidden', () => {
         const wrapper = mount(
