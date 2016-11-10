@@ -81,7 +81,7 @@ export default {
    * Find in children and its children
    * @param   {object} children   - React component children
    * @param {function} deepFindFn - Deep Map callback
-   * @returns  {array}            - Child found
+   * @returns  {array}            - Children found
    */
   deepFind(children, deepFindFn) {
     return Children
@@ -89,10 +89,25 @@ export default {
       .find(child => {
         if (child.props && child.props.children
           && typeof child.props.children === 'object') {
-          // Each inside the child that has children
+          // Find inside the child that has children
           return this.deepFind(child.props.children, deepFindFn);
         }
         return deepFindFn(child);
       });
+  },
+
+  /**
+   * Get only the text in children and its children
+   * @param   {object} children - React component children
+   * @returns  {string}         - Text of all children
+   */
+  onlyText(children) {
+    return Children
+      .toArray(children)
+      .reduce((flattened, child) => [
+        ...flattened,
+        child.props && child.props.children ? this.onlyText(child.props.children) : child
+      ], [])
+      .join('');
   }
 };

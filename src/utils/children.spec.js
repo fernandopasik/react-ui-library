@@ -71,4 +71,16 @@ describe('Children', () => {
     expect(wrapper).to.have.exactly(1).descendants('i');
     expect(wrapper).to.have.text('4');
   });
+
+  it('only text', () => {
+    const OnlyText = props => (<div>{ Children.onlyText(props.children) }</div>);
+    OnlyText.propTypes = { children: PropTypes.node };
+    const wrapper = shallow(
+      <OnlyText><span>0</span><b>1</b><span><i>2</i></span><i>3</i></OnlyText>
+    );
+    expect(wrapper).to.not.have.descendants('i');
+    expect(wrapper).to.not.have.descendants('b');
+    expect(wrapper).to.not.have.descendants('span');
+    expect(wrapper).to.have.text('0123');
+  });
 });
