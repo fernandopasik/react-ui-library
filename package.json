@@ -23,7 +23,6 @@
     "build": "npm run -s check && npm run -s dist",
     "prepublishOnly": "npm run -s dist",
     "watch": "npm run test -- -w & npm start",
-    "travis": "npm run -s build",
     "preversion": "npm run -s check",
     "commitmsg": "validate-commit-msg",
     "precommit": "npm run -s lint",
