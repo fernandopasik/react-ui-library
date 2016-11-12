@@ -1,4 +1,4 @@
-import '../src/base/base.scss';
+import '../src/index.js';
 import './styleguide.scss';
 import classNames from 'classnames';
 import Components from './components.js';

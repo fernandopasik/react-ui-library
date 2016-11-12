@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/fernandopasik/react-ui-library.git"
   },
-  "main": "",
+  "main": "src/index.js",
   "scripts": {
     "start": "webpack-dev-server --open --inline",
     "lint": "eslint . && stylelint 'styleguide/*.scss' 'src/**/*.scss' --syntax scss",
