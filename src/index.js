@@ -1,6 +1,5 @@
 import './base/base.scss';
 
-export { default as Base } from './base/base.js';
 export { default as Button } from './button/button.js';
 export { default as Collapsible } from './collapsible/collapsible.js';
 export { default as Dropdown } from './dropdown/dropdown.js';
