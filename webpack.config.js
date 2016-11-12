@@ -20,7 +20,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'styleguide.js'
+    filename: '[name].js'
   },
   resolve: {
     modulesDirectories: [ 'node_modules' ],
@@ -70,6 +70,11 @@ module.exports = {
       hash: true
     })
   ],
+  stats: {
+    colors: true,
+    chunks: false,
+    children: false
+  },
   devtool: 'source-map',
   devServer: {
     hot: true,
