@@ -1,23 +1,16 @@
 const
   path = require('path'),
   webpack = require('webpack'),
+  merge = require('webpack-merge'),
   autoprefixer = require('autoprefixer'),
   StyleLintPlugin = require('stylelint-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   ExtractTextPlugin = require('extract-text-webpack-plugin'),
   WebpackNotifierPlugin = require('webpack-notifier');
 
-module.exports = {
-  entry: {
-    styleguide: [
-      'babel-polyfill',
-      'webpack-dev-server/client?http://localhost:8080/',
-      // 'webpack/hot/only-dev-server',
-      // reloads if it can't hot replace
-      'webpack/hot/dev-server',
-      './styleguide/styleguide.js'
-    ]
-  },
+const TARGET = process.env.npm_lifecycle_event;
+
+const common = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js'
@@ -91,3 +84,37 @@ module.exports = {
     }
   }
 };
+
+const dev = {
+  entry: {
+    styleguide: [
+      'babel-polyfill',
+      'webpack-dev-server/client?http://localhost:8080/',
+      // 'webpack/hot/only-dev-server',
+      // reloads if it can't hot replace
+      'webpack/hot/dev-server',
+      './styleguide/styleguide.js'
+    ]
+  }
+};
+
+const dist = {
+  entry: {
+    styleguide: [
+      'babel-polyfill',
+      './styleguide/styleguide.js'
+    ]
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+  ]
+};
+
+
+if (TARGET === 'dist') {
+  module.exports = merge(common, dist);
+}
+
+if (TARGET === 'start') {
+  module.exports = merge(common, dev);
+}

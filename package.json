@@ -103,6 +103,7 @@
     "validate-commit-msg": "^2.8.2",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.15.0",
     "webpack-notifier": "^1.4.1"
   },
   "engines": {
