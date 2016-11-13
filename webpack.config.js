@@ -36,7 +36,7 @@ const common = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap&minimize!postcss!sass')
+        loader: ExtractTextPlugin.extract('css?sourceMap&minimize!postcss?sourceMap!sass?sourceMap')
       },
       {
         test: /\.md$/,
@@ -57,10 +57,9 @@ const common = {
     return [ autoprefixer({ browsers: [ '> 0.1%', 'last 3 versions' ] }) ];
   },
   plugins: [
-    new WebpackNotifierPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'react-ui-library' }),
     new StyleLintPlugin({ syntax: 'scss' }),
-    new ExtractTextPlugin('styleguide.css'),
+    new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       template: './styleguide/styleguide.html',
       inject: 'body',
@@ -87,6 +86,14 @@ const common = {
 
 const dev = {
   entry: {
+    'react-ui-library': [
+      'babel-polyfill',
+      'webpack-dev-server/client?http://localhost:8080/',
+      // 'webpack/hot/only-dev-server',
+      // reloads if it can't hot replace
+      'webpack/hot/dev-server',
+      './src/index.js'
+    ],
     styleguide: [
       'babel-polyfill',
       'webpack-dev-server/client?http://localhost:8080/',
@@ -95,15 +102,17 @@ const dev = {
       'webpack/hot/dev-server',
       './styleguide/styleguide.js'
     ]
-  }
+  },
+  plugins: [
+    new WebpackNotifierPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
 
 const dist = {
   entry: {
-    styleguide: [
-      'babel-polyfill',
-      './styleguide/styleguide.js'
-    ]
+    'react-ui-library': [ './src/index.js' ],
+    styleguide: [ './styleguide/styleguide.js' ]
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
