@@ -59,8 +59,9 @@
     "classnames": "^2.2.5",
     "normalize.css": "^5.0.0",
     "react": "^15.4.0",
-    "react-children-utilities": "^0.1.4",
-    "react-dom": "^15.4.0"
+    "react-children-utilities": "^0.1.5",
+    "react-dom": "^15.4.0",
+    "react-router": "^3.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.3",

@@ -20,6 +20,14 @@
   }
 }
 
-.components > div {
-  margin-bottom: 48px;
+.styleguide {
+  padding-bottom: 48px;
+
+  nav a {
+    display: inline-block;
+
+    + a {
+      margin-left: 12px;
+    }
+  }
 }
