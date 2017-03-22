@@ -29,32 +29,6 @@
     "prepush": "npm run -s check",
     "preparecommitmsg": "prepare-commit-msg-angular $2 $3"
   },
-  "nyc": {
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "all": true,
-    "require": [
-      "babel-register"
-    ],
-    "include": [
-      "src/"
-    ],
-    "exclude": [
-      "dist/**",
-      "node_modules/**",
-      "src/utils/test.js",
-      "src/**/*.spec.js"
-    ],
-    "sourceMap": false,
-    "instrument": false,
-    "check-coverage": true,
-    "lines": 100,
-    "functions": 100,
-    "branches": 100,
-    "statements": 100
-  },
   "dependencies": {
     "classnames": "^2.2.5",
     "normalize.css": "^5.0.0",
