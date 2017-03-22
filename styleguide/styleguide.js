@@ -1,6 +1,6 @@
 import '../src/index.js';
 import './styleguide.scss';
-import { hashHistory, Link, Route, Router } from 'react-router';
+import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
 import React, { PropTypes } from 'react';
 import ButtonComponent from '../src/button/button.md';
 import classNames from 'classnames';
@@ -22,46 +22,43 @@ const md = new MobileDetect(window.navigator.userAgent);
  * @param {Object} props    - React props
  * @returns  {JSX} template - Component template
  */
-function StyleGuide(props) {
+function StyleGuide() {
   const cssClasses = classNames(
     'styleguide',
     'container',
     { mobile: md.mobile(), desktop: !md.mobile() }
   );
   return (
-    <div className={ cssClasses }>
-      <h1>Style Guide</h1>
-      <nav>
-        <Link to="typography">Typography</Link>
-        <Link to="link">Link</Link>
-        <Link to="layout">Layout</Link>
-        <Link to="hello-world">Hello World</Link>
-        <Link to="button">Button</Link>
-        <Link to="dropdown">dropdown</Link>
-        <Link to="panel">Panel</Link>
-        <Link to="field">Field</Link>
-        <Link to="form">Form</Link>
-      </nav>
-      { props.children }
-    </div>
+    <Router>
+      <div className={ cssClasses }>
+        <Link to="/"><h1 className="main-link">Style Guide</h1></Link>
+        <nav>
+          <Link to="/typography">Typography</Link>
+          <Link to="/link">Link</Link>
+          <Link to="/layout">Layout</Link>
+          <Link to="/hello-world">Hello World</Link>
+          <Link to="/button">Button</Link>
+          <Link to="/dropdown">dropdown</Link>
+          <Link to="/panel">Panel</Link>
+          <Link to="/field">Field</Link>
+          <Link to="/form">Form</Link>
+        </nav>
+
+        <Route component={ () => <div /> } exact path="/" />
+        <Route component={ TypographyComponent } path="/typography" />
+        <Route component={ LinkComponent } path="/link" />
+        <Route component={ LayoutComponent } path="/layout" />
+        <Route component={ HelloWorldComponent } path="/hello-world" />
+        <Route component={ ButtonComponent } path="/button" />
+        <Route component={ DropdownComponent } path="/dropdown" />
+        <Route component={ PanelComponent } path="/panel" />
+        <Route component={ FieldComponent } path="/field" />
+        <Route component={ FormComponent } path="/form" />
+      </div>
+    </Router>
   );
 }
 
 StyleGuide.propTypes = { children: PropTypes.node };
 
-render((
-  <Router history={ hashHistory }>
-    <Route component={ StyleGuide } path="/">
-      <Route component={ TypographyComponent } path="typography" />
-      <Route component={ LinkComponent } path="link" />
-      <Route component={ LayoutComponent } path="layout" />
-      <Route component={ HelloWorldComponent } path="hello-world" />
-      <Route component={ ButtonComponent } path="button" />
-      <Route component={ DropdownComponent } path="dropdown" />
-      <Route component={ PanelComponent } path="panel" />
-      <Route component={ FieldComponent } path="field" />
-      <Route component={ FormComponent } path="form" />
-    </Route>
-  </Router>
-  ), document.getElementById('root')
-);
+render(<StyleGuide />, document.getElementById('root'));

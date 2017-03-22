@@ -20,41 +20,61 @@ const common = {
     'react-dom': 'ReactDOM'
   },
   resolve: {
-    modulesDirectories: [ 'node_modules' ],
-    extensions: [ '', '.js' ]
+    modules: [ 'node_modules' ],
+    extensions: [ '.js' ]
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        use: [ 'babel-loader' ],
+        enforce: 'post'
       },
       {
-        test: /\.json/,
-        loader: 'json'
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [ 'eslint-loader' ],
+        enforce: 'pre'
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap&minimize!postcss?sourceMap!sass?sourceMap')
+        use: ExtractTextPlugin.extract({
+          // fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: { sourceMap: true }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+                plugins() { return [ autoprefixer ]; }
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                outputStyle: 'expanded',
+                sourceMap: true
+              }
+            }
+          ]
+        }),
+        enforce: 'post'
+      },
+      {
+        test: /\.json$/,
+        use: [ 'json-loader' ],
+        enforce: 'post'
       },
       {
         test: /\.md$/,
-        loader: 'babel!react-markdown'
-      }
-    ],
-    preLoaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint'
+        use: [ 'babel-loader', 'react-markdown-loader' ],
+        enforce: 'post'
       }
     ]
-  },
-  eslint: { failOnError: false },
-  sassLoader: { outputStyle: 'expanded' },
-  postcss() {
-    return [ autoprefixer({ browsers: [ '> 0.1%', 'last 3 versions' ] }) ];
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({ name: 'react-ui-library' }),
@@ -75,6 +95,7 @@ const common = {
   devServer: {
     hot: true,
     port: 8080,
+    historyApiFallback: true,
     stats: {
       colors: true,
       chunks: false,
@@ -88,24 +109,17 @@ const dev = {
   entry: {
     'react-ui-library': [
       'babel-polyfill',
-      'webpack-dev-server/client?http://localhost:8080/',
-      // 'webpack/hot/only-dev-server',
-      // reloads if it can't hot replace
-      'webpack/hot/dev-server',
       './src/index.js'
     ],
     styleguide: [
       'babel-polyfill',
-      'webpack-dev-server/client?http://localhost:8080/',
-      // 'webpack/hot/only-dev-server',
-      // reloads if it can't hot replace
-      'webpack/hot/dev-server',
       './styleguide/styleguide.js'
     ]
   },
   plugins: [
     new WebpackNotifierPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
   ]
 };
 
@@ -115,15 +129,13 @@ const dist = {
     styleguide: [ './styleguide/styleguide.js' ]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, output: { comments: false } })
+    new webpack.optimize.UglifyJsPlugin({ sourceMap: true })
   ]
 };
 
 
-if (TARGET === 'dist') {
-  module.exports = merge(common, dist);
-}
-
-if (TARGET === 'start') {
+if (TARGET === 'start' || TARGET === 'test') {
   module.exports = merge(common, dev);
+} else {
+  module.exports = merge(common, dist);
 }
