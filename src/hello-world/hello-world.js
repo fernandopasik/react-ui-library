@@ -1,5 +1,6 @@
 import './hello-world.scss';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Says hello to who

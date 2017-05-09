@@ -1,7 +1,8 @@
 /* eslint-disable react/no-set-state */
 import './field.scss';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import Select from './select.js';
 
 /**

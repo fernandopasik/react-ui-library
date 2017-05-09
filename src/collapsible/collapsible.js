@@ -1,5 +1,6 @@
 /* eslint-disable react/no-set-state, react/no-did-mount-set-state */
-import React, { cloneElement, Component, PropTypes } from 'react';
+import React, { cloneElement, Component } from 'react';
+import PropTypes from 'prop-types';
 
 const transitionTime = 400;
 

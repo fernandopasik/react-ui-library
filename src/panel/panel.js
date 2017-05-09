@@ -1,7 +1,8 @@
 import './panel.scss';
-import React, { PropTypes } from 'react';
 import Children from 'react-children-utilities';
 import Collapsible from '../collapsible/collapsible.js';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Panel

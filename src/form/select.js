@@ -1,8 +1,9 @@
 /* eslint-disable react/no-set-state */
 import './select.scss';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import Dropdown from '../dropdown/dropdown.js';
+import PropTypes from 'prop-types';
 
 /**
  * Select

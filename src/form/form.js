@@ -1,8 +1,9 @@
 /* eslint-disable react/no-set-state */
 import './form.scss';
-import React, { cloneElement, Component, PropTypes } from 'react';
+import React, { cloneElement, Component } from 'react';
 import Children from 'react-children-utilities';
 import Field from './field.js';
+import PropTypes from 'prop-types';
 
 /**
  * Form

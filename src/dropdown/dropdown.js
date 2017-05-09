@@ -1,8 +1,9 @@
 /* eslint-disable react/no-set-state */
 import './dropdown.scss';
-import React, { cloneElement, Component, PropTypes } from 'react';
+import React, { cloneElement, Component } from 'react';
 import Button from '../button/button.js';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const optionHeight = 48;
 

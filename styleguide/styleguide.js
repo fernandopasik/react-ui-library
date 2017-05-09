@@ -1,7 +1,6 @@
 import '../src/index.js';
 import './styleguide.scss';
 import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
-import React, { PropTypes } from 'react';
 import ButtonComponent from '../src/button/button.md';
 import classNames from 'classnames';
 import DropdownComponent from '../src/dropdown/dropdown.md';
@@ -12,6 +11,8 @@ import LayoutComponent from '../src/base/layout.md';
 import LinkComponent from '../src/base/link.md';
 import MobileDetect from 'mobile-detect';
 import PanelComponent from '../src/panel/panel.md';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { render } from 'react-dom';
 import TypographyComponent from '../src/base/typography.md';
 
