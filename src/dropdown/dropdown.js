@@ -200,7 +200,7 @@ export default class Dropdown extends Component {
    */
   handleOptionSelected(value) {
     return event => {
-      const code = event.keyCode || event.which;
+      const code = event.key || event.keyCode || event.which;
       if (code === 13 || code === 32 || !code) {
         this.select(value);
       }
