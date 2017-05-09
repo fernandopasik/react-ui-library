@@ -1,12 +1,12 @@
-import { jsdom } from 'jsdom';
+import jsdom from 'jsdom';
 
+const { JSDOM } = jsdom;
 const exposedProperties = [ 'window', 'navigator', 'document' ];
 
-global.document = jsdom(
-  '<!doctype html><html><head></head><body></body></html>'
-);
+const dom = new JSDOM('<!doctype html><html><head></head><body></body></html>');
 
-global.window = document.defaultView;
+global.window = dom.window;
+global.document = dom.window.document;
 
 Object.keys(document.defaultView).forEach(property => {
   if (typeof global[property] === 'undefined') {
