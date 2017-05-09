@@ -15,7 +15,7 @@
   ],
   "sourceMap": false,
   "instrument": false,
-  "check-coverage": true,
+  "check-coverage": false,
   "lines": 100,
   "functions": 100,
   "branches": 100,
