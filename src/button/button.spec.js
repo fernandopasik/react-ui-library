@@ -1,66 +1,65 @@
 import Button from './button.js';
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
 
 describe('Button', () => {
 
   it('can have a label', () => {
-    expect(shallow(<Button caption="Accept" />)).to.have.text('Accept');
+    expect(shallow(<Button caption="Accept" />)).toHaveText('Accept');
   });
 
   it('can have content', () => {
     const wrapper = shallow(<Button><span>Accept</span></Button>);
-    expect(wrapper).to.have.exactly(1).descendants('span');
-    expect(wrapper.find('span')).to.have.text('Accept');
+    expect(wrapper.find('span')).toBePresent();
+    expect(wrapper.find('span')).toHaveText('Accept');
   });
 
   it('if it has label, content is ignored', () => {
     const wrapper = shallow(<Button caption="Accept"><span>Ignored</span></Button>);
-    expect(wrapper).to.have.text('Accept');
-    expect(wrapper).to.not.have.descendants('span');
+    expect(wrapper).toHaveText('Accept');
+    expect(wrapper.find('span')).not.toBePresent();
   });
 
   it('when click executes handler', () => {
-    const handler = spy();
+    const handler = jest.fn();
     const wrapper = shallow(<Button caption="Accept" onClick={ handler } />);
     wrapper.simulate('click');
-    expect(handler).to.have.been.called();
+    expect(handler).toHaveBeenCalled();
   });
 
   it('can be disabled', () => {
-    expect(shallow(<Button caption="Accept" disabled />)).to.be.disabled();
+    expect(shallow(<Button caption="Accept" disabled />)).toBeDisabled();
   });
 
   it('can be set as active', () => {
-    expect(shallow(<Button active caption="Accept" />)).to.have.className('active');
+    expect(shallow(<Button active caption="Accept" />)).toHaveClassName('active');
   });
 
   it('can have a custom id or class set', () => {
     const wrapper = shallow(<Button caption="Accept" className="test" id="test1" />);
-    expect(wrapper).to.have.className('test');
-    expect(wrapper).to.have.id('test1');
+    expect(wrapper).toHaveClassName('test');
+    expect(wrapper).toHaveProp('id', 'test1');
   });
 
   it('display types include primary and link', () => {
     const element = display => <Button caption="Accept" display={ display } />;
-    expect(shallow(element('primary'))).to.have.className('primary');
-    expect(shallow(element('link'))).to.have.className('link');
+    expect(shallow(element('primary'))).toHaveClassName('primary');
+    expect(shallow(element('link'))).toHaveClassName('link');
   });
 
   it('type attribute for forms can be set', () => {
     const element = type => <Button caption="Accept" type={ type } />;
-    expect(shallow(element('submit'))).to.have.attr('type', 'submit');
-    expect(shallow(element('reset'))).to.have.attr('type', 'reset');
+    expect(shallow(element('submit'))).toHaveProp('type', 'submit');
+    expect(shallow(element('reset'))).toHaveProp('type', 'reset');
   });
 
   it('can have different sizes', () => {
     const element = size => <Button caption="Accept" size={ size } />;
-    expect(shallow(element('large'))).to.have.className('large');
-    expect(shallow(element('small'))).to.have.className('small');
+    expect(shallow(element('large'))).toHaveClassName('large');
+    expect(shallow(element('small'))).toHaveClassName('small');
   });
 
   it('can span full width', () => {
-    expect(shallow(<Button block caption="Accept" />)).to.have.className('block');
+    expect(shallow(<Button block caption="Accept" />)).toHaveClassName('block');
   });
 });
