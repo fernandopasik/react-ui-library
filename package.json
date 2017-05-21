@@ -1,6 +1,6 @@
 {
   "name": "react-ui-library",
-  "version": "0.13.13",
+  "version": "0.13.14",
   "description": "UI Component library made with React",
   "keywords": [],
   "homepage": "https://github.com/fernandopasik/react-ui-library",
@@ -37,7 +37,7 @@
     "moduleNameMapper": {
       "\\.(scss)$": "<rootDir>/test/setup.sass.js"
     },
-    "coveragePathIgnorePatterns" : [
+    "coveragePathIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/src/utils/",
       "<rootDir>/test/"
