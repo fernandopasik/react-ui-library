@@ -33,7 +33,12 @@
     "setupTestFrameworkScriptFile": "<rootDir>/test/setup.js",
     "moduleNameMapper": {
       "\\.(scss)$": "<rootDir>/test/setup.sass.js"
-    }
+    },
+    "coveragePathIgnorePatterns" : [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/utils/",
+      "<rootDir>/test/"
+    ]
   },
   "dependencies": {
     "classnames": "^2.2.5",

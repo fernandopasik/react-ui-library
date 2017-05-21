@@ -3,7 +3,6 @@ import { mount, shallow } from 'enzyme';
 import Field from './field.js';
 import React from 'react';
 import Select from './select.js';
-// import { setReactRoot } from '../utils/test-utils.js';
 
 describe('Field', () => {
 
@@ -162,9 +161,18 @@ describe('Field', () => {
       const wrapper = mount(<Field id="user" label="User" name="user" required />);
       const $input = wrapper.find('input');
       expect(wrapper.find('.field-error')).not.toBePresent();
-      expect(wrapper).not.toHaveClassName('invalid');
+      expect(wrapper.find('.field')).not.toHaveClassName('invalid');
       expect($input).not.toHaveProp('aria-invalid');
       expect($input).not.toHaveProp('aria-describedby');
+    });
+
+    it('can be forced on mount', () => {
+      const wrapper = mount(<Field id="user" label="User" name="user" required validate />);
+      const $input = wrapper.find('input');
+      expect(wrapper.find('.field-error')).toBePresent();
+      expect(wrapper.find('.field')).toHaveClassName('invalid');
+      expect($input).toHaveProp('aria-invalid');
+      expect($input).toHaveProp('aria-describedby');
     });
   });
 
