@@ -116,11 +116,11 @@ export default class Select extends Component {
           tabIndex="-1"
         >
           { placeholder && <option value="">{ placeholder }</option> }
-          { options && options.map((option, id) =>
+          { options && options.map((option, id) => (
             <option key={ id } value={ option.value || option }>
               { option.label || option }
             </option>
-          ) }
+          )) }
         </select>
       </div>
     );

@@ -251,7 +251,7 @@ export default class Dropdown extends Component {
             role="listbox"
             style={ listStyle }
           >
-            { options && options.map((option, index) =>
+            { options && options.map((option, index) => (
               <li
                 className={ classnames('option', { focus: this.state.optionFocused === index }) }
                 key={ index }
@@ -265,7 +265,7 @@ export default class Dropdown extends Component {
               >
                 { option.label || option }
               </li>
-            ) }
+            )) }
           </ul>
         }
       </div>
