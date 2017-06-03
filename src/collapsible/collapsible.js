@@ -10,7 +10,7 @@ const transitionTime = 400;
 export default class Collapsible extends Component {
 
   /**
-   * constructor
+   * Constructor
    * @param {Object} props - React props
    */
   constructor(props) {

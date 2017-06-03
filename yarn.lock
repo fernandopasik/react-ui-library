@@ -2186,9 +2186,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-fernandopasik@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-fernandopasik/-/eslint-config-fernandopasik-0.7.3.tgz#1c4145a3a1bf61583c8eea34e5777a52a5351eab"
+eslint-config-fernandopasik@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-fernandopasik/-/eslint-config-fernandopasik-0.8.2.tgz#87d7a62ef3ad8f4c5121962b5a291b46e6698743"
 
 eslint-loader@^1.7.1:
   version "1.7.1"

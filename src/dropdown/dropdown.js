@@ -15,7 +15,7 @@ const optionHeight = 48;
 export default class Dropdown extends Component {
 
   /**
-   * constructor
+   * Constructor
    * @param {Object} props - React props
    */
   constructor(props) {
@@ -149,33 +149,33 @@ export default class Dropdown extends Component {
     // istanbul ignore next
     const code = event.keyCode || event.which;
     switch (code) {
-        case 38: // up arrow
-          event.preventDefault();
-          if (optionFocused > 0) {
-            this.setFocusedOption(optionFocused - 1);
-          }
-          break;
-        case 40: // down arrow
-          event.preventDefault();
-          if (optionFocused === null) {
-            this.setFocusedOption(optionFocused - 0);
-          } else if (optionFocused < options.length - 1) {
-            this.setFocusedOption(optionFocused + 1);
-          }
-          break;
-        case 13: // enter
-        case 32: // space
-          event.preventDefault();
-          if (optionFocused !== null && isOpen) {
-            this.select(options[optionFocused]);
-          }
-          break;
-        case 27: // esc
-          event.preventDefault();
-          this.close();
-          break;
-        default:
-          break;
+      case 38: // Up arrow
+        event.preventDefault();
+        if (optionFocused > 0) {
+          this.setFocusedOption(optionFocused - 1);
+        }
+        break;
+      case 40: // Down arrow
+        event.preventDefault();
+        if (optionFocused === null) {
+          this.setFocusedOption(optionFocused - 0);
+        } else if (optionFocused < options.length - 1) {
+          this.setFocusedOption(optionFocused + 1);
+        }
+        break;
+      case 13: // Enter
+      case 32: // Space
+        event.preventDefault();
+        if (optionFocused !== null && isOpen) {
+          this.select(options[optionFocused]);
+        }
+        break;
+      case 27: // Esc
+        event.preventDefault();
+        this.close();
+        break;
+      default:
+        break;
     }
   }
 

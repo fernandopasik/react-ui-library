@@ -14,7 +14,7 @@ import Select from './select.js';
 export default class Field extends Component {
 
   /**
-   * constructor
+   * Constructor
    * @param {Object} props - React props
    */
   constructor(props) {

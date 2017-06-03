@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 export default class Select extends Component {
 
   /**
-   * constructor
+   * Constructor
    * @param {Object} props - React props
    */
   constructor(props) {
