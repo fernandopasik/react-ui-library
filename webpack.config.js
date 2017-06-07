@@ -11,13 +11,21 @@ const
 const TARGET = process.env.npm_lifecycle_event;
 
 const common = {
+  entry: {
+    vendor: [
+      'babel-polyfill',
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'prop-types',
+      'react-children-utilities'
+    ],
+    'react-ui-library': [ './src/index.js' ],
+    styleguide: [ './styleguide/styleguide.js' ]
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js'
-  },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM'
   },
   resolve: {
     modules: [ 'node_modules' ],
@@ -76,7 +84,7 @@ const common = {
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: 'react-ui-library' }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     new StyleLintPlugin({ syntax: 'scss' }),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
@@ -105,16 +113,6 @@ const common = {
 };
 
 const dev = {
-  entry: {
-    'react-ui-library': [
-      'babel-polyfill',
-      './src/index.js'
-    ],
-    styleguide: [
-      'babel-polyfill',
-      './styleguide/styleguide.js'
-    ]
-  },
   plugins: [
     new WebpackNotifierPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -123,10 +121,6 @@ const dev = {
 };
 
 const dist = {
-  entry: {
-    'react-ui-library': [ './src/index.js' ],
-    styleguide: [ './styleguide/styleguide.js' ]
-  },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ sourceMap: true })
   ]
