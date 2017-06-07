@@ -1,0 +1,40 @@
+.example .run {
+  padding: 12px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.example .source {
+  background-color: #333;
+  color: #ccc;
+  padding: 12px;
+}
+
+.example .source pre {
+  margin: 0;
+}
+
+.example .source code {
+  white-space: pre-wrap;
+}
+
+.styleguide {
+  padding-bottom: 48px;
+}
+
+.styleguide nav a {
+  display: inline-block;
+}
+
+.styleguide nav a + a {
+  margin-left: 12px;
+}
+
+.main-link {
+  color: #000;
+}
+.hello-world {
+  color: #3a99d8;
+}
+
+/*# sourceMappingURL=styleguide.css.map*/
