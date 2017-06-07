@@ -1,6 +1,6 @@
 import '../src/index.js';
 import './styleguide.scss';
-import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Link, Route, HashRouter as Router } from 'react-router-dom';
 import ButtonComponent from '../src/button/button.md';
 import classNames from 'classnames';
 import DropdownComponent from '../src/dropdown/dropdown.md';
