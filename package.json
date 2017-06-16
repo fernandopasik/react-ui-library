@@ -16,9 +16,8 @@
   "scripts": {
     "start": "webpack-dev-server --open --inline",
     "lint": "eslint . && stylelint 'styleguide/*.scss' 'src/**/*.scss' --syntax scss",
-    "test": "jest",
-    "coverage": "jest --coverage",
-    "check": "npm run -s lint && npm run -s coverage",
+    "test": "jest --coverage",
+    "check": "npm run -s lint && npm test",
     "build": "npm run -s check && npm run build:js && npm run copy:scss",
     "prebuild": "rm -rf lib",
     "build:js": "babel src --out-dir lib --ignore spec.js",
@@ -26,23 +25,12 @@
     "dist": "rm -rf dist && webpack",
     "deploy": "npm run -s dist && gh-pages -d dist",
     "prepublishOnly": "npm run -s build",
-    "watch": "npm run test -- -w & npm start",
+    "watch": "npm test -- -w & npm start",
     "preversion": "npm run -s check",
     "commitmsg": "validate-commit-msg",
     "precommit": "npm run -s lint",
     "prepush": "npm run -s check",
     "preparecommitmsg": "prepare-commit-msg-angular $2 $3"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/test/setup.js",
-    "moduleNameMapper": {
-      "\\.(scss)$": "<rootDir>/test/setup.sass.js"
-    },
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/src/utils/",
-      "<rootDir>/test/"
-    ]
   },
   "dependencies": {
     "classnames": "^2.2.5",
