@@ -20,4 +20,4 @@ coverage
 
 # build and temp folders
 !dist
-!lib
+deploy
