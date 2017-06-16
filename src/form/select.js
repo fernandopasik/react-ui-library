@@ -1,9 +1,8 @@
-/* eslint-disable react/no-set-state */
-import './select.scss';
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import Dropdown from '../dropdown/dropdown.js';
 import PropTypes from 'prop-types';
+import './select.scss';
+import Dropdown from '../dropdown/dropdown';
 
 /**
  * Select
@@ -28,7 +27,7 @@ export default class Select extends Component {
    * Forward checkValidity to the select element
    */
   checkValidity() {
-    this._select.checkValidity();
+    this.select.checkValidity();
   }
 
   /**
@@ -51,11 +50,11 @@ export default class Select extends Component {
    */
   handleDropdown(value) {
     // istanbul ignore else
-    if (value !== this._select.value) {
+    if (value !== this.select.value) {
       this.setState({ value });
-      this._select.value = value;
+      this.select.value = value;
       const event = new window.Event('change', { bubbles: true });
-      this._select.dispatchEvent(event);
+      this.select.dispatchEvent(event);
       if (this.props.onChange) {
         this.props.onChange(event);
       }
@@ -79,15 +78,14 @@ export default class Select extends Component {
    */
   render() {
     let dropdownOptions = [];
-    const
-      { className, onInvalid, options, placeholder, ...other } = this.props,
-      { focus } = this.state;
+    const { className, onInvalid, options, placeholder, ...other } = this.props;
+    const { focus } = this.state;
     const selectCSS = classnames('selected-option', className, { focus });
 
     if (placeholder) {
       dropdownOptions = dropdownOptions.concat(
         options && options[0] && options[0].value
-          ? { value: '', label: placeholder } : placeholder
+          ? { value: '', label: placeholder } : placeholder,
       );
     }
 
@@ -99,25 +97,25 @@ export default class Select extends Component {
       <div className="select">
         <Dropdown
           aria-hidden="true"
-          onSelect={ this.handleDropdown }
-          options={ dropdownOptions }
+          onSelect={this.handleDropdown}
+          options={dropdownOptions}
         >
-          <div className={ selectCSS }>
+          <div className={selectCSS}>
             { this.state.value || placeholder || '\u00a0' }
           </div>
         </Dropdown>
         <select
-          { ...other }
-          onBlur={ this.handleBlur }
-          onChange={ this.handleSelect }
-          onFocus={ this.handleFocus }
-          onInvalid={ onInvalid }
-          ref={ ref => { this._select = ref; } }
+          {...other}
+          onBlur={this.handleBlur}
+          onChange={this.handleSelect}
+          onFocus={this.handleFocus}
+          onInvalid={onInvalid}
+          ref={(ref) => { this.select = ref; }}
           tabIndex="-1"
         >
           { placeholder && <option value="">{ placeholder }</option> }
           { options && options.map((option, id) => (
-            <option key={ id } value={ option.value || option }>
+            <option key={id} value={option.value || option}>
               { option.label || option }
             </option>
           )) }
@@ -136,8 +134,8 @@ Select.propTypes = {
     PropTypes.string,
     PropTypes.shape({
       value: PropTypes.string,
-      label: PropTypes.string
-    })
+      label: PropTypes.string,
+    }),
   ])),
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };

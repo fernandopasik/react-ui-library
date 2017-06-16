@@ -1,4 +1,4 @@
-/* eslint-disable react/no-set-state, react/no-did-mount-set-state */
+/* eslint-disable react/no-did-mount-set-state */
 import React, { cloneElement, Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -26,8 +26,8 @@ export default class Collapsible extends Component {
     this.setState({
       style: {
         height: this.props.collapsed ? 0 : this.height,
-        overflow: this.props.collapsed ? 'hidden' : 'visible'
-      }
+        overflow: this.props.collapsed ? 'hidden' : 'visible',
+      },
     });
   }
 
@@ -51,6 +51,15 @@ export default class Collapsible extends Component {
     }
   }
 
+  // istanbul ignore next
+  /**
+   * Measure content's height
+   * @returns {string} - Height in pixels
+   */
+  getHeight() {
+    return this.content.getBoundingClientRect().height;
+  }
+
   /**
    * Collapse or uncollapse
    * changing height and overflow
@@ -62,28 +71,19 @@ export default class Collapsible extends Component {
       style: {
         height: collapsed ? 0 : this.height,
         transition: `height ${transitionTime / 1000}s ease-out`,
-        overflow: 'hidden'
-      }
+        overflow: 'hidden',
+      },
     });
 
     setTimeout(() => {
       this.setState({
         style: {
           height: collapsed ? 0 : this.getHeight(),
-          overflow: collapsed ? 'hidden' : 'visible'
-        }
+          overflow: collapsed ? 'hidden' : 'visible',
+        },
       });
       this.updating = false;
     }, transitionTime);
-  }
-
-  // istanbul ignore next
-  /**
-   * Measure content's height
-   * @returns {string} - Height in pixels
-   */
-  getHeight() {
-    return this._content.getBoundingClientRect().height;
   }
 
   /**
@@ -91,20 +91,18 @@ export default class Collapsible extends Component {
    * @returns {JSX} - Component template
    */
   render() {
+    const { children } = this.props;
+    const { style } = this.state;
+    const child = cloneElement(children, {
+      ...children.props,
+      ref: (content) => { this.content = content; },
+    });
 
-    const
-      { children } = this.props,
-      { style } = this.state,
-      child = cloneElement(children, {
-        ...children.props,
-        ref: content => { this._content = content; }
-      });
-
-    return <div className="collapsible" style={ style }>{ child }</div>;
+    return <div className="collapsible" style={style}>{ child }</div>;
   }
 }
 
 Collapsible.propTypes = {
   children: PropTypes.element,
-  collapsed: PropTypes.bool
+  collapsed: PropTypes.bool,
 };

@@ -1,13 +1,10 @@
-/* eslint-disable max-lines */
-import { mount, shallow } from 'enzyme';
-import Field from './field.js';
 import React from 'react';
-import Select from './select.js';
+import { mount, shallow } from 'enzyme';
+import Field from './field';
+import Select from './select';
 
 describe('Field', () => {
-
   describe('form element', () => {
-
     it('spans an input element', () => {
       expect(shallow(<Field />).find('input')).toHaveLength(1);
     });
@@ -75,20 +72,20 @@ describe('Field', () => {
     });
 
     it('number validation attributes can be set', () => {
-      const $input = shallow(<Field max={ 3 } min={ 1 } step={ 1 } type="number" />).find('input');
+      const $input = shallow(<Field max={3} min={1} step={1} type="number" />).find('input');
       expect($input).toHaveProp('max', 3);
       expect($input).toHaveProp('min', 1);
       expect($input).toHaveProp('step', 1);
     });
 
     it('text length validation attributes can be set', () => {
-      const $input = shallow(<Field maxLength={ 3 } minLength={ 1 } />).find('input');
+      const $input = shallow(<Field maxLength={3} minLength={1} />).find('input');
       expect($input).toHaveProp('maxLength', 3);
       expect($input).toHaveProp('minLength', 1);
     });
 
     it('other input attributes can be set', () => {
-      const $input = shallow(<Field autoComplete autoFocus size={ 20 } spellCheck tabIndex={ -1 } />).find('input');
+      const $input = shallow(<Field autoComplete autoFocus size={20} spellCheck tabIndex={-1} />).find('input');
       expect($input).toHaveProp('autoComplete');
       expect($input).toHaveProp('autoFocus');
       expect($input).toHaveProp('spellCheck');
@@ -98,7 +95,6 @@ describe('Field', () => {
   });
 
   describe('label', () => {
-
     it('render', () => {
       const $label = shallow(<Field id="user" label="User Name" name="user" />).find('label');
       expect($label).toBePresent();
@@ -121,7 +117,6 @@ describe('Field', () => {
   });
 
   describe('display inline', () => {
-
     it('no divs present', () => {
       const wrapper = shallow(<Field id="user" inline name="user" />);
       expect(wrapper).toHaveClassName('inline');
@@ -142,7 +137,6 @@ describe('Field', () => {
   });
 
   describe('error message', () => {
-
     it('render', () => {
       let $error = '';
       const wrapper = mount(<Field id="user" label="User" name="user" required />);
@@ -177,10 +171,9 @@ describe('Field', () => {
   });
 
   describe('events', () => {
-
     it('onChange handler on simple input', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Field id="user" name="user" onChange={ handler } />);
+      const wrapper = mount(<Field id="user" name="user" onChange={handler} />);
       wrapper.find('input').simulate('change', { target: { value: 'Fernando' } });
       expect(handler).toHaveBeenCalled();
       expect(handler).toHaveBeenCalledWith('Fernando');
@@ -194,10 +187,10 @@ describe('Field', () => {
           id="color"
           label="Choose a color"
           name="color"
-          onChange={ handler }
-          options={ [ 'red', 'green', 'blue' ] }
+          onChange={handler}
+          options={['red', 'green', 'blue']}
           placeholder="Choose a color"
-        />
+        />,
       );
       wrapper.find(Select).find('select').simulate('change', { target: { value: 'green' } });
       expect(handler).toHaveBeenCalled();
@@ -206,7 +199,6 @@ describe('Field', () => {
   });
 
   describe('validation', () => {
-
     it('if no invalid event then error hidden', () => {
       const wrapper = mount(<Field id="email" name="email" type="email" />);
       const $input = wrapper.find('input');
@@ -248,7 +240,9 @@ describe('Field', () => {
     });
 
     it.skip('if validate prop then do validation from mount', () => {
-      const wrapper = mount(<Field defaultValue="notanemail" id="email" name="email" type="email" validate />);
+      const wrapper = mount(
+        <Field defaultValue="notanemail" id="email" name="email" type="email" validate />,
+      );
       expect(wrapper).toHaveState('invalid', true);
       expect(wrapper).toHaveState('errorMessage', 'This value is not an email.');
     });
@@ -261,14 +255,18 @@ describe('Field', () => {
     });
 
     it('type', () => {
-      const wrapper = mount(<Field defaultValue="notanemail" id="email" name="email" type="email" />);
+      const wrapper = mount(
+        <Field defaultValue="notanemail" id="email" name="email" type="email" />,
+      );
       wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
       expect(wrapper).toHaveState('invalid', true);
       expect(wrapper).toHaveState('errorMessage', 'This value is not an email.');
     });
 
     it('pattern', () => {
-      const wrapper = mount(<Field defaultValue="(11)123456789" id="tel" name="tel" pattern="^[\d]*$" type="tel" />);
+      const wrapper = mount(
+        <Field defaultValue="(11)123456789" id="tel" name="tel" pattern="^[\d]*$" type="tel" />,
+      );
       wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
       expect(wrapper).toHaveState('invalid', true);
       expect(wrapper).toHaveState('errorMessage', 'This value is invalid.');
@@ -282,7 +280,9 @@ describe('Field', () => {
     });
 
     it('type comes before pattern', () => {
-      const wrapper = mount(<Field defaultValue="notanemail" id="email" name="email" pattern="^[\d]*$" type="email" />);
+      const wrapper = mount(
+        <Field defaultValue="notanemail" id="email" name="email" pattern="^[\d]*$" type="email" />,
+      );
       wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
       expect(wrapper).toHaveState('invalid', true);
       expect(wrapper).toHaveState('errorMessage', 'This value is not an email.');
@@ -295,7 +295,7 @@ describe('Field', () => {
           id="user"
           name="user"
           required
-        />
+        />,
       );
       wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
       expect(wrapper).toHaveState('invalid', true);
@@ -310,7 +310,7 @@ describe('Field', () => {
           id="email"
           name="email"
           type="email"
-        />
+        />,
       );
       wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
       expect(wrapper).toHaveState('invalid', true);
@@ -326,7 +326,7 @@ describe('Field', () => {
           name="tel"
           pattern="^[\d]*$"
           type="tel"
-        />
+        />,
       );
       wrapper.find('input').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
       expect(wrapper).toHaveState('invalid', true);
@@ -334,7 +334,6 @@ describe('Field', () => {
     });
 
     describe('Multiline or textarea', () => {
-
       it('wrap a textarea element', () => {
         expect(shallow(<Field id="comments" multiLine name="comments" />)
           .find('textarea')).toHaveLength(1);
@@ -353,7 +352,6 @@ describe('Field', () => {
     });
 
     describe('Select Field', () => {
-
       it('wrap a select component', () => {
         expect(shallow(
           <Field
@@ -361,9 +359,9 @@ describe('Field', () => {
             id="color"
             label="Choose a color"
             name="color"
-            options={ [ 'red', 'green', 'blue' ] }
+            options={['red', 'green', 'blue']}
             placeholder="Choose a color"
-          />
+          />,
         ).find(Select)).toBePresent();
       });
 
@@ -373,10 +371,10 @@ describe('Field', () => {
             component="select"
             id="color"
             name="color"
-            options={ [ 'red', 'green', 'blue' ] }
+            options={['red', 'green', 'blue']}
             placeholder="Choose a color"
             required
-          />
+          />,
         );
         const $select = wrapper.find('select');
         $select.get(0).value = 'red';
@@ -392,10 +390,10 @@ describe('Field', () => {
             component="select"
             id="color"
             name="color"
-            options={ [ 'red', 'green', 'blue' ] }
+            options={['red', 'green', 'blue']}
             placeholder="Choose a color"
             required
-          />
+          />,
         );
         const $select = wrapper.find('select');
         expect(wrapper).toHaveState('invalid', false);
@@ -412,10 +410,10 @@ describe('Field', () => {
             component="select"
             id="color"
             name="color"
-            options={ [ 'red', 'green', 'blue' ] }
+            options={['red', 'green', 'blue']}
             placeholder="Choose a color"
             required
-          />
+          />,
         );
         const $select = wrapper.find('select');
         // Activate validation
@@ -435,11 +433,11 @@ describe('Field', () => {
             component="select"
             id="color"
             name="color"
-            options={ [ 'red', 'green', 'blue' ] }
+            options={['red', 'green', 'blue']}
             placeholder="Choose a color"
             required
             validate
-          />
+          />,
         );
         expect(wrapper).toHaveState('invalid', true);
         expect(wrapper).toHaveState('errorMessage', 'This is a required field.');
@@ -451,11 +449,11 @@ describe('Field', () => {
             component="select"
             id="color"
             name="color"
-            options={ [ 'red', 'green', 'blue' ] }
+            options={['red', 'green', 'blue']}
             placeholder="Choose a color"
             required
             validate
-          />
+          />,
         );
         wrapper.find('select').get(0).dispatchEvent(new window.Event('invalid', { bubbles: true }));
         expect(wrapper).toHaveState('invalid', true);

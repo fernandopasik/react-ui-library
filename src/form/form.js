@@ -1,9 +1,8 @@
-/* eslint-disable react/no-set-state */
-import './form.scss';
 import React, { cloneElement, Component } from 'react';
-import Children from 'react-children-utilities';
-import Field from './field.js';
 import PropTypes from 'prop-types';
+import Children from 'react-children-utilities';
+import './form.scss';
+import Field from './field';
 
 /**
  * Form
@@ -29,7 +28,7 @@ export default class Form extends Component {
    * @returns {function}           - Change event handler
    */
   handleFieldChange(fieldName) {
-    return event => {
+    return (event) => {
       const values = this.state.values;
       values[fieldName] = event.target && event.target.value
         ? event.target.value : event;
@@ -43,7 +42,9 @@ export default class Form extends Component {
    */
   handleReset(event) {
     this.setState({ values: {} });
-    this.props.onReset && this.props.onReset(event);
+    if (this.props.onReset) {
+      this.props.onReset(event);
+    }
   }
 
   /**
@@ -52,7 +53,9 @@ export default class Form extends Component {
    */
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onSubmit && this.props.onSubmit(this.state.values);
+    if (this.props.onSubmit) {
+      this.props.onSubmit(this.state.values);
+    }
   }
 
   /**
@@ -60,20 +63,20 @@ export default class Form extends Component {
    * @returns {JSX} - Component template
    */
   render() {
-    const
-      { children } = this.props,
-      formChildren = Children.deepMap(children, child => {
-        if (child.type === Field) {
-          return cloneElement(child, {
-            ...child.props,
-            onChange: this.handleFieldChange(child.props.name)
-          });
-        }
-        return child;
-      }),
-      grouped = Children.groupByType(formChildren, [ 'footer' ], 'body');
+    const { children } = this.props;
+    const formChildren = Children.deepMap(children, (child) => {
+      if (child.type === Field) {
+        return cloneElement(child, {
+          ...child.props,
+          onChange: this.handleFieldChange(child.props.name),
+        });
+      }
+      return child;
+    });
+    const grouped = Children.groupByType(formChildren, ['footer'], 'body');
+
     return (
-      <form onReset={ this.handleReset } onSubmit={ this.handleSubmit }>
+      <form onReset={this.handleReset} onSubmit={this.handleSubmit}>
         { grouped.body }
         { grouped.footer
           && <div className="form-footer">{ grouped.footer }</div>
@@ -86,5 +89,5 @@ export default class Form extends Component {
 Form.propTypes = {
   children: PropTypes.node,
   onReset: PropTypes.func,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
 };

@@ -4,7 +4,6 @@
  * @returns {node} Existing or new "root" node
  */
 export function setReactRoot() {
-
   let root = document.getElementById('root');
 
   if (root) {
@@ -27,7 +26,6 @@ export function setReactRoot() {
  * @returns {string} CSS value corresponding to the property
  */
 export function getCSSValue(element, property) {
-
   let value;
 
   // istanbul ignore if

@@ -1,14 +1,12 @@
-/* eslint-disable max-statements */
-import { mount, shallow } from 'enzyme';
-import Dropdown from '../dropdown/dropdown.js';
 import React from 'react';
-import Select from './select.js';
-import { setReactRoot } from '../utils/test-utils.js';
+import { mount, shallow } from 'enzyme';
+import Dropdown from '../dropdown/dropdown';
+import Select from './select';
+import { setReactRoot } from '../utils/test-utils';
 
-const options = [ 'red', 'green', 'blue' ];
+const options = ['red', 'green', 'blue'];
 
 describe('Select', () => {
-
   it('select element without options', () => {
     const wrapper = shallow(<Select />);
     expect(wrapper.find('select')).toBePresent();
@@ -29,7 +27,7 @@ describe('Select', () => {
   });
 
   it('with options as an array of strings', () => {
-    const wrapper = mount(<Select options={ options } placeholder="Pick a color" />);
+    const wrapper = mount(<Select options={options} placeholder="Pick a color" />);
     const $select = wrapper.find('select');
     expect(wrapper.find('option')).toHaveLength(4);
     expect($select.childAt(0)).toHaveValue('');
@@ -50,12 +48,12 @@ describe('Select', () => {
   });
 
   it('with options as an array of objects with label and value', () => {
-    const options = [
+    const optionsObj = [
       { label: 'Red Color', value: 'red' },
       { label: 'Green Color', value: 'green' },
-      { label: 'Blue Color', value: 'blue' }
+      { label: 'Blue Color', value: 'blue' },
     ];
-    const wrapper = mount(<Select options={ options } placeholder="Pick a color" />);
+    const wrapper = mount(<Select options={optionsObj} placeholder="Pick a color" />);
     const $select = wrapper.find('select');
     expect(wrapper.find('option')).toHaveLength(4);
     expect($select.childAt(0)).toHaveValue('');
@@ -76,7 +74,7 @@ describe('Select', () => {
   });
 
   it('selected value through select element', () => {
-    const wrapper = mount(<Select options={ options } placeholder="Pick a color" />);
+    const wrapper = mount(<Select options={options} placeholder="Pick a color" />);
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
     expect($select.get(0).value).toEqual('');
@@ -89,7 +87,7 @@ describe('Select', () => {
   });
 
   it('selected value through fake select click', () => {
-    const wrapper = mount(<Select options={ options } placeholder="Pick a color" />);
+    const wrapper = mount(<Select options={options} placeholder="Pick a color" />);
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
     expect($select.get(0).value).toEqual('');
@@ -103,7 +101,7 @@ describe('Select', () => {
 
   it('onChange handler through select change', () => {
     const handler = jest.fn();
-    const wrapper = mount(<Select onChange={ handler } options={ options } placeholder="Choose" />);
+    const wrapper = mount(<Select onChange={handler} options={options} placeholder="Choose" />);
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
     expect($select.get(0).value).toEqual('');
@@ -119,7 +117,7 @@ describe('Select', () => {
 
   it.skip('onChange handler through fake select click', () => {
     const handler = jest.fn();
-    const wrapper = mount(<Select onChange={ handler } options={ options } placeholder="Choose" />
+    const wrapper = mount(<Select onChange={handler} options={options} placeholder="Choose" />
       , { attachTo: setReactRoot() });
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
@@ -135,7 +133,7 @@ describe('Select', () => {
   });
 
   it('onFocus and onBlur sets style', () => {
-    const wrapper = mount(<Select options={ options } placeholder="Choose" />);
+    const wrapper = mount(<Select options={options} placeholder="Choose" />);
     const $select = wrapper.find('select');
     const $selectedOption = wrapper.find('.selected-option');
     expect($selectedOption).not.toHaveClassName('focus');

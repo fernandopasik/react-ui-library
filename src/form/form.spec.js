@@ -1,11 +1,11 @@
-import { mount, shallow } from 'enzyme';
-import Button from '../button/button.js';
-import Field from './field.js';
-import Form from './form.js';
 import React from 'react';
+import { mount, shallow } from 'enzyme';
+import Button from '../button/button';
+import Field from './field';
+import Form from './form';
 
 const setupExample = props => (
-  <Form { ...props }>
+  <Form {...props}>
     <Field id="firstName" name="firstName" />
     <Field id="lastName" name="lastName" />
     <Field id="email" name="email" type="email" />
@@ -17,7 +17,6 @@ const setupExample = props => (
 );
 
 describe('Form', () => {
-
   it('wraps children with a form element', () => {
     const wrapper = shallow(setupExample());
     expect(wrapper.find('form')).toHaveLength(1);
@@ -42,7 +41,7 @@ describe('Form', () => {
     expect(wrapper).toHaveState('values', {
       firstName: 'Fernando',
       lastName: 'Pasik',
-      email: 'fernando@pasik.com.ar'
+      email: 'fernando@pasik.com.ar',
     });
   });
 
@@ -71,7 +70,7 @@ describe('Form', () => {
     expect(callback).toHaveBeenCalledWith({
       firstName: 'Fernando',
       lastName: 'Pasik',
-      email: 'fernando@pasik.com.ar'
+      email: 'fernando@pasik.com.ar',
     });
   });
 

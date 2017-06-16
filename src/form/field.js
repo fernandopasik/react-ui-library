@@ -1,9 +1,8 @@
-/* eslint-disable react/no-set-state */
-import './field.scss';
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import Select from './select.js';
+import './field.scss';
+import Select from './select';
 
 /**
  * Field
@@ -28,7 +27,7 @@ export default class Field extends Component {
    * Component mounted on DOM
    */
   componentDidMount() {
-    const elem = this._formElem;
+    const elem = this.formElem;
     if (this.props.validate && elem.checkValidity) {
       elem.checkValidity();
     }
@@ -69,17 +68,17 @@ export default class Field extends Component {
       if (elem.validity.valueMissing) {
         this.setState({
           errorMessage: errorMessages.valueMissing || 'This is a required field.',
-          invalid: true
+          invalid: true,
         });
       } else if (elem.validity.typeMismatch) {
         this.setState({
           errorMessage: errorMessages.typeMismatch || `This value is not an ${type}.`,
-          invalid: true
+          invalid: true,
         });
       } else {
         this.setState({
           errorMessage: errorMessages.patternMismatch || 'This value is invalid.',
-          invalid: true
+          invalid: true,
         });
       }
     } else {
@@ -99,14 +98,11 @@ export default class Field extends Component {
 
     const { errorMessage, invalid } = this.state;
     let FormElement;
-    const
-      Element = inline ? 'span' : 'div',
-      fieldCSS = classnames('field'
-        , { disabled, inline, invalid, readonly: readOnly }, className),
-      ariaAttrs = !invalid ? {}
-        : { 'aria-invalid': invalid, 'aria-describedby': `${id}-error` },
-      // eslint-disable-next-line no-nested-ternary
-      elementStyle = { resize: !resize ? 'none' : resize === true ? 'both' : resize };
+    const Element = inline ? 'span' : 'div';
+    const fieldCSS = classnames('field', { disabled, inline, invalid, readonly: readOnly }, className);
+    const ariaAttrs = !invalid ? {} : { 'aria-invalid': invalid, 'aria-describedby': `${id}-error` };
+    // eslint-disable-next-line no-nested-ternary
+    const elementStyle = { resize: !resize ? 'none' : resize === true ? 'both' : resize };
 
     FormElement = component === 'select' ? Select : component;
 
@@ -115,9 +111,9 @@ export default class Field extends Component {
     }
 
     return (
-      <Element className={ fieldCSS }>
+      <Element className={fieldCSS}>
         { label
-          && <label className="field-label" htmlFor={ id }>
+          && <label className="field-label" htmlFor={id}>
             { label }
             { required
               && <span
@@ -129,20 +125,20 @@ export default class Field extends Component {
           </label>
         }
         <FormElement
-          { ...other }
-          { ...ariaAttrs }
+          {...other}
+          {...ariaAttrs}
           className="field-element"
-          disabled={ disabled }
-          id={ id }
-          onChange={ this.handleChange }
-          onInvalid={ this.handleInvalid }
-          readOnly={ readOnly }
-          ref={ ref => { this._formElem = ref; } }
-          required={ required }
-          style={ elementStyle }
+          disabled={disabled}
+          id={id}
+          onChange={this.handleChange}
+          onInvalid={this.handleInvalid}
+          readOnly={readOnly}
+          ref={(ref) => { this.formElem = ref; }}
+          required={required}
+          style={elementStyle}
         />
         { errorMessage
-          && <Element className="field-error" id={ `${id}-error` }>
+          && <Element className="field-error" id={`${id}-error`}>
             { errorMessage }
           </Element>
         }
@@ -156,26 +152,26 @@ Field.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   cols: PropTypes.number,
-  component: PropTypes.oneOf([ 'input', 'select', 'textarea' ]),
+  component: PropTypes.oneOf(['input', 'select', 'textarea']),
   defaultValue: PropTypes.string,
   disabled: PropTypes.bool,
   errorMessages: PropTypes.shape({
     patternMismatch: PropTypes.string,
     typeMismatch: PropTypes.string,
-    valueMissing: PropTypes.string
+    valueMissing: PropTypes.string,
   }),
   form: PropTypes.string,
   formaction: PropTypes.string,
   formenctype: PropTypes.string,
-  formmethod: PropTypes.oneOf([ 'get', 'post' ]),
+  formmethod: PropTypes.oneOf(['get', 'post']),
   formnovalidate: PropTypes.bool,
   formtarget: PropTypes.string,
   id: PropTypes.string,
   inline: PropTypes.bool,
   label: PropTypes.string,
-  max: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   maxLength: PropTypes.number,
-  min: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+  min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   minLength: PropTypes.number,
   multiLine: PropTypes.bool,
   name: PropTypes.string,
@@ -189,7 +185,7 @@ Field.propTypes = {
   required: PropTypes.bool,
   resize: PropTypes.oneOfType([
     PropTypes.bool,
-    PropTypes.oneOf([ 'none', 'both', 'horizontal', 'vertical', 'inherit' ])
+    PropTypes.oneOf(['none', 'both', 'horizontal', 'vertical', 'inherit']),
   ]),
   rows: PropTypes.number,
   size: PropTypes.number,
@@ -199,10 +195,10 @@ Field.propTypes = {
   type: PropTypes.oneOf([
     'text', 'email', 'number', 'password', 'hidden',
     'tel', 'url', 'color', 'search', 'range',
-    'date', 'datetime-local', 'week', 'month'
+    'date', 'datetime-local', 'week', 'month',
   ]),
   validate: PropTypes.bool,
-  wrap: PropTypes.oneOf([ 'hard', 'soft' ])
+  wrap: PropTypes.oneOf(['hard', 'soft']),
 };
 
 Field.defaultProps = { component: 'input', errorMessages: {}, type: 'text' };

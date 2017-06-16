@@ -1,9 +1,8 @@
-import Button from './button.js';
 import React from 'react';
 import { shallow } from 'enzyme';
+import Button from './button';
 
 describe('Button', () => {
-
   it('can have a label', () => {
     expect(shallow(<Button caption="Accept" />)).toHaveText('Accept');
   });
@@ -22,7 +21,7 @@ describe('Button', () => {
 
   it('when click executes handler', () => {
     const handler = jest.fn();
-    const wrapper = shallow(<Button caption="Accept" onClick={ handler } />);
+    const wrapper = shallow(<Button caption="Accept" onClick={handler} />);
     wrapper.simulate('click');
     expect(handler).toHaveBeenCalled();
   });
@@ -42,19 +41,19 @@ describe('Button', () => {
   });
 
   it('display types include primary and link', () => {
-    const element = display => <Button caption="Accept" display={ display } />;
+    const element = display => <Button caption="Accept" display={display} />;
     expect(shallow(element('primary'))).toHaveClassName('primary');
     expect(shallow(element('link'))).toHaveClassName('link');
   });
 
   it('type attribute for forms can be set', () => {
-    const element = type => <Button caption="Accept" type={ type } />;
+    const element = type => <Button caption="Accept" type={type} />;
     expect(shallow(element('submit'))).toHaveProp('type', 'submit');
     expect(shallow(element('reset'))).toHaveProp('type', 'reset');
   });
 
   it('can have different sizes', () => {
-    const element = size => <Button caption="Accept" size={ size } />;
+    const element = size => <Button caption="Accept" size={size} />;
     expect(shallow(element('large'))).toHaveClassName('large');
     expect(shallow(element('small'))).toHaveClassName('small');
   });

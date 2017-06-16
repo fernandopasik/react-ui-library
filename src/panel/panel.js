@@ -1,8 +1,8 @@
-import './panel.scss';
-import Children from 'react-children-utilities';
-import Collapsible from '../collapsible/collapsible.js';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import Children from 'react-children-utilities';
+import './panel.scss';
+import Collapsible from '../collapsible/collapsible';
 
 /**
  * Panel
@@ -10,10 +10,8 @@ import React from 'react';
  * @returns    {JSX} template  - Component template
  */
 export default function Panel(props) {
-
-  const
-    { children, collapsed, id, title } = props,
-    grouped = Children.groupByType(children, [ 'header', 'footer' ], 'body');
+  const { children, collapsed, id, title } = props;
+  const grouped = Children.groupByType(children, ['header', 'footer'], 'body');
 
   if (!title && !grouped.header && !grouped.footer) {
     return <div className="panel panel-body">{ children }</div>;
@@ -23,20 +21,20 @@ export default function Panel(props) {
     <div className="panel">
       { (title || grouped.header)
         && <div
-          aria-controls={ id && `${id}-body` }
-          aria-expanded={ !collapsed }
+          aria-controls={id && `${id}-body`}
+          aria-expanded={!collapsed}
           className="panel-header"
-          id={ id && `${id}-title` }
+          id={id && `${id}-title`}
         >
           { title || grouped.header }
         </div>
       }
-      <Collapsible collapsed={ collapsed }>
+      <Collapsible collapsed={collapsed}>
         <div className="panel-content">
           <div
-            aria-labelledby={ id && `${id}-title` }
+            aria-labelledby={id && `${id}-title`}
             className="panel-body"
-            id={ id && `${id}-body` }
+            id={id && `${id}-body`}
           >
             { grouped.body }
           </div>
@@ -53,5 +51,5 @@ Panel.propTypes = {
   children: PropTypes.node,
   collapsed: PropTypes.bool,
   id: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
 };

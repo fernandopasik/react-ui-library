@@ -1,13 +1,12 @@
-import { mount, shallow } from 'enzyme';
-import Button from '../button/button.js';
-import Dropdown from './dropdown.js';
 import React from 'react';
-import { setReactRoot } from '../utils/test-utils.js';
+import { mount, shallow } from 'enzyme';
+import Button from '../button/button';
+import Dropdown from './dropdown';
+import { setReactRoot } from '../utils/test-utils';
 
-const options = [ 'red', 'green', 'blue' ];
+const options = ['red', 'green', 'blue'];
 
 describe('Dropdown', () => {
-
   it('by default adds a button as trigger', () => {
     const wrapper = shallow(<Dropdown caption="Menu" />);
     expect(wrapper.find(Button)).toHaveLength(1);
@@ -21,9 +20,8 @@ describe('Dropdown', () => {
   });
 
   describe('options', () => {
-
     it('array of strings', () => {
-      const wrapper = shallow(<Dropdown caption="Menu" isOpen options={ options } />);
+      const wrapper = shallow(<Dropdown caption="Menu" isOpen options={options} />);
       const $options = wrapper.find('.options');
       expect(wrapper.find('.dropdown')).toHaveLength(1);
       expect(wrapper.find('.options')).toHaveLength(1);
@@ -34,12 +32,12 @@ describe('Dropdown', () => {
     });
 
     it('array of objects with label and value', () => {
-      const options = [
+      const optionsObj = [
         { label: 'Red Color', value: 'red' },
         { label: 'Green Color', value: 'green' },
-        { label: 'Blue Color', value: 'blue' }
+        { label: 'Blue Color', value: 'blue' },
       ];
-      const wrapper = shallow(<Dropdown caption="Menu" isOpen options={ options } />);
+      const wrapper = shallow(<Dropdown caption="Menu" isOpen options={optionsObj} />);
       const $options = wrapper.find('.options');
       expect(wrapper.find('.dropdown')).toHaveLength(1);
       expect(wrapper.find('.options')).toHaveLength(1);
@@ -51,20 +49,19 @@ describe('Dropdown', () => {
   });
 
   describe('open', () => {
-
     it('can start opened', () => {
       expect(shallow(<Dropdown caption="Menu" isOpen />)).toHaveState('isOpen', true);
     });
 
     it('when trigger clicked', () => {
-      const wrapper = shallow(<Dropdown caption="Menu" options={ options } />);
+      const wrapper = shallow(<Dropdown caption="Menu" options={options} />);
       expect(wrapper).toHaveState('isOpen', false);
       wrapper.find('.trigger').simulate('click');
       expect(wrapper).toHaveState('isOpen', true);
     });
 
     it('when trigger key pressed space', () => {
-      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" options={options} />);
       const $trigger = wrapper.find('.trigger');
       expect(wrapper).toHaveState('isOpen', false);
       $trigger.simulate('keyup', { which: 32 });
@@ -72,7 +69,7 @@ describe('Dropdown', () => {
     });
 
     it('when trigger key pressed enter', () => {
-      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" options={options} />);
       const $trigger = wrapper.find('.trigger');
       expect(wrapper).toHaveState('isOpen', false);
       $trigger.simulate('keyup', { which: 13 });
@@ -81,13 +78,12 @@ describe('Dropdown', () => {
   });
 
   describe('closes', () => {
-
     it('by default it\'s closed', () => {
       expect(shallow(<Dropdown caption="Menu" />)).toHaveState('isOpen', false);
     });
 
     it('when trigger key pressed space', () => {
-      const wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" isOpen options={options} />);
       const $trigger = wrapper.find('.trigger');
       expect(wrapper).toHaveState('isOpen', true);
       $trigger.simulate('keyup', { which: 32 });
@@ -95,7 +91,7 @@ describe('Dropdown', () => {
     });
 
     it('when trigger key pressed enter', () => {
-      const wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" isOpen options={options} />);
       const $trigger = wrapper.find('.trigger');
       expect(wrapper).toHaveState('isOpen', true);
       $trigger.simulate('keyup', { which: 13 });
@@ -103,7 +99,7 @@ describe('Dropdown', () => {
     });
 
     it('when trigger key pressed esc', () => {
-      const wrapper = mount(<Dropdown caption="Menu" isOpen options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" isOpen options={options} />);
       const $trigger = wrapper.find('.trigger');
       expect(wrapper).toHaveState('isOpen', true);
       $trigger.simulate('keyup', { which: 27 });
@@ -111,7 +107,7 @@ describe('Dropdown', () => {
     });
 
     it('on blur', () => {
-      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" options={options} />);
       wrapper.find('.trigger').simulate('click');
       expect(wrapper).toHaveState('isOpen', true);
       wrapper.find('.options').simulate('mousedown');
@@ -121,7 +117,7 @@ describe('Dropdown', () => {
     });
 
     it('when click outside', () => {
-      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" options={options} />);
       wrapper.find('.trigger').simulate('click');
       expect(wrapper).toHaveState('isOpen', true);
       document.body.click();
@@ -131,7 +127,7 @@ describe('Dropdown', () => {
 
     it('removes click outside listener', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" options={options} />);
       wrapper.instance().close = handler;
       wrapper.find('.trigger').simulate('click');
       wrapper.unmount();
@@ -140,7 +136,7 @@ describe('Dropdown', () => {
     });
 
     it('closes when option clicked', () => {
-      const wrapper = mount(<Dropdown caption="Menu" options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" options={options} />);
       wrapper.find('.trigger').simulate('click');
       wrapper.find('.options').childAt(1).simulate('click');
       expect(wrapper).toHaveState('isOpen', false);
@@ -149,10 +145,9 @@ describe('Dropdown', () => {
   });
 
   describe('select', () => {
-
     it('when option clicked', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
       wrapper.find('.trigger').simulate('click');
       wrapper.find('.options').childAt(1).simulate('click');
       expect(handler).toHaveBeenCalled();
@@ -161,7 +156,7 @@ describe('Dropdown', () => {
 
     it('when option press enter', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
       wrapper.find('.trigger').simulate('keyup', { which: 13 });
       wrapper.find('.options').childAt(1).simulate('keyup', { which: 13 });
       expect(handler).toHaveBeenCalled();
@@ -170,7 +165,7 @@ describe('Dropdown', () => {
 
     it('when option press space', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.find('.options').childAt(1).simulate('keyup', { which: 32 });
       expect(handler).toHaveBeenCalled();
@@ -179,7 +174,7 @@ describe('Dropdown', () => {
 
     it('not when option press other key', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.find('.options').childAt(1).simulate('keyup', { which: 33 });
       expect(handler).not.toHaveBeenCalled();
@@ -187,7 +182,7 @@ describe('Dropdown', () => {
 
     it('cycling selection with arrows and press enter to select', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 40 });
@@ -200,7 +195,7 @@ describe('Dropdown', () => {
 
     it('cycling selection with arrows has limits on length', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 40 });
@@ -218,7 +213,7 @@ describe('Dropdown', () => {
 
     it('cycling selection with arrows, then hover other option and press enter to select', () => {
       const handler = jest.fn();
-      const wrapper = mount(<Dropdown caption="Menu" onSelect={ handler } options={ options } />);
+      const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
       wrapper.find('.trigger').simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.find('.options').childAt(1).simulate('mouseover');
@@ -229,16 +224,15 @@ describe('Dropdown', () => {
   });
 
   describe('cap visible options', () => {
-
     it('maximum options visible', () => {
-      const wrapper = shallow(<Dropdown caption="Menu" options={ options } size={ 2 } />);
+      const wrapper = shallow(<Dropdown caption="Menu" options={options} size={2} />);
       wrapper.find('.trigger').simulate('click');
       expect(wrapper.find('.options')).toHaveStyle('overflowY', 'scroll');
       expect(wrapper.find('.options')).toHaveStyle('maxHeight', '120px');
     });
 
     it('when options less than size, dont\'t cap', () => {
-      const wrapper = shallow(<Dropdown caption="Menu" options={ options } size={ 4 } />);
+      const wrapper = shallow(<Dropdown caption="Menu" options={options} size={4} />);
       wrapper.find('.trigger').simulate('click');
       expect(wrapper.find('.options')).not.toHaveStyle('overflowY', 'scroll');
       expect(wrapper.find('.options')).not.toHaveStyle('maxHeight', '120px');
@@ -248,7 +242,8 @@ describe('Dropdown', () => {
   it('disable scroll on page', () => {
     const keyboardEvent = keyCode => new window.KeyboardEvent('keydown', { bubbles: true, keyCode });
     const handler = jest.fn();
-    const wrapper = mount(<Dropdown caption="Menu" options={ options } />, { attachTo: setReactRoot() });
+    const wrapper = mount(<Dropdown caption="Menu" options={options} />
+      , { attachTo: setReactRoot() });
     const $dropdown = wrapper.find('.dropdown');
     window.addEventListener('keydown', handler);
     $dropdown.get(0).dispatchEvent(keyboardEvent(40));

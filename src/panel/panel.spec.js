@@ -1,9 +1,8 @@
-import Panel from './panel.js';
 import React from 'react';
 import { shallow } from 'enzyme';
+import Panel from './panel';
 
 describe('Panel', () => {
-
   it('it\'s a box that wraps content', () => {
     const wrapper = shallow(<Panel>This is content</Panel>);
     expect(wrapper.find('.panel')).toHaveText('This is content');
@@ -47,7 +46,12 @@ describe('Panel', () => {
 
   it('if collapsible, add accessibility tags', () => {
     const wrapper = shallow(
-      <Panel collapsible id="example"><header><h2>Example title</h2></header>This is content</Panel>
+      <Panel collapsible id="example">
+        <header>
+          <h2>Example title</h2>
+        </header>
+        This is content
+      </Panel>,
     );
     expect(wrapper.find('.panel-header')).toMatchSelector('[aria-expanded=true]');
     expect(wrapper.find('.panel-header')).toMatchSelector('[aria-controls="example-body"]');
@@ -56,7 +60,7 @@ describe('Panel', () => {
 
   it('could be collapsed', () => {
     const wrapper = shallow(
-      <Panel collapsed id="example"><header><h2>Example title</h2></header>This is content</Panel>
+      <Panel collapsed id="example"><header><h2>Example title</h2></header>This is content</Panel>,
     );
     expect(wrapper.find('.panel-header')).toMatchSelector('[aria-expanded=false]');
     expect(wrapper.find('.panel-header')).toMatchSelector('[aria-controls="example-body"]');

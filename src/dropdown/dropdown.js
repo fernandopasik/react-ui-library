@@ -1,9 +1,8 @@
-/* eslint-disable react/no-set-state */
-import './dropdown.scss';
 import React, { cloneElement, Component } from 'react';
-import Button from '../button/button.js';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import './dropdown.scss';
+import Button from '../button/button';
 
 const optionHeight = 48;
 
@@ -21,7 +20,7 @@ export default class Dropdown extends Component {
   constructor(props) {
     super(props);
 
-    this._options = [];
+    this.options = [];
 
     this.state = { isOpen: Boolean(props.isOpen) };
     this.close = this.close.bind(this);
@@ -45,11 +44,24 @@ export default class Dropdown extends Component {
   }
 
   /**
-   * Closes the dropdown element
+   * Sets focus and scrolls container to an option element
+   * @param {number} index - Index of the element to set focused
    */
-  close() {
-    this.setState({ isOpen: false, optionFocused: null });
-    document.removeEventListener('click', this.close);
+  setFocusedOption(index) {
+    const { size, options } = this.props;
+    const elem = this.options[index];
+
+    // istanbul ignore next
+    // When limited size and capped scroll to visible is needed
+    if (size && options && size < options.length) {
+      if (elem.offsetTop + elem.offsetHeight > this.list.offsetHeight) {
+        this.list.scrollTop = elem.offsetTop + (elem.offsetHeight - this.list.offsetHeight);
+      } else if (elem.offsetTop < this.list.scrollTop) {
+        this.list.scrollTop = elem.offsetTop;
+      }
+    }
+
+    this.setState({ optionFocused: index });
   }
 
   /**
@@ -64,25 +76,11 @@ export default class Dropdown extends Component {
   }
 
   /**
-   * Sets focus and scrolls container to an option element
-   * @param {number} index - Index of the element to set focused
+   * Closes the dropdown element
    */
-  setFocusedOption(index) {
-    const
-      { size, options } = this.props,
-      elem = this._options[index];
-
-    // istanbul ignore next
-    // When limited size and capped scroll to visible is needed
-    if (size && options && size < options.length) {
-      if (elem.offsetTop + elem.offsetHeight > this._list.offsetHeight) {
-        this._list.scrollTop = elem.offsetTop + elem.offsetHeight - this._list.offsetHeight;
-      } else if (elem.offsetTop < this._list.scrollTop) {
-        this._list.scrollTop = elem.offsetTop;
-      }
-    }
-
-    this.setState({ optionFocused: index });
+  close() {
+    this.setState({ isOpen: false, optionFocused: null });
+    document.removeEventListener('click', this.close);
   }
 
   /**
@@ -143,9 +141,8 @@ export default class Dropdown extends Component {
    * @param {object} event - DOM event object
    */
   handleSelectKeyUp(event) {
-    const
-      { options } = this.props,
-      { isOpen, optionFocused } = this.state;
+    const { options } = this.props;
+    const { isOpen, optionFocused } = this.state;
     // istanbul ignore next
     const code = event.keyCode || event.which;
     switch (code) {
@@ -200,7 +197,7 @@ export default class Dropdown extends Component {
    * @returns {function}   - Event handler function
    */
   handleOptionSelected(value) {
-    return event => {
+    return (event) => {
       const code = event.key || event.keyCode || event.which;
       if (code === 13 || code === 32 || !code) {
         this.select(value);
@@ -213,20 +210,19 @@ export default class Dropdown extends Component {
    * @returns {JSX} - Component template
    */
   render() {
-    const
-      { isOpen } = this.state,
-      { caption, children, options, size } = this.props;
+    const { isOpen } = this.state;
+    const { caption, children, options, size } = this.props;
     const listStyle = {};
     const trigger = cloneElement(
-      children || <Button arrow={ this.state.isOpen ? 'up' : 'down' } caption={ caption } />,
+      children || <Button arrow={this.state.isOpen ? 'up' : 'down'} caption={caption} />,
       {
         ...(children ? children.props : {}),
         className: classnames('trigger',
           children ? children.props.className : ''),
         onClick: this.toggleOpen,
         onKeyUp: this.handleTriggerKeyUp,
-        tabIndex: '0'
-      }
+        tabIndex: '0',
+      },
     );
 
     if (size && options && size < options.length) {
@@ -236,30 +232,30 @@ export default class Dropdown extends Component {
 
     return (
       <div
-        className={ classnames('dropdown', { 'is-open': isOpen }) }
-        onBlur={ this.handleSelectBlur }
-        onKeyDown={ this.handleSelectKeyDown }
-        onKeyUp={ this.handleSelectKeyUp }
+        className={classnames('dropdown', { 'is-open': isOpen })}
+        onBlur={this.handleSelectBlur}
+        onKeyDown={this.handleSelectKeyDown}
+        onKeyUp={this.handleSelectKeyUp}
         tabIndex="-1"
       >
         { trigger }
         { this.state.isOpen
           && <ul
             className="options"
-            onMouseDown={ this.handleOptionsMouseDown }
-            ref={ ref => { this._list = ref; } }
+            onMouseDown={this.handleOptionsMouseDown}
+            ref={(ref) => { this.list = ref; }}
             role="listbox"
-            style={ listStyle }
+            style={listStyle}
           >
             { options && options.map((option, index) => (
               <li
-                className={ classnames('option', { focus: this.state.optionFocused === index }) }
-                key={ index }
-                onClick={ this.handleOptionSelected(option.value || option) }
-                onFocus={ this.handleOptionFocused(index) }
-                onKeyUp={ this.handleOptionSelected(option.value || option) }
-                onMouseOver={ this.handleOptionFocused(index) }
-                ref={ ref => { this._options[index] = ref; } }
+                className={classnames('option', { focus: this.state.optionFocused === index })}
+                key={index}
+                onClick={this.handleOptionSelected(option.value || option)}
+                onFocus={this.handleOptionFocused(index)}
+                onKeyUp={this.handleOptionSelected(option.value || option)}
+                onMouseOver={this.handleOptionFocused(index)}
+                ref={(ref) => { this.options[index] = ref; }}
                 role="option"
                 tabIndex="-1"
               >
@@ -282,8 +278,8 @@ Dropdown.propTypes = {
     PropTypes.string,
     PropTypes.shape({
       value: PropTypes.string,
-      label: PropTypes.string
-    })
+      label: PropTypes.string,
+    }),
   ])),
-  size: PropTypes.number
+  size: PropTypes.number,
 };

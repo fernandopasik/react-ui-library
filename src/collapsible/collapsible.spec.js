@@ -1,10 +1,9 @@
-import { mount, shallow } from 'enzyme';
-import Collapsible from './collapsible.js';
 import React from 'react';
+import { mount, shallow } from 'enzyme';
+import Collapsible from './collapsible';
 
 
 describe('Collapsible', () => {
-
   beforeAll(() => {
     jest.useFakeTimers();
     Collapsible.prototype.getHeight = jest.fn();
