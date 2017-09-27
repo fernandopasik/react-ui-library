@@ -38,7 +38,7 @@ describe('Select', () => {
     expect($select.childAt(2)).toHaveText('green');
     expect($select.childAt(3)).toHaveValue('blue');
     expect($select.childAt(3)).toHaveText('blue');
-    wrapper.find('.selected-option').simulate('click');
+    wrapper.find('.selected-option').first().simulate('click');
     const $fakeSelect = wrapper.find('.options');
     expect(wrapper.find('.option')).toHaveLength(4);
     expect($fakeSelect.childAt(0)).toHaveText('Pick a color');
@@ -64,7 +64,7 @@ describe('Select', () => {
     expect($select.childAt(2)).toHaveText('Green Color');
     expect($select.childAt(3)).toHaveValue('blue');
     expect($select.childAt(3)).toHaveText('Blue Color');
-    wrapper.find('.selected-option').simulate('click');
+    wrapper.find('.selected-option').first().simulate('click');
     const $fakeSelect = wrapper.find('.options');
     expect(wrapper.find('.option')).toHaveLength(4);
     expect($fakeSelect.childAt(0)).toHaveText('Pick a color');
@@ -77,26 +77,26 @@ describe('Select', () => {
     const wrapper = mount(<Select options={options} placeholder="Pick a color" />);
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
-    expect($select.get(0).value).toEqual('');
+    expect($select.instance().value).toEqual('');
     expect($fakeSelectOption).toHaveText('Pick a color');
-    $select.get(0).value = 'blue';
-    $select.simulate('change', { target: { value: 'blue' } });
+    $select.instance().value = 'blue';
+    $select.first().simulate('change', { target: { value: 'blue' } });
     expect(wrapper).toHaveState('value', 'blue');
     expect($fakeSelectOption).toHaveText('blue');
-    expect($select.get(0).value).toEqual('blue');
+    expect($select.instance().value).toEqual('blue');
   });
 
   it('selected value through fake select click', () => {
     const wrapper = mount(<Select options={options} placeholder="Pick a color" />);
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
-    expect($select.get(0).value).toEqual('');
+    expect($select.instance().value).toEqual('');
     expect($fakeSelectOption).toHaveText('Pick a color');
-    wrapper.find('.trigger').simulate('click');
+    wrapper.find('.trigger').first().simulate('click');
     wrapper.find('.options').childAt(2).simulate('click');
     expect(wrapper).toHaveState('value', 'green');
     expect($fakeSelectOption).toHaveText('green');
-    expect($select.get(0).value).toEqual('green');
+    expect($select.instance().value).toEqual('green');
   });
 
   it('onChange handler through select change', () => {
@@ -104,13 +104,13 @@ describe('Select', () => {
     const wrapper = mount(<Select onChange={handler} options={options} placeholder="Choose" />);
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
-    expect($select.get(0).value).toEqual('');
+    expect($select.instance().value).toEqual('');
     expect($fakeSelectOption).toHaveText('Choose');
-    $select.get(0).value = 'blue';
-    $select.simulate('change', { target: { value: 'blue' } });
+    $select.instance().value = 'blue';
+    $select.first().simulate('change', { target: { value: 'blue' } });
     expect(wrapper).toHaveState('value', 'blue');
     expect($fakeSelectOption).toHaveText('blue');
-    expect($select.get(0).value).toEqual('blue');
+    expect($select.instance().value).toEqual('blue');
     expect(handler).toHaveBeenCalledTimes(1);
     expect(handler).toHaveBeenCalledWith(expect.objectContaining({ target: { value: 'blue' } }));
   });
@@ -121,13 +121,13 @@ describe('Select', () => {
       , { attachTo: setReactRoot() });
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
-    expect($select.get(0).value).toEqual('');
+    expect($select.instance().value).toEqual('');
     expect($fakeSelectOption).toHaveText('Choose');
-    wrapper.find('.trigger').simulate('click');
+    wrapper.find('.trigger').first().simulate('click');
     wrapper.find('.options').childAt(2).simulate('click');
     expect(wrapper).toHaveState('value', 'green');
     expect($fakeSelectOption).toHaveText('green');
-    expect($select.get(0).value).toEqual('green');
+    expect($select.instance().value).toEqual('green');
     expect(handler).toHaveBeenCalledWith(expect.objectContaining({ target: { value: 'green' } }));
     expect(handler).toHaveBeenCalledTimes(1);
   });
@@ -137,9 +137,9 @@ describe('Select', () => {
     const $select = wrapper.find('select');
     const $selectedOption = wrapper.find('.selected-option');
     expect($selectedOption).not.toHaveClassName('focus');
-    $select.simulate('focus');
+    $select.first().simulate('focus');
     expect($selectedOption).toHaveClassName('focus');
-    $select.simulate('blur');
+    $select.first().simulate('blur');
     expect($selectedOption).not.toHaveClassName('focus');
   });
 });
