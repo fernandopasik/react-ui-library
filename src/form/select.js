@@ -9,7 +9,6 @@ import Dropdown from '../dropdown/dropdown';
  * Form controller with custom styles
  */
 export default class Select extends Component {
-
   /**
    * Constructor
    * @param {Object} props - React props

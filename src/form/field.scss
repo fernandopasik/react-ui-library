@@ -108,7 +108,7 @@ $field-disabled-opacity: 0.5 !default;
     color: $field-error-color;
     margin-left: $gutter / 3;
 
-    &:after {
+    &::after {
       content: "*";
     }
   }

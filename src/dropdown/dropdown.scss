@@ -78,7 +78,7 @@ $option-transition-property: border-color, background-color, color !default;
     padding-right: $gutter * 2.5;
     position: relative;
 
-    &:after {
+    &::after {
       @include arrow("down", $gutter, $gutter * 0.75, currentColor);
 
       content: "";
@@ -91,7 +91,7 @@ $option-transition-property: border-color, background-color, color !default;
 
   &.is-open {
     > .trigger {
-      &:after {
+      &::after {
         transform: rotate3d(0, 0, 1, 180deg);
       }
     }

@@ -6,7 +6,6 @@ $link-hover-color: lighten($link-color, 10%) !default;
 $link-hover-decoration: $link-decoration !default;
 $link-transition: color 0.15s ease-in-out !default;
 
-
 a {
   color: $link-color;
   text-decoration: $link-decoration;

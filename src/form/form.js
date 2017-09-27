@@ -9,7 +9,6 @@ import Field from './field';
  * Wraps fields in order to make a form with a submit
  */
 export default class Form extends Component {
-
   /**
    * Constructor
    * @param {Object} props - React props

@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { Link, Route, HashRouter as Router } from 'react-router-dom';
 import classNames from 'classnames';
 import MobileDetect from 'mobile-detect';
-import PropTypes from 'prop-types';
 import '../src/index';
 import './styleguide.scss';
 import ButtonComponent from '../src/button/button.md';
@@ -59,7 +58,5 @@ function StyleGuide() {
     </Router>
   );
 }
-
-StyleGuide.propTypes = { children: PropTypes.node };
 
 render(<StyleGuide />, document.getElementById('root'));

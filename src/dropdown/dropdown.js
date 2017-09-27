@@ -12,7 +12,6 @@ const optionHeight = 48;
  * @returns    {JSX} template  - Component template
  */
 export default class Dropdown extends Component {
-
   /**
    * Constructor
    * @param {Object} props - React props

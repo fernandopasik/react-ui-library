@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -11,7 +12,6 @@ import Select from './select';
  * @returns  {JSX} template - Component template
  */
 export default class Field extends Component {
-
   /**
    * Constructor
    * @param {Object} props - React props
