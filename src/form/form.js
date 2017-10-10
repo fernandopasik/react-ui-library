@@ -28,7 +28,7 @@ export default class Form extends Component {
    */
   handleFieldChange(fieldName) {
     return (event) => {
-      const values = this.state.values;
+      const { values } = this.state;
       values[fieldName] = event.target && event.target.value
         ? event.target.value : event;
       this.setState({ values });

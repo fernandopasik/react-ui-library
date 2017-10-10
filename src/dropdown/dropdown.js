@@ -238,8 +238,8 @@ export default class Dropdown extends Component {
         tabIndex="-1"
       >
         { trigger }
-        { this.state.isOpen
-          && <ul
+        { this.state.isOpen &&
+          <ul
             className="options"
             onMouseDown={this.handleOptionsMouseDown}
             ref={(ref) => { this.list = ref; }}

@@ -19,8 +19,8 @@ export default function Panel(props) {
 
   return (
     <div className="panel">
-      { (title || grouped.header)
-        && <div
+      { (title || grouped.header) &&
+        <div
           aria-controls={id && `${id}-body`}
           aria-expanded={!collapsed}
           className="panel-header"

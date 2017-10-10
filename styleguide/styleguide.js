@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { render } from 'react-dom';
 import { Link, Route, HashRouter as Router } from 'react-router-dom';

@@ -6,7 +6,9 @@
     "jest": true
   },
   "rules": {
-    "class-methods-use-this": off,
+    "class-methods-use-this": "off",
+    "function-paren-newline": "off",
+    "object-curly-newline": ["error", { "multiline": true }],
     "react/jsx-filename-extension": "off",
     "react/no-array-index-key": "off",
     "react/require-default-props": "off",

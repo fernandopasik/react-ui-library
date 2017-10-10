@@ -112,8 +112,8 @@ export default class Field extends Component {
 
     return (
       <Element className={fieldCSS}>
-        { label
-          && <label className="field-label" htmlFor={id}>
+        { label &&
+          <label className="field-label" htmlFor={id}>
             { label }
             { required
               && <span
@@ -137,8 +137,8 @@ export default class Field extends Component {
           required={required}
           style={elementStyle}
         />
-        { errorMessage
-          && <Element className="field-error" id={`${id}-error`}>
+        { errorMessage &&
+          <Element className="field-error" id={`${id}-error`}>
             { errorMessage }
           </Element>
         }
