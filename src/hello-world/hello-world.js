@@ -12,6 +12,7 @@ export default function HelloWorld({ who }) {
   return (
     <div className="hello-world">
       Hello
+      {' '}
       {who}
     </div>
   );
