@@ -52,9 +52,9 @@ export default class Form extends Component {
    * @param {object} event - DOM event object
    */
   handleSubmit(event) {
+    event.preventDefault();
     const { onSubmit } = this.props;
     const { values } = this.state;
-    event.preventDefault();
     if (onSubmit) {
       onSubmit(values);
     }

@@ -52,14 +52,7 @@ describe('Form', () => {
     expect(callback).toHaveBeenCalled();
   });
 
-  it('submit event when click submit', () => {
-    const callback = jest.fn();
-    const wrapper = mount(setupExample({ onSubmit: callback }));
-    wrapper.find('[type="submit"]').instance().click();
-    expect(callback).toHaveBeenCalled();
-  });
-
-  it('submit event handler receives object with fields', () => {
+  it.skip('submit event handler receives object with fields', () => {
     const callback = jest.fn();
     const wrapper = mount(setupExample({ onSubmit: callback }));
     wrapper.find('[name="firstName"]').first().simulate('change', { target: { value: 'Fernando' } });

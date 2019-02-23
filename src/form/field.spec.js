@@ -120,8 +120,8 @@ describe('Field', () => {
     it('no divs present', () => {
       const wrapper = shallow(<Field id="user" inline name="user" />);
       expect(wrapper).toHaveClassName('inline');
-      expect(wrapper).not.toHaveTagName('div');
-      expect(wrapper).toHaveTagName('span');
+      expect(wrapper).not.toHaveDisplayName('div');
+      expect(wrapper).toHaveDisplayName('span');
     });
 
     it('by default is full block', () => {
@@ -131,18 +131,18 @@ describe('Field', () => {
     it('when block no spans', () => {
       const wrapper = shallow(<Field id="user" label="Username" name="user" />);
       expect(wrapper).not.toHaveClassName('inline');
-      expect(wrapper).toHaveTagName('div');
-      expect(wrapper).not.toHaveTagName('span');
+      expect(wrapper).toHaveDisplayName('div');
+      expect(wrapper).not.toHaveDisplayName('span');
     });
   });
 
   describe('error message', () => {
     it('render', () => {
-      let $error = '';
       const wrapper = mount(<Field id="user" label="User" name="user" required />);
-      const $input = wrapper.find('input');
       wrapper.find('input').instance().dispatchEvent(new window.Event('invalid', { bubbles: true }));
-      $error = wrapper.find('.field-error');
+      wrapper.update();
+      const $input = wrapper.find('input');
+      const $error = wrapper.find('.field-error');
       expect(wrapper.find('.field')).toHaveClassName('invalid');
       expect($error).toExist();
       expect($error).toHaveText('This is a required field.');

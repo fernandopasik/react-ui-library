@@ -135,11 +135,10 @@ describe('Select', () => {
   it('onFocus and onBlur sets style', () => {
     const wrapper = mount(<Select options={options} placeholder="Choose" />);
     const $select = wrapper.find('select');
-    const $selectedOption = wrapper.find('.selected-option');
-    expect($selectedOption).not.toHaveClassName('focus');
+    expect(wrapper.find('.selected-option')).not.toHaveClassName('focus');
     $select.first().simulate('focus');
-    expect($selectedOption).toHaveClassName('focus');
+    expect(wrapper.find('.selected-option')).toHaveClassName('focus');
     $select.first().simulate('blur');
-    expect($selectedOption).not.toHaveClassName('focus');
+    expect(wrapper.find('.selected-option')).not.toHaveClassName('focus');
   });
 });

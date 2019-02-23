@@ -122,6 +122,7 @@ describe('Dropdown', () => {
       expect(wrapper).toHaveState('isOpen', true);
       document.body.click();
       expect(wrapper).toHaveState('isOpen', false);
+      wrapper.update();
       expect(wrapper.find('.options')).not.toExist();
     });
 

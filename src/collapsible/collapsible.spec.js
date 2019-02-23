@@ -56,6 +56,7 @@ describe('Collapsible', () => {
     // Collapse it
     wrapper.setProps({ collapsed: false });
     jest.runTimersToTime(401);
+    wrapper.update();
     expect(wrapper.find('.collapsible')).toHaveStyle('height', '100px');
     expect(wrapper.find('.collapsible')).toHaveStyle('overflow', 'visible');
   });
@@ -68,6 +69,7 @@ describe('Collapsible', () => {
     Collapsible.prototype.getHeight.mockReturnValue('200px');
     wrapper.setProps({ children: <div>200</div> });
     jest.runTimersToTime(401);
+    wrapper.update();
     expect(wrapper.find('.collapsible')).toHaveStyle('height', '200px');
     expect(wrapper.find('.collapsible')).toHaveStyle('overflow', 'visible');
   });
