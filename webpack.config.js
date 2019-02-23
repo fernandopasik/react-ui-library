@@ -35,7 +35,7 @@ const common = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['@babel/loader'],
+        use: ['babel-loader'],
         enforce: 'post',
       },
       {
@@ -77,7 +77,7 @@ const common = {
       },
       {
         test: /\.md$/,
-        use: ['@babel/loader', 'react-markdown-loader'],
+        use: ['babel-loader', 'react-markdown-loader'],
         enforce: 'post',
       },
     ],
