@@ -83,7 +83,6 @@ const common = {
     ],
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     new StyleLintPlugin({ syntax: 'scss' }),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
@@ -119,15 +118,8 @@ const dev = {
   ],
 };
 
-const dist = {
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-  ],
-};
-
-
 if (TARGET === 'start' || TARGET === 'test') {
   module.exports = merge(common, dev);
 } else {
-  module.exports = merge(common, dist);
+  module.exports = merge(common);
 }
