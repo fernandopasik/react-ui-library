@@ -26,11 +26,11 @@ describe('Form', () => {
 
   it('form footer', () => {
     const wrapper = shallow(setupExample());
-    expect(wrapper.find('footer')).not.toBePresent();
+    expect(wrapper.find('footer')).not.toExist();
     expect(wrapper.find('.form-footer')).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(2);
     expect(wrapper.find('.form-footer').find(Button)).toHaveLength(2);
-    expect(wrapper.find('.form-footer').find(Field)).not.toBePresent();
+    expect(wrapper.find('.form-footer').find(Field)).not.toExist();
   });
 
   it('set state when any field updates', () => {

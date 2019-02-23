@@ -10,10 +10,10 @@ describe('Panel', () => {
 
   it('can have a title prop', () => {
     const wrapper = shallow(<Panel title="Example title">This is content</Panel>);
-    expect(wrapper.find('.panel-header')).toBePresent();
+    expect(wrapper.find('.panel-header')).toExist();
     expect(wrapper.find('.panel-header')).toHaveText('Example title');
-    expect(wrapper.find('.panel-body')).toBePresent();
-    expect(wrapper.find('.panel.panel-body')).not.toBePresent();
+    expect(wrapper.find('.panel-body')).toExist();
+    expect(wrapper.find('.panel.panel-body')).not.toExist();
   });
 
   it('can have html content in header', () => {
@@ -25,12 +25,12 @@ describe('Panel', () => {
         This is content
       </Panel>,
     );
-    expect(wrapper.find('.panel-header')).toBePresent();
-    expect(wrapper.find('.panel-header h2')).toBePresent();
-    expect(wrapper.find('.panel-header header')).not.toBePresent();
-    expect(wrapper.find('.panel-body')).toBePresent();
+    expect(wrapper.find('.panel-header')).toExist();
+    expect(wrapper.find('.panel-header h2')).toExist();
+    expect(wrapper.find('.panel-header header')).not.toExist();
+    expect(wrapper.find('.panel-body')).toExist();
     expect(wrapper.find('.panel-body')).toHaveText('This is content');
-    expect(wrapper.find('.panel-footer')).not.toBePresent();
+    expect(wrapper.find('.panel-footer')).not.toExist();
   });
 
   it('can have html content in footer', () => {
@@ -42,19 +42,19 @@ describe('Panel', () => {
         </footer>
       </Panel>,
     );
-    expect(wrapper.find('.panel-footer')).toBePresent();
-    expect(wrapper.find('.panel-footer button')).toBePresent();
-    expect(wrapper.find('.panel-footer footer')).not.toBePresent();
-    expect(wrapper.find('.panel-body')).toBePresent();
+    expect(wrapper.find('.panel-footer')).toExist();
+    expect(wrapper.find('.panel-footer button')).toExist();
+    expect(wrapper.find('.panel-footer footer')).not.toExist();
+    expect(wrapper.find('.panel-body')).toExist();
     expect(wrapper.find('.panel-body')).toHaveText('This is content');
-    expect(wrapper.find('.panel-header')).not.toBePresent();
+    expect(wrapper.find('.panel-header')).not.toExist();
   });
 
   it('when no footer and header present it\'s just content', () => {
     const wrapper = shallow(<Panel>This is content</Panel>);
-    expect(wrapper.find('.panel-header')).not.toBePresent();
-    expect(wrapper.find('.panel-footer')).not.toBePresent();
-    expect(wrapper.find('.panel.panel-body')).toBePresent();
+    expect(wrapper.find('.panel-header')).not.toExist();
+    expect(wrapper.find('.panel-footer')).not.toExist();
+    expect(wrapper.find('.panel.panel-body')).toExist();
     expect(wrapper.find('.panel.panel-body')).toHaveText('This is content');
   });
 

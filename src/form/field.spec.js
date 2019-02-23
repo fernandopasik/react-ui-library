@@ -10,11 +10,11 @@ describe('Field', () => {
     });
 
     it('add field-element class', () => {
-      expect(shallow(<Field />).find('.field-element')).toBePresent();
+      expect(shallow(<Field />).find('.field-element')).toExist();
     });
 
     it('add id', () => {
-      expect(shallow(<Field id="user" />).find('#user')).toBePresent();
+      expect(shallow(<Field id="user" />).find('#user')).toExist();
     });
 
     it('add name', () => {
@@ -26,19 +26,19 @@ describe('Field', () => {
     });
 
     it('valid types', () => {
-      expect(shallow(<Field type="text" />).find(('input[type="text"]'))).toBePresent();
-      expect(shallow(<Field type="email" />).find(('input[type="email"]'))).toBePresent();
-      expect(shallow(<Field type="number" />).find(('input[type="number"]'))).toBePresent();
-      expect(shallow(<Field type="password" />).find(('input[type="password"]'))).toBePresent();
-      expect(shallow(<Field type="search" />).find(('input[type="search"]'))).toBePresent();
-      expect(shallow(<Field type="tel" />).find(('input[type="tel"]'))).toBePresent();
-      expect(shallow(<Field type="url" />).find(('input[type="url"]'))).toBePresent();
-      expect(shallow(<Field type="color" />).find(('input[type="color"]'))).toBePresent();
-      expect(shallow(<Field type="range" />).find(('input[type="range"]'))).toBePresent();
-      expect(shallow(<Field type="date" />).find(('input[type="date"]'))).toBePresent();
-      expect(shallow(<Field type="datetime-local" />).find(('input[type="datetime-local"]'))).toBePresent();
-      expect(shallow(<Field type="week" />).find(('input[type="week"]'))).toBePresent();
-      expect(shallow(<Field type="month" />).find(('input[type="month"]'))).toBePresent();
+      expect(shallow(<Field type="text" />).find(('input[type="text"]'))).toExist();
+      expect(shallow(<Field type="email" />).find(('input[type="email"]'))).toExist();
+      expect(shallow(<Field type="number" />).find(('input[type="number"]'))).toExist();
+      expect(shallow(<Field type="password" />).find(('input[type="password"]'))).toExist();
+      expect(shallow(<Field type="search" />).find(('input[type="search"]'))).toExist();
+      expect(shallow(<Field type="tel" />).find(('input[type="tel"]'))).toExist();
+      expect(shallow(<Field type="url" />).find(('input[type="url"]'))).toExist();
+      expect(shallow(<Field type="color" />).find(('input[type="color"]'))).toExist();
+      expect(shallow(<Field type="range" />).find(('input[type="range"]'))).toExist();
+      expect(shallow(<Field type="date" />).find(('input[type="date"]'))).toExist();
+      expect(shallow(<Field type="datetime-local" />).find(('input[type="datetime-local"]'))).toExist();
+      expect(shallow(<Field type="week" />).find(('input[type="week"]'))).toExist();
+      expect(shallow(<Field type="month" />).find(('input[type="month"]'))).toExist();
     });
 
     it('set a default value', () => {
@@ -97,19 +97,19 @@ describe('Field', () => {
   describe('label', () => {
     it('render', () => {
       const $label = shallow(<Field id="user" label="User Name" name="user" />).find('label');
-      expect($label).toBePresent();
+      expect($label).toExist();
       expect($label).toHaveText('User Name');
       expect($label).toHaveProp('htmlFor', 'user');
     });
 
     it('not rendered by default', () => {
-      expect(shallow(<Field />).find('label')).not.toBePresent();
+      expect(shallow(<Field />).find('label')).not.toExist();
     });
 
     it('when field is required has an icon', () => {
       const wrapper = shallow(<Field label="User" name="user" required />);
       const $icon = wrapper.find('.icon-required');
-      expect($icon).toBePresent();
+      expect($icon).toExist();
       expect($icon).toHaveProp('aria-label');
       expect($icon).toHaveProp('title');
       expect(wrapper.find('input')).toHaveProp('required');
@@ -144,7 +144,7 @@ describe('Field', () => {
       wrapper.find('input').instance().dispatchEvent(new window.Event('invalid', { bubbles: true }));
       $error = wrapper.find('.field-error');
       expect(wrapper.find('.field')).toHaveClassName('invalid');
-      expect($error).toBePresent();
+      expect($error).toExist();
       expect($error).toHaveText('This is a required field.');
       expect($error).toHaveProp('id', 'user-error');
       expect($input).toHaveProp('aria-invalid', true);
@@ -154,7 +154,7 @@ describe('Field', () => {
     it('by default is hidden', () => {
       const wrapper = mount(<Field id="user" label="User" name="user" required />);
       const $input = wrapper.find('input');
-      expect(wrapper.find('.field-error')).not.toBePresent();
+      expect(wrapper.find('.field-error')).not.toExist();
       expect(wrapper.find('.field')).not.toHaveClassName('invalid');
       expect($input).not.toHaveProp('aria-invalid');
       expect($input).not.toHaveProp('aria-describedby');
@@ -163,7 +163,7 @@ describe('Field', () => {
     it('can be forced on mount', () => {
       const wrapper = mount(<Field id="user" label="User" name="user" required validate />);
       const $input = wrapper.find('input');
-      expect(wrapper.find('.field-error')).toBePresent();
+      expect(wrapper.find('.field-error')).toExist();
       expect(wrapper.find('.field')).toHaveClassName('invalid');
       expect($input).toHaveProp('aria-invalid');
       expect($input).toHaveProp('aria-describedby');
@@ -206,7 +206,7 @@ describe('Field', () => {
       $input.first().simulate('change', { target: { value: 'notanemail' } });
       expect(wrapper).toHaveState('invalid', false);
       expect(wrapper).toHaveState('errorMessage', '');
-      expect(wrapper.find('.field-error')).not.toBePresent();
+      expect(wrapper.find('.field-error')).not.toExist();
     });
 
     it('if onchange before invalid then error hidden', () => {
@@ -362,7 +362,7 @@ describe('Field', () => {
             options={['red', 'green', 'blue']}
             placeholder="Choose a color"
           />,
-        ).find(Select)).toBePresent();
+        ).find(Select)).toExist();
       });
 
       it('if no invalid event then error hidden', () => {
@@ -381,7 +381,7 @@ describe('Field', () => {
         $select.first().simulate('change', { target: { value: 'red' } });
         expect(wrapper).toHaveState('invalid', false);
         expect(wrapper).toHaveState('errorMessage', '');
-        expect(wrapper.find('.field-error')).not.toBePresent();
+        expect(wrapper.find('.field-error')).not.toExist();
       });
 
       it('if onchange before invalid then error hidden', () => {

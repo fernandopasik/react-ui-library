@@ -113,7 +113,7 @@ describe('Dropdown', () => {
       wrapper.find('.options').first().simulate('mousedown');
       wrapper.simulate('blur');
       expect(wrapper).toHaveState('isOpen', false);
-      expect(wrapper.find('.options')).not.toBePresent();
+      expect(wrapper.find('.options')).not.toExist();
     });
 
     it('when click outside', () => {
@@ -122,7 +122,7 @@ describe('Dropdown', () => {
       expect(wrapper).toHaveState('isOpen', true);
       document.body.click();
       expect(wrapper).toHaveState('isOpen', false);
-      expect(wrapper.find('.options')).not.toBePresent();
+      expect(wrapper.find('.options')).not.toExist();
     });
 
     it('removes click outside listener', () => {
@@ -140,7 +140,7 @@ describe('Dropdown', () => {
       wrapper.find('.trigger').first().simulate('click');
       wrapper.find('.options').childAt(1).simulate('click');
       expect(wrapper).toHaveState('isOpen', false);
-      expect(wrapper.find('.options')).not.toBePresent();
+      expect(wrapper.find('.options')).not.toExist();
     });
   });
 

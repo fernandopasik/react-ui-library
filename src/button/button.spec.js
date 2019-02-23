@@ -9,14 +9,14 @@ describe('Button', () => {
 
   it('can have content', () => {
     const wrapper = shallow(<Button><span>Accept</span></Button>);
-    expect(wrapper.find('span')).toBePresent();
+    expect(wrapper.find('span')).toExist();
     expect(wrapper.find('span')).toHaveText('Accept');
   });
 
   it('if it has label, content is ignored', () => {
     const wrapper = shallow(<Button caption="Accept"><span>Ignored</span></Button>);
     expect(wrapper).toHaveText('Accept');
-    expect(wrapper.find('span')).not.toBePresent();
+    expect(wrapper.find('span')).not.toExist();
   });
 
   it('when click executes handler', () => {

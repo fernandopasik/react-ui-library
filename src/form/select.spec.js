@@ -9,17 +9,17 @@ const options = ['red', 'green', 'blue'];
 describe('Select', () => {
   it('select element without options', () => {
     const wrapper = shallow(<Select />);
-    expect(wrapper.find('select')).toBePresent();
-    expect(wrapper.find(Dropdown)).toBePresent();
-    expect(wrapper.find('option')).not.toBePresent();
-    expect(wrapper.find('.option')).not.toBePresent();
-    expect(wrapper.find('.options')).not.toBePresent();
+    expect(wrapper.find('select')).toExist();
+    expect(wrapper.find(Dropdown)).toExist();
+    expect(wrapper.find('option')).not.toExist();
+    expect(wrapper.find('.option')).not.toExist();
+    expect(wrapper.find('.options')).not.toExist();
   });
 
   it('placeholder message for empty option', () => {
     const wrapper = shallow(<Select placeholder="Pick a color" />);
     const $select = wrapper.find('select');
-    expect(wrapper.find('select')).toBePresent();
+    expect(wrapper.find('select')).toExist();
     expect(wrapper.find('option')).toHaveLength(1);
     expect($select.childAt(0)).toHaveValue('');
     expect($select.childAt(0)).toHaveText('Pick a color');
