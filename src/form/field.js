@@ -27,8 +27,9 @@ export default class Field extends Component {
    * Component mounted on DOM
    */
   componentDidMount() {
+    const { validate } = this.props;
     const elem = this.formElem;
-    if (this.props.validate && elem.checkValidity) {
+    if (validate && elem.checkValidity) {
       elem.checkValidity();
     }
   }
@@ -38,12 +39,14 @@ export default class Field extends Component {
    * @param {object} event - DOM event object
    */
   handleChange(event) {
-    if (this.state.invalid || this.props.validate) {
+    const { validate, onChange } = this.props;
+    const { invalid } = this.state;
+    if (invalid || validate) {
       this.validate(event.target);
     }
     // istanbul ignore else
-    if (this.props.onChange) {
-      this.props.onChange(event.target.value);
+    if (onChange) {
+      onChange(event.target.value);
     }
   }
 
@@ -112,18 +115,18 @@ export default class Field extends Component {
 
     return (
       <Element className={fieldCSS}>
-        { label &&
+        { label && (
           <label className="field-label" htmlFor={id}>
             { label }
-            { required
-              && <span
+            { required && (
+              <span
                 aria-label="Required"
                 className="icon icon-required"
                 title="Required"
               />
-            }
+            ) }
           </label>
-        }
+        ) }
         <FormElement
           {...other}
           {...ariaAttrs}
@@ -137,11 +140,11 @@ export default class Field extends Component {
           required={required}
           style={elementStyle}
         />
-        { errorMessage &&
+        { errorMessage && (
           <Element className="field-error" id={`${id}-error`}>
             { errorMessage }
           </Element>
-        }
+        ) }
       </Element>
     );
   }

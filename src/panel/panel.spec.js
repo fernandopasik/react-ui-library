@@ -17,7 +17,14 @@ describe('Panel', () => {
   });
 
   it('can have html content in header', () => {
-    const wrapper = shallow(<Panel><header><h2>Example title</h2></header>This is content</Panel>);
+    const wrapper = shallow(
+      <Panel>
+        <header>
+          <h2>Example title</h2>
+        </header>
+        This is content
+      </Panel>,
+    );
     expect(wrapper.find('.panel-header')).toBePresent();
     expect(wrapper.find('.panel-header h2')).toBePresent();
     expect(wrapper.find('.panel-header header')).not.toBePresent();
@@ -27,7 +34,14 @@ describe('Panel', () => {
   });
 
   it('can have html content in footer', () => {
-    const wrapper = shallow(<Panel>This is content<footer><button>OK</button></footer></Panel>);
+    const wrapper = shallow(
+      <Panel>
+        This is content
+        <footer>
+          <button type="button">OK</button>
+        </footer>
+      </Panel>,
+    );
     expect(wrapper.find('.panel-footer')).toBePresent();
     expect(wrapper.find('.panel-footer button')).toBePresent();
     expect(wrapper.find('.panel-footer footer')).not.toBePresent();
@@ -60,7 +74,12 @@ describe('Panel', () => {
 
   it('could be collapsed', () => {
     const wrapper = shallow(
-      <Panel collapsed id="example"><header><h2>Example title</h2></header>This is content</Panel>,
+      <Panel collapsed id="example">
+        <header>
+          <h2>Example title</h2>
+        </header>
+        This is content
+      </Panel>,
     );
     expect(wrapper.find('.panel-header')).toMatchSelector('[aria-expanded=false]');
     expect(wrapper.find('.panel-header')).toMatchSelector('[aria-controls="example-body"]');

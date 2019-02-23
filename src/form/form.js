@@ -40,9 +40,10 @@ export default class Form extends Component {
    * @param {object} event - DOM event object
    */
   handleReset(event) {
+    const { onReset } = this.props;
     this.setState({ values: {} });
-    if (this.props.onReset) {
-      this.props.onReset(event);
+    if (onReset) {
+      onReset(event);
     }
   }
 
@@ -51,9 +52,11 @@ export default class Form extends Component {
    * @param {object} event - DOM event object
    */
   handleSubmit(event) {
+    const { onSubmit } = this.props;
+    const { values } = this.state;
     event.preventDefault();
-    if (this.props.onSubmit) {
-      this.props.onSubmit(this.state.values);
+    if (onSubmit) {
+      onSubmit(values);
     }
   }
 

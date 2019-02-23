@@ -21,11 +21,12 @@ export default class Collapsible extends Component {
    * Right when mounted measure the content's height
    */
   componentDidMount() {
+    const { collapsed } = this.props;
     this.height = this.getHeight();
     this.setState({
       style: {
-        height: this.props.collapsed ? 0 : this.height,
-        overflow: this.props.collapsed ? 'hidden' : 'visible',
+        height: collapsed ? 0 : this.height,
+        overflow: collapsed ? 'hidden' : 'visible',
       },
     });
   }
@@ -35,7 +36,8 @@ export default class Collapsible extends Component {
    * @param {object} nextProps - Next props
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.collapsed !== this.props.collapsed && !this.updating) {
+    const { collapsed } = this.props;
+    if (nextProps.collapsed !== collapsed && !this.updating) {
       this.toggleCollapse(nextProps.collapsed);
     }
   }
@@ -44,9 +46,10 @@ export default class Collapsible extends Component {
    * If content changes reset the content's height
    */
   componentDidUpdate() {
+    const { collapsed } = this.props;
     if (this.height !== this.getHeight() && !this.updating) {
       this.height = this.getHeight();
-      this.toggleCollapse(this.props.collapsed);
+      this.toggleCollapse(collapsed);
     }
   }
 

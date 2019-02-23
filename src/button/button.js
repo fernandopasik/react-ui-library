@@ -8,16 +8,22 @@ import './button.scss';
  * @param   {Object} props     - React props
  * @returns    {JSX} template  - Component template
  */
-export default function Button(props) {
-  const {
-    active, block, caption, children, className, disabled, display,
-    id, onBlur, onClick, onFocus, onKeyUp, size, tabIndex, type,
-  } = props;
-
+export default function Button({
+  active, block, caption, children, className, disabled, display,
+  id, onBlur, onClick, onFocus, onKeyUp, size, tabIndex, type,
+}) {
   const cssClasses = classnames('button', display, size, className, { block, active });
   const attributes = { disabled, id, onBlur, onClick, onFocus, onKeyUp, tabIndex, type };
 
-  return <button className={cssClasses} {...attributes}>{ caption || children }</button>;
+  return (
+    <button
+      className={cssClasses}
+      type="button"
+      {...attributes}
+    >
+      { caption || children }
+    </button>
+  );
 }
 
 

@@ -117,8 +117,8 @@ describe('Select', () => {
 
   it.skip('onChange handler through fake select click', () => {
     const handler = jest.fn();
-    const wrapper = mount(<Select onChange={handler} options={options} placeholder="Choose" />
-      , { attachTo: setReactRoot() });
+    const wrapper = mount(<Select onChange={handler} options={options} placeholder="Choose" />,
+      { attachTo: setReactRoot() });
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
     expect($select.instance().value).toEqual('');

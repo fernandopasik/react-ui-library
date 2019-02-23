@@ -68,8 +68,9 @@ export default class Dropdown extends Component {
    * @param {string} value - Selected value
    */
   select(value) {
-    if (this.props.onSelect) {
-      this.props.onSelect(value);
+    const { onSelect } = this.props;
+    if (onSelect) {
+      onSelect(value);
     }
     this.close();
   }
@@ -86,8 +87,9 @@ export default class Dropdown extends Component {
    * Opens or closes the dropdown element
    */
   toggleOpen() {
-    this.setState({ isOpen: !this.state.isOpen, optionFocused: null });
-    if (!this.state.isOpen) {
+    const { isOpen } = this.state;
+    this.setState({ isOpen: !isOpen, optionFocused: null });
+    if (!isOpen) {
       document.addEventListener('click', this.close);
     }
   }
@@ -209,11 +211,11 @@ export default class Dropdown extends Component {
    * @returns {JSX} - Component template
    */
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, optionFocused } = this.state;
     const { caption, children, options, size } = this.props;
     const listStyle = {};
     const trigger = cloneElement(
-      children || <Button arrow={this.state.isOpen ? 'up' : 'down'} caption={caption} />,
+      children || <Button arrow={isOpen ? 'up' : 'down'} caption={caption} />,
       {
         ...(children ? children.props : {}),
         className: classnames('trigger',
@@ -238,7 +240,7 @@ export default class Dropdown extends Component {
         tabIndex="-1"
       >
         { trigger }
-        { this.state.isOpen &&
+        { isOpen && (
           <ul
             className="options"
             onMouseDown={this.handleOptionsMouseDown}
@@ -248,7 +250,7 @@ export default class Dropdown extends Component {
           >
             { options && options.map((option, index) => (
               <li
-                className={classnames('option', { focus: this.state.optionFocused === index })}
+                className={classnames('option', { focus: optionFocused === index })}
                 key={index}
                 onClick={this.handleOptionSelected(option.value || option)}
                 onFocus={this.handleOptionFocused(index)}
@@ -262,7 +264,7 @@ export default class Dropdown extends Component {
               </li>
             )) }
           </ul>
-        }
+        ) }
       </div>
     );
   }

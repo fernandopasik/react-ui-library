@@ -8,10 +8,11 @@ import './hello-world.scss';
  * @param {Object} props React props
  * @returns {JSX} template
  */
-export default function HelloWorld(props) {
+export default function HelloWorld({ who }) {
   return (
     <div className="hello-world">
-      Hello { props.who }
+      Hello
+      {who}
     </div>
   );
 }

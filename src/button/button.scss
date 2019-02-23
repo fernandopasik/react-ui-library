@@ -52,6 +52,17 @@ $button-link-border-color: transparent !default;
   transition: $button-transition;
   transition-property: $button-transition-property;
 
+  &:active,
+  &.active {
+    background-color: $button-active-bg-color;
+    border-color: $button-active-border-color;
+  }
+
+  // Space between buttons when put together
+  & + & {
+    margin-left: $gutter;
+  }
+
   // Hover, focus, active, disabled states
   &:hover:enabled {
     background-color: $button-hover-bg-color;
@@ -63,20 +74,9 @@ $button-link-border-color: transparent !default;
     outline: 0;
   }
 
-  &:active,
-  &.active {
-    background-color: $button-active-bg-color;
-    border-color: $button-active-border-color;
-  }
-
   &[disabled] {
     cursor: not-allowed;
     opacity: $button-disabled-opacity;
-  }
-
-  // Space between buttons when put together
-  & + & {
-    margin-left: $gutter;
   }
 
   // Full width
@@ -108,15 +108,15 @@ $button-link-border-color: transparent !default;
     border-color: $button-primary-border-color;
     color: $button-primary-color;
 
-    &:hover:enabled {
-      background-color: lighten($button-primary-bg-color, $button-color-difference);
-      border-color: lighten($button-primary-border-color, $button-color-difference);
-    }
-
     &:active,
     &.active {
       background-color: darken($button-primary-bg-color, $button-color-difference);
       border-color: darken($button-primary-border-color, $button-color-difference);
+    }
+
+    &:hover:enabled {
+      background-color: lighten($button-primary-bg-color, $button-color-difference);
+      border-color: lighten($button-primary-border-color, $button-color-difference);
     }
   }
 
@@ -126,15 +126,15 @@ $button-link-border-color: transparent !default;
     border-color: $button-link-border-color;
     color: $button-link-color;
 
-    &:hover:enabled {
-      background-color: lighten($button-link-bg-color, $button-color-difference);
-      border-color: lighten($button-link-border-color, $button-color-difference);
-    }
-
     &:active,
     &.active {
       background-color: darken($button-link-bg-color, $button-color-difference);
       border-color: darken($button-link-border-color, $button-color-difference);
+    }
+
+    &:hover:enabled {
+      background-color: lighten($button-link-bg-color, $button-color-difference);
+      border-color: lighten($button-link-border-color, $button-color-difference);
     }
   }
 }

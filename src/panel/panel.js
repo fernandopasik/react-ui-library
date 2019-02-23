@@ -19,7 +19,7 @@ export default function Panel(props) {
 
   return (
     <div className="panel">
-      { (title || grouped.header) &&
+      { (title || grouped.header) && (
         <div
           aria-controls={id && `${id}-body`}
           aria-expanded={!collapsed}
@@ -28,7 +28,7 @@ export default function Panel(props) {
         >
           { title || grouped.header }
         </div>
-      }
+      ) }
       <Collapsible collapsed={collapsed}>
         <div className="panel-content">
           <div

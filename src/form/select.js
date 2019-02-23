@@ -48,14 +48,15 @@ export default class Select extends Component {
    * @param {string} value - Selected dropdown value
    */
   handleDropdown(value) {
+    const { onChange } = this.props;
     // istanbul ignore else
     if (value !== this.select.value) {
       this.setState({ value });
       this.select.value = value;
       const event = new window.Event('change', { bubbles: true });
       this.select.dispatchEvent(event);
-      if (this.props.onChange) {
-        this.props.onChange(event);
+      if (onChange) {
+        onChange(event);
       }
     }
   }
@@ -65,9 +66,10 @@ export default class Select extends Component {
    * @param {object} event - DOM event object
    */
   handleSelect(event) {
+    const { onChange } = this.props;
     this.setState({ value: event.target.value });
-    if (this.props.onChange) {
-      this.props.onChange(event);
+    if (onChange) {
+      onChange(event);
     }
   }
 
@@ -78,7 +80,7 @@ export default class Select extends Component {
   render() {
     let dropdownOptions = [];
     const { className, onInvalid, options, placeholder, ...other } = this.props;
-    const { focus } = this.state;
+    const { focus, value } = this.state;
     const selectCSS = classnames('selected-option', className, { focus });
 
     if (placeholder) {
@@ -100,7 +102,7 @@ export default class Select extends Component {
           options={dropdownOptions}
         >
           <div className={selectCSS}>
-            { this.state.value || placeholder || '\u00a0' }
+            { value || placeholder || '\u00a0' }
           </div>
         </Dropdown>
         <select
