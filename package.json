@@ -24,7 +24,6 @@
     "watch": "npm test -- -w & npm start",
     "deploy": "rm -rf deploy && webpack && gh-pages -d deploy",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "travis": "npm run -s build && npm run -s coveralls",
     "prepublishOnly": "npm run -s build",
     "preversion": "npm run -s prebuild",
     "commitmsg": "validate-commit-msg",
