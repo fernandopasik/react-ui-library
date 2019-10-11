@@ -61,10 +61,7 @@ const common = {
             },
             {
               loader: 'sass-loader',
-              options: {
-                outputStyle: 'expanded',
-                sourceMap: true,
-              },
+              options: { sourceMap: true },
             },
           ],
         }),
