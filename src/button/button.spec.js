@@ -41,19 +41,19 @@ describe('Button', () => {
   });
 
   it('display types include primary and link', () => {
-    const element = display => <Button caption="Accept" display={display} />;
+    const element = (display) => <Button caption="Accept" display={display} />;
     expect(shallow(element('primary'))).toHaveClassName('primary');
     expect(shallow(element('link'))).toHaveClassName('link');
   });
 
   it('type attribute for forms can be set', () => {
-    const element = type => <Button caption="Accept" type={type} />;
+    const element = (type) => <Button caption="Accept" type={type} />;
     expect(shallow(element('submit'))).toHaveProp('type', 'submit');
     expect(shallow(element('reset'))).toHaveProp('type', 'reset');
   });
 
   it('can have different sizes', () => {
-    const element = size => <Button caption="Accept" size={size} />;
+    const element = (size) => <Button caption="Accept" size={size} />;
     expect(shallow(element('large'))).toHaveClassName('large');
     expect(shallow(element('small'))).toHaveClassName('small');
   });

@@ -38,9 +38,7 @@ export default function Panel(props) {
           >
             { grouped.body }
           </div>
-          { grouped.footer
-            && <div className="panel-footer">{ grouped.footer }</div>
-          }
+          { grouped.footer && <div className="panel-footer">{ grouped.footer }</div> }
         </div>
       </Collapsible>
     </div>

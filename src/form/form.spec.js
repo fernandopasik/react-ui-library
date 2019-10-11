@@ -1,10 +1,11 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import Button from '../button/button';
 import Field from './field';
 import Form from './form';
 
-const setupExample = props => (
+const setupExample = (props) => (
   <Form {...props}>
     <Field id="firstName" name="firstName" />
     <Field id="lastName" name="lastName" />

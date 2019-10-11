@@ -241,7 +241,7 @@ describe('Dropdown', () => {
   });
 
   it('disable scroll on page', () => {
-    const keyboardEvent = keyCode => new window.KeyboardEvent('keydown', { bubbles: true, keyCode });
+    const keyboardEvent = (keyCode) => new window.KeyboardEvent('keydown', { bubbles: true, keyCode });
     const handler = jest.fn();
     const wrapper = mount(<Dropdown caption="Menu" options={options} />, { attachTo: setReactRoot() });
     const $dropdown = wrapper.find('.dropdown');

@@ -80,9 +80,7 @@ export default class Form extends Component {
     return (
       <form onReset={this.handleReset} onSubmit={this.handleSubmit}>
         { grouped.body }
-        { grouped.footer
-          && <div className="form-footer">{ grouped.footer }</div>
-        }
+        { grouped.footer && <div className="form-footer">{ grouped.footer }</div> }
       </form>
     );
   }
