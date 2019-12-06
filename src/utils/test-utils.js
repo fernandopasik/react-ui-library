@@ -32,9 +32,7 @@ export function getCSSValue(element, property) {
   if (element.currentStyle) {
     value = element.currentStyle[property];
   } else {
-    value = window
-      .getComputedStyle(element)
-      .getPropertyValue(property);
+    value = window.getComputedStyle(element).getPropertyValue(property);
   }
 
   return value;

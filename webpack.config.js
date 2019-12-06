@@ -56,7 +56,9 @@ const common = {
               loader: 'postcss-loader',
               options: {
                 sourceMap: true,
-                plugins() { return [autoprefixer]; },
+                plugins() {
+                  return [autoprefixer];
+                },
               },
             },
             {
