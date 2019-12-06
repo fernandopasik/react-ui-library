@@ -1,6 +1,6 @@
 ---
 imports:
-  Field: ./field.js
+  Field: ./field.jsx
 ---
 
 # Fields

@@ -1,8 +1,8 @@
 ---
 imports:
-  Button: ../button/button.js
-  Form: ./form.js
-  Field: ./field.js
+  Button: ../button/button.jsx
+  Form: ./form.jsx
+  Field: ./field.jsx
 ---
 
 # Forms

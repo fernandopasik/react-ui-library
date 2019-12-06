@@ -1,6 +1,6 @@
 ---
 imports:
-  Button: ./button.js
+  Button: ./button.jsx
 ---
 
 # Buttons

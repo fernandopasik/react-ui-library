@@ -1,6 +1,6 @@
 ---
 imports:
-  HelloWorld: ./hello-world.js
+  HelloWorld: ./hello-world.jsx
 ---
 
 # Hello World

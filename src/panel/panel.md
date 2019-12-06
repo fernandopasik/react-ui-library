@@ -1,7 +1,7 @@
 ---
 imports:
-  Panel: ./panel.js
-  Button: ../button/button.js
+  Panel: ./panel.jsx
+  Button: ../button/button.jsx
 ---
 
 # Panel

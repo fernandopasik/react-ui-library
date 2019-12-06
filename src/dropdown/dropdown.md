@@ -1,7 +1,7 @@
 ---
 imports:
-  Button: ../button/button.js
-  Dropdown: ./dropdown.js
+  Button: ../button/button.jsx
+  Dropdown: ./dropdown.jsx
 ---
 
 # Dropdown
