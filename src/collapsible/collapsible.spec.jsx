@@ -5,7 +5,7 @@ import Collapsible from './collapsible';
 describe('collapsible', () => {
   beforeAll(() => {
     jest.useFakeTimers();
-    Collapsible.prototype.getHeight = jest.fn();
+    jest.spyOn(Collapsible.prototype, 'getHeight');
   });
 
   afterAll(() => {
