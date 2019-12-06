@@ -192,7 +192,7 @@ describe('field', () => {
         .find('input')
         .first()
         .simulate('change', { target: { value: 'Fernando' } });
-      expect(handler).toHaveBeenCalled();
+
       expect(handler).toHaveBeenCalledWith('Fernando');
     });
 
@@ -214,7 +214,7 @@ describe('field', () => {
         .find('select')
         .first()
         .simulate('change', { target: { value: 'green' } });
-      expect(handler).toHaveBeenCalled();
+
       expect(handler).toHaveBeenCalledWith('green');
     });
   });

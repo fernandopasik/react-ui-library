@@ -62,7 +62,8 @@ describe('form', () => {
       .find('form')
       .first()
       .simulate('submit');
-    expect(callback).toHaveBeenCalled();
+
+    expect(callback).toHaveBeenCalledWith();
   });
 
   it.skip('submit event handler receives object with fields', () => {
@@ -84,7 +85,7 @@ describe('form', () => {
       .find('form')
       .first()
       .simulate('submit');
-    expect(callback).toHaveBeenCalled();
+
     expect(callback).toHaveBeenCalledWith({
       firstName: 'Fernando',
       lastName: 'Pasik',
@@ -111,6 +112,7 @@ describe('form', () => {
       .find('form')
       .first()
       .simulate('reset');
-    expect(callback).toHaveBeenCalled();
+
+    expect(callback).toHaveBeenCalledWith();
   });
 });

@@ -31,7 +31,7 @@ describe('button', () => {
     const handler = jest.fn();
     const wrapper = shallow(<Button caption="Accept" onClick={handler} />);
     wrapper.simulate('click');
-    expect(handler).toHaveBeenCalled();
+    expect(handler).toHaveBeenCalledWith();
   });
 
   it('can be disabled', () => {

@@ -182,7 +182,7 @@ describe('dropdown', () => {
         .find('.options')
         .childAt(1)
         .simulate('click');
-      expect(handler).toHaveBeenCalled();
+
       expect(handler).toHaveBeenCalledWith('green');
     });
 
@@ -197,7 +197,7 @@ describe('dropdown', () => {
         .find('.options')
         .childAt(1)
         .simulate('keyup', { which: 13 });
-      expect(handler).toHaveBeenCalled();
+
       expect(handler).toHaveBeenCalledWith('green');
     });
 
@@ -212,7 +212,7 @@ describe('dropdown', () => {
         .find('.options')
         .childAt(1)
         .simulate('keyup', { which: 32 });
-      expect(handler).toHaveBeenCalled();
+
       expect(handler).toHaveBeenCalledWith('green');
     });
 
@@ -245,7 +245,7 @@ describe('dropdown', () => {
         .find('.trigger')
         .first()
         .simulate('keyup', { which: 32 });
-      expect(handler).toHaveBeenCalled();
+
       expect(handler).toHaveBeenCalledWith('green');
     });
 
@@ -286,7 +286,7 @@ describe('dropdown', () => {
         .find('.trigger')
         .first()
         .simulate('keyup', { which: 32 });
-      expect(handler).toHaveBeenCalled();
+
       expect(handler).toHaveBeenCalledWith('green');
     });
   });
