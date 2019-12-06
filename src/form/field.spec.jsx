@@ -378,7 +378,7 @@ describe('field', () => {
       expect(wrapper).toHaveState('errorMessage', 'You input an invalid value.');
     });
 
-    describe('Multiline or textarea', () => {
+    describe('multiline or textarea', () => {
       it('wrap a textarea element', () => {
         expect(
           shallow(<Field id="comments" multiLine name="comments" />).find('textarea'),
@@ -403,7 +403,7 @@ describe('field', () => {
       });
     });
 
-    describe('Select Field', () => {
+    describe('select field', () => {
       it('wrap a select component', () => {
         expect(
           shallow(
