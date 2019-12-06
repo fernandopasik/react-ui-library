@@ -4,4 +4,5 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/test/setup.js'],
   moduleNameMapper: { '\\.(scss)$': '<rootDir>/test/setup.sass.js' },
   coveragePathIgnorePatterns: ['<rootDir>/src/utils/', '<rootDir>/src/index.js'],
+  transformIgnorePatterns: ['/node_modules/(?!react-children-utilities)'],
 };
