@@ -2,7 +2,6 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import Collapsible from './collapsible';
 
-
 describe('collapsible', () => {
   beforeAll(() => {
     jest.useFakeTimers();
@@ -14,21 +13,33 @@ describe('collapsible', () => {
   });
 
   it('is a box that wraps content', () => {
-    const wrapper = shallow(<Collapsible><div>Test</div></Collapsible>);
+    const wrapper = shallow(
+      <Collapsible>
+        <div>Test</div>
+      </Collapsible>,
+    );
     expect(wrapper).toHaveClassName('collapsible');
     expect(wrapper.find('div')).toHaveLength(2);
     expect(wrapper).toHaveText('Test');
   });
 
   it('when collapsed collapsible height is 0', () => {
-    const wrapper = mount(<Collapsible collapsed><div>Test</div></Collapsible>);
+    const wrapper = mount(
+      <Collapsible collapsed>
+        <div>Test</div>
+      </Collapsible>,
+    );
     expect(wrapper.find('.collapsible')).toHaveStyle('height', 0);
     expect(wrapper.find('.collapsible')).toHaveStyle('overflow', 'hidden');
   });
 
   it('when not collapsed collapsible height is the same as content', () => {
     Collapsible.prototype.getHeight.mockReturnValue('100px');
-    const wrapper = mount(<Collapsible><div>100</div></Collapsible>);
+    const wrapper = mount(
+      <Collapsible>
+        <div>100</div>
+      </Collapsible>,
+    );
     jest.runTimersToTime(401);
     expect(wrapper.find('.collapsible')).toHaveStyle('height', '100px');
     expect(wrapper.find('.collapsible')).toHaveStyle('overflow', 'visible');
@@ -36,7 +47,11 @@ describe('collapsible', () => {
 
   it('when not collapsed and then collapses height changes', () => {
     Collapsible.prototype.getHeight.mockReturnValue('100px');
-    const wrapper = mount(<Collapsible><div>100</div></Collapsible>);
+    const wrapper = mount(
+      <Collapsible>
+        <div>100</div>
+      </Collapsible>,
+    );
     jest.runTimersToTime(401);
     expect(wrapper.find('.collapsible')).toHaveStyle('height', '100px');
     expect(wrapper.find('.collapsible')).toHaveStyle('overflow', 'visible');
@@ -49,7 +64,11 @@ describe('collapsible', () => {
 
   it('when collapsed and then decollapses height changes', () => {
     Collapsible.prototype.getHeight.mockReturnValue('100px');
-    const wrapper = mount(<Collapsible collapsed><div>100</div></Collapsible>);
+    const wrapper = mount(
+      <Collapsible collapsed>
+        <div>100</div>
+      </Collapsible>,
+    );
     jest.runTimersToTime(401);
     expect(wrapper.find('.collapsible')).toHaveStyle('height', 0);
     expect(wrapper.find('.collapsible')).toHaveStyle('overflow', 'hidden');
@@ -63,7 +82,11 @@ describe('collapsible', () => {
 
   it('when not collapsed and content changes re calculate height', () => {
     Collapsible.prototype.getHeight.mockReturnValue('100px');
-    const wrapper = mount(<Collapsible><div>100</div></Collapsible>);
+    const wrapper = mount(
+      <Collapsible>
+        <div>100</div>
+      </Collapsible>,
+    );
     expect(wrapper.find('.collapsible')).toHaveStyle('height', '100px');
     // Change content
     Collapsible.prototype.getHeight.mockReturnValue('200px');

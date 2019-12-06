@@ -10,23 +10,31 @@ import './button.scss';
  * @returns    {JSX} template  - Component template
  */
 export default function Button({
-  active, block, caption, children, className, disabled, display,
-  id, onBlur, onClick, onFocus, onKeyUp, size, tabIndex, type,
+  active,
+  block,
+  caption,
+  children,
+  className,
+  disabled,
+  display,
+  id,
+  onBlur,
+  onClick,
+  onFocus,
+  onKeyUp,
+  size,
+  tabIndex,
+  type,
 }) {
   const cssClasses = classnames('button', display, size, className, { block, active });
   const attributes = { disabled, id, onBlur, onClick, onFocus, onKeyUp, tabIndex, type };
 
   return (
-    <button
-      className={cssClasses}
-      type="button"
-      {...attributes}
-    >
-      { caption || children }
+    <button className={cssClasses} type="button" {...attributes}>
+      {caption || children}
     </button>
   );
 }
-
 
 Button.propTypes = {
   active: PropTypes.bool,

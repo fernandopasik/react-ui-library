@@ -218,8 +218,7 @@ export default class Dropdown extends Component {
       children || <Button arrow={isOpen ? 'up' : 'down'} caption={caption} />,
       {
         ...(children ? children.props : {}),
-        className: classnames('trigger',
-          children ? children.props.className : ''),
+        className: classnames('trigger', children ? children.props.className : ''),
         onClick: this.toggleOpen,
         onKeyUp: this.handleTriggerKeyUp,
         tabIndex: '0',
@@ -239,32 +238,37 @@ export default class Dropdown extends Component {
         onKeyUp={this.handleSelectKeyUp}
         tabIndex="-1"
       >
-        { trigger }
-        { isOpen && (
+        {trigger}
+        {isOpen && (
           <ul
             className="options"
             onMouseDown={this.handleOptionsMouseDown}
-            ref={(ref) => { this.list = ref; }}
+            ref={(ref) => {
+              this.list = ref;
+            }}
             role="listbox"
             style={listStyle}
           >
-            { options && options.map((option, index) => (
-              <li
-                className={classnames('option', { focus: optionFocused === index })}
-                key={index}
-                onClick={this.handleOptionSelected(option.value || option)}
-                onFocus={this.handleOptionFocused(index)}
-                onKeyUp={this.handleOptionSelected(option.value || option)}
-                onMouseOver={this.handleOptionFocused(index)}
-                ref={(ref) => { this.options[index] = ref; }}
-                role="option"
-                tabIndex="-1"
-              >
-                { option.label || option }
-              </li>
-            )) }
+            {options &&
+              options.map((option, index) => (
+                <li
+                  className={classnames('option', { focus: optionFocused === index })}
+                  key={index}
+                  onClick={this.handleOptionSelected(option.value || option)}
+                  onFocus={this.handleOptionFocused(index)}
+                  onKeyUp={this.handleOptionSelected(option.value || option)}
+                  onMouseOver={this.handleOptionFocused(index)}
+                  ref={(ref) => {
+                    this.options[index] = ref;
+                  }}
+                  role="option"
+                  tabIndex="-1"
+                >
+                  {option.label || option}
+                </li>
+              ))}
           </ul>
-        ) }
+        )}
       </div>
     );
   }
@@ -275,12 +279,14 @@ Dropdown.propTypes = {
   children: PropTypes.element,
   isOpen: PropTypes.bool,
   onSelect: PropTypes.func,
-  options: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    }),
-  ])),
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      }),
+    ]),
+  ),
   size: PropTypes.number,
 };

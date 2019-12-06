@@ -35,7 +35,8 @@ export default class Collapsible extends Component {
    * When collapsing changes reset the content's height
    * @param {object} nextProps - Next props
    */
-  UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // eslint-disable-line camelcase
     const { collapsed } = this.props;
     if (nextProps.collapsed !== collapsed && !this.updating) {
       this.toggleCollapse(nextProps.collapsed);
@@ -97,10 +98,16 @@ export default class Collapsible extends Component {
     const { style } = this.state;
     const child = cloneElement(children, {
       ...children.props,
-      ref: (content) => { this.content = content; },
+      ref: (content) => {
+        this.content = content;
+      },
     });
 
-    return <div className="collapsible" style={style}>{ child }</div>;
+    return (
+      <div className="collapsible" style={style}>
+        {child}
+      </div>
+    );
   }
 }
 

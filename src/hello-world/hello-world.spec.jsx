@@ -5,13 +5,11 @@ import HelloWorldStyles from './hello-world.scss';
 
 let styles;
 
-
 describe('hello world', () => {
   beforeAll(() => {
-    styles = mount(<style>{ HelloWorldStyles }</style>,
-      { attachTo: document.head });
+    styles = mount(<style>{HelloWorldStyles}</style>, { attachTo: document.head });
   });
-  
+
   afterAll(() => {
     styles.detach();
   });

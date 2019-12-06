@@ -9,13 +9,7 @@ import './hello-world.scss';
  * @returns {JSX} template
  */
 export default function HelloWorld({ who }) {
-  return (
-    <div className="hello-world">
-      Hello
-      {' '}
-      {who}
-    </div>
-  );
+  return <div className="hello-world">{`Hello${who}`}</div>;
 }
 
 HelloWorld.propTypes = { who: PropTypes.string };

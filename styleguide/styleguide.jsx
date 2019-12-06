@@ -24,15 +24,16 @@ const md = new MobileDetect(window.navigator.userAgent);
  * @returns  {JSX} template - Component template
  */
 function StyleGuide() {
-  const cssClasses = classNames(
-    'styleguide',
-    'container',
-    { mobile: md.mobile(), desktop: !md.mobile() },
-  );
+  const cssClasses = classNames('styleguide', 'container', {
+    mobile: md.mobile(),
+    desktop: !md.mobile(),
+  });
   return (
     <Router>
       <div className={cssClasses}>
-        <Link to="/"><h1 className="main-link">Style Guide</h1></Link>
+        <Link to="/">
+          <h1 className="main-link">Style Guide</h1>
+        </Link>
         <nav>
           <Link to="/typography">Typography</Link>
           <Link to="/link">Link</Link>
