@@ -74,6 +74,7 @@
     "node-sass": "^4.13.0",
     "postcss-loader": "^3.0.0",
     "prepare-commit-msg-angular": "^0.2.0",
+    "prettier": "^1.19.1",
     "raf": "^3.4.1",
     "react-markdown-loader": "^1.2.1",
     "react-test-renderer": "^16.12.0",
