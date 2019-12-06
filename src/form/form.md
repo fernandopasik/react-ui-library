@@ -4,6 +4,7 @@ imports:
   Form: ./form.js
   Field: ./field.js
 ---
+
 # Forms
 
 ```render jsx
@@ -13,17 +14,17 @@ imports:
 >
   <Field
     id="firstName"
-    label="First Name"    
+    label="First Name"
     name="firstName"
     required
   />
   <Field
-    id="lastName"  
-    label="Last Name"     
+    id="lastName"
+    label="Last Name"
     name="lastName"
   />
   <Field
-    id="email"     
+    id="email"
     label="Email Address"
     name="email"
     type="email"

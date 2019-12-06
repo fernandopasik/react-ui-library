@@ -3,6 +3,7 @@ imports:
   Panel: ./panel.js
   Button: ../button/button.js
 ---
+
 # Panel
 
 Put content in a box

@@ -2,6 +2,7 @@
 imports:
   Field: ./field.js
 ---
+
 # Fields
 
 Renders an input by default
@@ -49,6 +50,7 @@ Accepted types are text, email, number, password, search, tel or url
 ```
 
 A placeholder text can be set
+
 ```render jsx
 <Field id="user5" label="User Name" name="user" placeholder="User Name" />
 ```
@@ -72,6 +74,7 @@ Can be readonly
 ```
 
 Instead of value you can set a defaultValue
+
 ```render jsx
 <Field defaultValue="Fernando" id="user9" name="user" />
 ```
