@@ -20,7 +20,7 @@ const common = {
       'react-children-utilities',
     ],
     'react-ui-library': ['./src/index.js'],
-    styleguide: ['./styleguide/styleguide.js'],
+    styleguide: ['./styleguide/styleguide.jsx'],
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -28,18 +28,18 @@ const common = {
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.js'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
         enforce: 'post',
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: ['eslint-loader'],
         enforce: 'pre',
