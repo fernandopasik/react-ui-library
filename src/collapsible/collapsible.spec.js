@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 import Collapsible from './collapsible';
 
 
-describe('Collapsible', () => {
+describe('collapsible', () => {
   beforeAll(() => {
     jest.useFakeTimers();
     Collapsible.prototype.getHeight = jest.fn();
@@ -13,7 +13,7 @@ describe('Collapsible', () => {
     jest.clearAllTimers();
   });
 
-  it('it\'s a box that wraps content', () => {
+  it('is a box that wraps content', () => {
     const wrapper = shallow(<Collapsible><div>Test</div></Collapsible>);
     expect(wrapper).toHaveClassName('collapsible');
     expect(wrapper.find('div')).toHaveLength(2);

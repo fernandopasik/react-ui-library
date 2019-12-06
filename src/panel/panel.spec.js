@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Panel from './panel';
 
-describe('Panel', () => {
-  it('it\'s a box that wraps content', () => {
+describe('panel', () => {
+  it('is a box that wraps content', () => {
     const wrapper = shallow(<Panel>This is content</Panel>);
     expect(wrapper.find('.panel')).toHaveText('This is content');
   });
@@ -50,7 +50,7 @@ describe('Panel', () => {
     expect(wrapper.find('.panel-header')).not.toExist();
   });
 
-  it('when no footer and header present it\'s just content', () => {
+  it('when no footer and header present is just content', () => {
     const wrapper = shallow(<Panel>This is content</Panel>);
     expect(wrapper.find('.panel-header')).not.toExist();
     expect(wrapper.find('.panel-footer')).not.toExist();
