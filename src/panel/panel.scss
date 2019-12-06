@@ -1,7 +1,6 @@
-@import
-  "../settings/borders.scss",
-  "../settings/colors.scss",
-  "../settings/grid.scss";
+@import '../settings/borders.scss';
+@import '../settings/colors.scss';
+@import '../settings/grid.scss';
 
 $panel-bg-color: $color-white !default;
 $panel-header-bg-color: $panel-bg-color !default;

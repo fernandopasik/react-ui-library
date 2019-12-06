@@ -1,6 +1,5 @@
-@import
-  "../settings/fonts.scss",
-  "../settings/colors.scss";
+@import '../settings/fonts.scss';
+@import '../settings/colors.scss';
 
 $typography-margin: $base-font-size * $base-line-height;
 
@@ -51,9 +50,7 @@ small {
 
     @if ($h < 3) {
       @extend %h-margin-bottom;
-    }
-
-    @else {
+    } @else {
       @extend %h-no-margin-bottom;
     }
 

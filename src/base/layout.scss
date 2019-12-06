@@ -1,5 +1,5 @@
-@import "../settings/grid.scss";
-@import "../utils/clearfix.scss";
+@import '../settings/grid.scss';
+@import '../utils/clearfix.scss';
 
 .container {
   @include clearfix;
@@ -24,7 +24,7 @@
   }
 }
 
-[class*=cols] {
+[class*='cols'] {
   float: left;
   min-height: 1px;
   padding-left: $gutter;

@@ -1,6 +1,5 @@
-@import
-  "../settings/borders.scss",
-  "../settings/grid.scss";
+@import '../settings/borders.scss';
+@import '../settings/grid.scss';
 
 // Default theme
 $button-border-color: $default-border-color !default;

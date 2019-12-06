@@ -1,6 +1,6 @@
-@import "./colors.scss";
+@import './colors.scss';
 
-$base-font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
+$base-font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;
 $base-font-size: 16px !default;
 $base-font-color: $color-black !default;
 $base-line-height: 1.5 !default;
@@ -13,9 +13,7 @@ $type-scale-factor: 1.36 !default;
     @for $i from $size through 2 {
       $font-size: $font-size * $type-scale-factor;
     }
-  }
-
-  @elseif ($size < 0) {
+  } @else if ($size < 0) {
     @for $i from $size through -1 {
       $font-size: $font-size / $type-scale-factor;
     }

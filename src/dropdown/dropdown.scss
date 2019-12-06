@@ -1,7 +1,6 @@
-@import
-  "../settings/borders.scss",
-  "../settings/grid.scss",
-  "../utils/arrow.scss";
+@import '../settings/borders.scss';
+@import '../settings/grid.scss';
+@import '../utils/arrow.scss';
 
 $options-bg-color: $color-white;
 $options-border-color: $default-border-color !default;
@@ -79,9 +78,9 @@ $option-transition-property: border-color, background-color, color !default;
     position: relative;
 
     &::after {
-      @include arrow("down", $gutter, $gutter * 0.75, currentColor);
+      @include arrow('down', $gutter, $gutter * 0.75, currentColor);
 
-      content: "";
+      content: '';
       display: inline-block;
       position: absolute;
       right: $gutter * 0.75;
