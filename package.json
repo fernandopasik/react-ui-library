@@ -40,7 +40,7 @@
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
-    "react-children-utilities": "^2.0.2",
+    "react-children-utilities": "^2.0.3",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2"
   },
