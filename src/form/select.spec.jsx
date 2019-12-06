@@ -6,7 +6,7 @@ import { setReactRoot } from '../utils/test-utils';
 
 const options = ['red', 'green', 'blue'];
 
-describe('Select', () => {
+describe('select', () => {
   it('select element without options', () => {
     const wrapper = shallow(<Select />);
     expect(wrapper.find('select')).toExist();

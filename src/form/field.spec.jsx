@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 import Field from './field';
 import Select from './select';
 
-describe('Field', () => {
+describe('field', () => {
   describe('form element', () => {
     it('spans an input element', () => {
       expect(shallow(<Field />).find('input')).toHaveLength(1);

@@ -17,7 +17,7 @@ const setupExample = (props) => (
   </Form>
 );
 
-describe('Form', () => {
+describe('form', () => {
   it('wraps children with a form element', () => {
     const wrapper = shallow(setupExample());
     expect(wrapper.find('form')).toHaveLength(1);

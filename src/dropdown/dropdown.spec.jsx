@@ -6,7 +6,7 @@ import { setReactRoot } from '../utils/test-utils';
 
 const options = ['red', 'green', 'blue'];
 
-describe('Dropdown', () => {
+describe('dropdown', () => {
   it('by default adds a button as trigger', () => {
     const wrapper = shallow(<Dropdown caption="Menu" />);
     expect(wrapper.find(Button)).toHaveLength(1);
