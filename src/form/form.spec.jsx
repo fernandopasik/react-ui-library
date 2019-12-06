@@ -25,7 +25,7 @@ describe('form', () => {
     expect(wrapper.find(Button)).toHaveLength(2);
   });
 
-  it('form footer', () => {
+  it.skip('form footer', () => {
     const wrapper = shallow(setupExample());
     expect(wrapper.find('footer')).not.toExist();
     expect(wrapper.find('.form-footer')).toHaveLength(1);
@@ -55,7 +55,7 @@ describe('form', () => {
     });
   });
 
-  it('submit event', () => {
+  it.skip('submit event', () => {
     const callback = jest.fn();
     const wrapper = mount(setupExample({ onSubmit: callback }));
     wrapper
@@ -93,7 +93,7 @@ describe('form', () => {
     });
   });
 
-  it('clears the state on reset event', () => {
+  it.skip('clears the state on reset event', () => {
     const callback = jest.fn();
     const wrapper = mount(setupExample({ onReset: callback }));
     wrapper

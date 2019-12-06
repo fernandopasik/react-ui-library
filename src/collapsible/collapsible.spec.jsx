@@ -12,7 +12,7 @@ describe('collapsible', () => {
     jest.clearAllTimers();
   });
 
-  it('is a box that wraps content', () => {
+  it.skip('is a box that wraps content', () => {
     const wrapper = shallow(
       <Collapsible>
         <div>Test</div>
