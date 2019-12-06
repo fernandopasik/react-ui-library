@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/role-has-required-aria-props, react/no-array-index-key */
 import React, { cloneElement, Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -117,6 +118,7 @@ export default class Dropdown extends Component {
    * Avoid blur to be fired before click an option
    * @param {object} event - DOM event object
    */
+  // eslint-disable-next-line class-methods-use-this
   handleOptionsMouseDown(event) {
     event.preventDefault();
   }
@@ -125,6 +127,7 @@ export default class Dropdown extends Component {
    * Disable scroll on page
    * @param {object} event - DOM event object
    */
+  // eslint-disable-next-line class-methods-use-this
   handleSelectKeyDown(event) {
     // istanbul ignore next
     const code = event.keyCode || event.which;
@@ -232,6 +235,7 @@ export default class Dropdown extends Component {
 
     return (
       <div
+        role="button"
         className={classnames('dropdown', { 'is-open': isOpen })}
         onBlur={this.handleSelectBlur}
         onKeyDown={this.handleSelectKeyDown}

@@ -35,6 +35,7 @@ export default class Collapsible extends Component {
    * When collapsing changes reset the content's height
    * @param {object} nextProps - Next props
    */
+  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps) {
     // eslint-disable-line camelcase
     const { collapsed } = this.props;
