@@ -36,9 +36,18 @@ describe('form', () => {
 
   it('set state when any field updates', () => {
     const wrapper = shallow(setupExample());
-    wrapper.find('[name="firstName"]').first().simulate('change', { target: { value: 'Fernando' } });
-    wrapper.find('[name="lastName"]').first().simulate('change', { target: { value: 'Pasik' } });
-    wrapper.find('[name="email"]').first().simulate('change', { target: { value: 'fernando@pasik.com.ar' } });
+    wrapper
+      .find('[name="firstName"]')
+      .first()
+      .simulate('change', { target: { value: 'Fernando' } });
+    wrapper
+      .find('[name="lastName"]')
+      .first()
+      .simulate('change', { target: { value: 'Pasik' } });
+    wrapper
+      .find('[name="email"]')
+      .first()
+      .simulate('change', { target: { value: 'fernando@pasik.com.ar' } });
     expect(wrapper).toHaveState('values', {
       firstName: 'Fernando',
       lastName: 'Pasik',
@@ -49,17 +58,32 @@ describe('form', () => {
   it('submit event', () => {
     const callback = jest.fn();
     const wrapper = mount(setupExample({ onSubmit: callback }));
-    wrapper.find('form').first().simulate('submit');
+    wrapper
+      .find('form')
+      .first()
+      .simulate('submit');
     expect(callback).toHaveBeenCalled();
   });
 
   it.skip('submit event handler receives object with fields', () => {
     const callback = jest.fn();
     const wrapper = mount(setupExample({ onSubmit: callback }));
-    wrapper.find('[name="firstName"]').first().simulate('change', { target: { value: 'Fernando' } });
-    wrapper.find('[name="lastName"]').first().simulate('change', { target: { value: 'Pasik' } });
-    wrapper.find('[name="email"]').first().simulate('change', { target: { value: 'fernando@pasik.com.ar' } });
-    wrapper.find('form').first().simulate('submit');
+    wrapper
+      .find('[name="firstName"]')
+      .first()
+      .simulate('change', { target: { value: 'Fernando' } });
+    wrapper
+      .find('[name="lastName"]')
+      .first()
+      .simulate('change', { target: { value: 'Pasik' } });
+    wrapper
+      .find('[name="email"]')
+      .first()
+      .simulate('change', { target: { value: 'fernando@pasik.com.ar' } });
+    wrapper
+      .find('form')
+      .first()
+      .simulate('submit');
     expect(callback).toHaveBeenCalled();
     expect(callback).toHaveBeenCalledWith({
       firstName: 'Fernando',
@@ -71,10 +95,22 @@ describe('form', () => {
   it('clears the state on reset event', () => {
     const callback = jest.fn();
     const wrapper = mount(setupExample({ onReset: callback }));
-    wrapper.find('[name="firstName"]').first().simulate('change', { target: { value: 'Fernando' } });
-    wrapper.find('[name="lastName"]').first().simulate('change', { target: { value: 'Pasik' } });
-    wrapper.find('[name="email"]').first().simulate('change', { target: { value: 'fernando@pasik.com.ar' } });
-    wrapper.find('form').first().simulate('reset');
+    wrapper
+      .find('[name="firstName"]')
+      .first()
+      .simulate('change', { target: { value: 'Fernando' } });
+    wrapper
+      .find('[name="lastName"]')
+      .first()
+      .simulate('change', { target: { value: 'Pasik' } });
+    wrapper
+      .find('[name="email"]')
+      .first()
+      .simulate('change', { target: { value: 'fernando@pasik.com.ar' } });
+    wrapper
+      .find('form')
+      .first()
+      .simulate('reset');
     expect(callback).toHaveBeenCalled();
   });
 });

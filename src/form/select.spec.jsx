@@ -38,7 +38,10 @@ describe('select', () => {
     expect($select.childAt(2)).toHaveText('green');
     expect($select.childAt(3)).toHaveValue('blue');
     expect($select.childAt(3)).toHaveText('blue');
-    wrapper.find('.selected-option').first().simulate('click');
+    wrapper
+      .find('.selected-option')
+      .first()
+      .simulate('click');
     const $fakeSelect = wrapper.find('.options');
     expect(wrapper.find('.option')).toHaveLength(4);
     expect($fakeSelect.childAt(0)).toHaveText('Pick a color');
@@ -64,7 +67,10 @@ describe('select', () => {
     expect($select.childAt(2)).toHaveText('Green Color');
     expect($select.childAt(3)).toHaveValue('blue');
     expect($select.childAt(3)).toHaveText('Blue Color');
-    wrapper.find('.selected-option').first().simulate('click');
+    wrapper
+      .find('.selected-option')
+      .first()
+      .simulate('click');
     const $fakeSelect = wrapper.find('.options');
     expect(wrapper.find('.option')).toHaveLength(4);
     expect($fakeSelect.childAt(0)).toHaveText('Pick a color');
@@ -92,8 +98,14 @@ describe('select', () => {
     const $fakeSelectOption = wrapper.find('.selected-option');
     expect($select.instance().value).toEqual('');
     expect($fakeSelectOption).toHaveText('Pick a color');
-    wrapper.find('.trigger').first().simulate('click');
-    wrapper.find('.options').childAt(2).simulate('click');
+    wrapper
+      .find('.trigger')
+      .first()
+      .simulate('click');
+    wrapper
+      .find('.options')
+      .childAt(2)
+      .simulate('click');
     expect(wrapper).toHaveState('value', 'green');
     expect($fakeSelectOption).toHaveText('green');
     expect($select.instance().value).toEqual('green');
@@ -117,14 +129,21 @@ describe('select', () => {
 
   it.skip('onChange handler through fake select click', () => {
     const handler = jest.fn();
-    const wrapper = mount(<Select onChange={handler} options={options} placeholder="Choose" />,
-      { attachTo: setReactRoot() });
+    const wrapper = mount(<Select onChange={handler} options={options} placeholder="Choose" />, {
+      attachTo: setReactRoot(),
+    });
     const $select = wrapper.find('select');
     const $fakeSelectOption = wrapper.find('.selected-option');
     expect($select.instance().value).toEqual('');
     expect($fakeSelectOption).toHaveText('Choose');
-    wrapper.find('.trigger').first().simulate('click');
-    wrapper.find('.options').childAt(2).simulate('click');
+    wrapper
+      .find('.trigger')
+      .first()
+      .simulate('click');
+    wrapper
+      .find('.options')
+      .childAt(2)
+      .simulate('click');
     expect(wrapper).toHaveState('value', 'green');
     expect($fakeSelectOption).toHaveText('green');
     expect($select.instance().value).toEqual('green');

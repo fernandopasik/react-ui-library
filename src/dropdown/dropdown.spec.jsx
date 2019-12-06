@@ -14,7 +14,11 @@ describe('dropdown', () => {
   });
 
   it('wrap trigger elements', () => {
-    const wrapper = shallow(<Dropdown><Button caption="Menu" /></Dropdown>);
+    const wrapper = shallow(
+      <Dropdown>
+        <Button caption="Menu" />
+      </Dropdown>,
+    );
     expect(wrapper.find(Button)).toHaveLength(1);
     expect(wrapper.find('.trigger')).toHaveLength(1);
   });
@@ -56,7 +60,10 @@ describe('dropdown', () => {
     it('when trigger clicked', () => {
       const wrapper = shallow(<Dropdown caption="Menu" options={options} />);
       expect(wrapper).toHaveState('isOpen', false);
-      wrapper.find('.trigger').first().simulate('click');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('click');
       expect(wrapper).toHaveState('isOpen', true);
     });
 
@@ -78,7 +85,7 @@ describe('dropdown', () => {
   });
 
   describe('closes', () => {
-    it('by default it\'s closed', () => {
+    it("by default it's closed", () => {
       expect(shallow(<Dropdown caption="Menu" />)).toHaveState('isOpen', false);
     });
 
@@ -108,9 +115,15 @@ describe('dropdown', () => {
 
     it('on blur', () => {
       const wrapper = mount(<Dropdown caption="Menu" options={options} />);
-      wrapper.find('.trigger').first().simulate('click');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('click');
       expect(wrapper).toHaveState('isOpen', true);
-      wrapper.find('.options').first().simulate('mousedown');
+      wrapper
+        .find('.options')
+        .first()
+        .simulate('mousedown');
       wrapper.simulate('blur');
       expect(wrapper).toHaveState('isOpen', false);
       expect(wrapper.find('.options')).not.toExist();
@@ -118,7 +131,10 @@ describe('dropdown', () => {
 
     it('when click outside', () => {
       const wrapper = mount(<Dropdown caption="Menu" options={options} />);
-      wrapper.find('.trigger').first().simulate('click');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('click');
       expect(wrapper).toHaveState('isOpen', true);
       document.body.click();
       expect(wrapper).toHaveState('isOpen', false);
@@ -130,7 +146,10 @@ describe('dropdown', () => {
       const handler = jest.fn();
       const wrapper = mount(<Dropdown caption="Menu" options={options} />);
       wrapper.instance().close = handler;
-      wrapper.find('.trigger').first().simulate('click');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('click');
       wrapper.unmount();
       document.body.click();
       expect(handler).not.toHaveBeenCalled();
@@ -138,8 +157,14 @@ describe('dropdown', () => {
 
     it('closes when option clicked', () => {
       const wrapper = mount(<Dropdown caption="Menu" options={options} />);
-      wrapper.find('.trigger').first().simulate('click');
-      wrapper.find('.options').childAt(1).simulate('click');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('click');
+      wrapper
+        .find('.options')
+        .childAt(1)
+        .simulate('click');
       expect(wrapper).toHaveState('isOpen', false);
       expect(wrapper.find('.options')).not.toExist();
     });
@@ -149,8 +174,14 @@ describe('dropdown', () => {
     it('when option clicked', () => {
       const handler = jest.fn();
       const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
-      wrapper.find('.trigger').first().simulate('click');
-      wrapper.find('.options').childAt(1).simulate('click');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('click');
+      wrapper
+        .find('.options')
+        .childAt(1)
+        .simulate('click');
       expect(handler).toHaveBeenCalled();
       expect(handler).toHaveBeenCalledWith('green');
     });
@@ -158,8 +189,14 @@ describe('dropdown', () => {
     it('when option press enter', () => {
       const handler = jest.fn();
       const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
-      wrapper.find('.trigger').first().simulate('keyup', { which: 13 });
-      wrapper.find('.options').childAt(1).simulate('keyup', { which: 13 });
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('keyup', { which: 13 });
+      wrapper
+        .find('.options')
+        .childAt(1)
+        .simulate('keyup', { which: 13 });
       expect(handler).toHaveBeenCalled();
       expect(handler).toHaveBeenCalledWith('green');
     });
@@ -167,8 +204,14 @@ describe('dropdown', () => {
     it('when option press space', () => {
       const handler = jest.fn();
       const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
-      wrapper.find('.trigger').first().simulate('keyup', { which: 32 });
-      wrapper.find('.options').childAt(1).simulate('keyup', { which: 32 });
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('keyup', { which: 32 });
+      wrapper
+        .find('.options')
+        .childAt(1)
+        .simulate('keyup', { which: 32 });
       expect(handler).toHaveBeenCalled();
       expect(handler).toHaveBeenCalledWith('green');
     });
@@ -176,20 +219,32 @@ describe('dropdown', () => {
     it('not when option press other key', () => {
       const handler = jest.fn();
       const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
-      wrapper.find('.trigger').first().simulate('keyup', { which: 32 });
-      wrapper.find('.options').childAt(1).simulate('keyup', { which: 33 });
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('keyup', { which: 32 });
+      wrapper
+        .find('.options')
+        .childAt(1)
+        .simulate('keyup', { which: 33 });
       expect(handler).not.toHaveBeenCalled();
     });
 
     it('cycling selection with arrows and press enter to select', () => {
       const handler = jest.fn();
       const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
-      wrapper.find('.trigger').first().simulate('keyup', { which: 32 });
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 38 });
-      wrapper.find('.trigger').first().simulate('keyup', { which: 32 });
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('keyup', { which: 32 });
       expect(handler).toHaveBeenCalled();
       expect(handler).toHaveBeenCalledWith('green');
     });
@@ -197,7 +252,10 @@ describe('dropdown', () => {
     it('cycling selection with arrows has limits on length', () => {
       const handler = jest.fn();
       const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
-      wrapper.find('.trigger').first().simulate('keyup', { which: 32 });
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 40 });
       wrapper.simulate('keyup', { which: 40 });
@@ -215,10 +273,19 @@ describe('dropdown', () => {
     it('cycling selection with arrows, then hover other option and press enter to select', () => {
       const handler = jest.fn();
       const wrapper = mount(<Dropdown caption="Menu" onSelect={handler} options={options} />);
-      wrapper.find('.trigger').first().simulate('keyup', { which: 32 });
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('keyup', { which: 32 });
       wrapper.simulate('keyup', { which: 40 });
-      wrapper.find('.options').childAt(1).simulate('mouseover');
-      wrapper.find('.trigger').first().simulate('keyup', { which: 32 });
+      wrapper
+        .find('.options')
+        .childAt(1)
+        .simulate('mouseover');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('keyup', { which: 32 });
       expect(handler).toHaveBeenCalled();
       expect(handler).toHaveBeenCalledWith('green');
     });
@@ -227,23 +294,32 @@ describe('dropdown', () => {
   describe('cap visible options', () => {
     it('maximum options visible', () => {
       const wrapper = shallow(<Dropdown caption="Menu" options={options} size={2} />);
-      wrapper.find('.trigger').first().simulate('click');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('click');
       expect(wrapper.find('.options')).toHaveStyle('overflowY', 'scroll');
       expect(wrapper.find('.options')).toHaveStyle('maxHeight', '120px');
     });
 
-    it('when options less than size, dont\'t cap', () => {
+    it("when options less than size, dont't cap", () => {
       const wrapper = shallow(<Dropdown caption="Menu" options={options} size={4} />);
-      wrapper.find('.trigger').first().simulate('click');
+      wrapper
+        .find('.trigger')
+        .first()
+        .simulate('click');
       expect(wrapper.find('.options')).not.toHaveStyle('overflowY', 'scroll');
       expect(wrapper.find('.options')).not.toHaveStyle('maxHeight', '120px');
     });
   });
 
   it('disable scroll on page', () => {
-    const keyboardEvent = (keyCode) => new window.KeyboardEvent('keydown', { bubbles: true, keyCode });
+    const keyboardEvent = (keyCode) =>
+      new window.KeyboardEvent('keydown', { bubbles: true, keyCode });
     const handler = jest.fn();
-    const wrapper = mount(<Dropdown caption="Menu" options={options} />, { attachTo: setReactRoot() });
+    const wrapper = mount(<Dropdown caption="Menu" options={options} />, {
+      attachTo: setReactRoot(),
+    });
     const $dropdown = wrapper.find('.dropdown');
     window.addEventListener('keydown', handler);
     $dropdown.instance().dispatchEvent(keyboardEvent(40));

@@ -29,8 +29,7 @@ export default class Form extends Component {
   handleFieldChange(fieldName) {
     return (event) => {
       const { values } = this.state;
-      values[fieldName] = event.target && event.target.value
-        ? event.target.value : event;
+      values[fieldName] = event.target && event.target.value ? event.target.value : event;
       this.setState({ values });
     };
   }
@@ -79,8 +78,8 @@ export default class Form extends Component {
 
     return (
       <form onReset={this.handleReset} onSubmit={this.handleSubmit}>
-        { grouped.body }
-        { grouped.footer && <div className="form-footer">{ grouped.footer }</div> }
+        {grouped.body}
+        {grouped.footer && <div className="form-footer">{grouped.footer}</div>}
       </form>
     );
   }

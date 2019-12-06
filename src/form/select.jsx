@@ -86,8 +86,7 @@ export default class Select extends Component {
 
     if (placeholder) {
       dropdownOptions = dropdownOptions.concat(
-        options && options[0] && options[0].value
-          ? { value: '', label: placeholder } : placeholder,
+        options && options[0] && options[0].value ? { value: '', label: placeholder } : placeholder,
       );
     }
 
@@ -97,14 +96,8 @@ export default class Select extends Component {
 
     return (
       <div className="select">
-        <Dropdown
-          aria-hidden="true"
-          onSelect={this.handleDropdown}
-          options={dropdownOptions}
-        >
-          <div className={selectCSS}>
-            { value || placeholder || '\u00a0' }
-          </div>
+        <Dropdown aria-hidden="true" onSelect={this.handleDropdown} options={dropdownOptions}>
+          <div className={selectCSS}>{value || placeholder || '\u00a0'}</div>
         </Dropdown>
         <select
           {...other}
@@ -112,15 +105,18 @@ export default class Select extends Component {
           onChange={this.handleSelect}
           onFocus={this.handleFocus}
           onInvalid={onInvalid}
-          ref={(ref) => { this.select = ref; }}
+          ref={(ref) => {
+            this.select = ref;
+          }}
           tabIndex="-1"
         >
-          { placeholder && <option value="">{ placeholder }</option> }
-          { options && options.map((option, id) => (
-            <option key={id} value={option.value || option}>
-              { option.label || option }
-            </option>
-          )) }
+          {placeholder && <option value="">{placeholder}</option>}
+          {options &&
+            options.map((option, id) => (
+              <option key={id} value={option.value || option}>
+                {option.label || option}
+              </option>
+            ))}
         </select>
       </div>
     );
@@ -132,12 +128,14 @@ Select.propTypes = {
   defaultValue: PropTypes.string,
   onChange: PropTypes.func,
   onInvalid: PropTypes.func,
-  options: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    }),
-  ])),
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      }),
+    ]),
+  ),
   placeholder: PropTypes.string,
 };

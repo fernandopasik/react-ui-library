@@ -95,15 +95,32 @@ export default class Field extends Component {
    */
   render() {
     const {
-      className, component, disabled, id, inline, label, readOnly, required,
-      errorMessages, multiLine, resize, validate, ...other // eslint-disable-line no-unused-vars
+      className,
+      component,
+      disabled,
+      id,
+      inline,
+      label,
+      readOnly,
+      required,
+      errorMessages,
+      multiLine,
+      resize,
+      validate,
+      ...other // eslint-disable-line no-unused-vars
     } = this.props;
 
     const { errorMessage, invalid } = this.state;
     let FormElement;
     const Element = inline ? 'span' : 'div';
-    const fieldCSS = classnames('field', { disabled, inline, invalid, readonly: readOnly }, className);
-    const ariaAttrs = !invalid ? {} : { 'aria-invalid': invalid, 'aria-describedby': `${id}-error` };
+    const fieldCSS = classnames(
+      'field',
+      { disabled, inline, invalid, readonly: readOnly },
+      className,
+    );
+    const ariaAttrs = !invalid
+      ? {}
+      : { 'aria-invalid': invalid, 'aria-describedby': `${id}-error` };
     // eslint-disable-next-line no-nested-ternary
     const elementStyle = { resize: !resize ? 'none' : resize === true ? 'both' : resize };
 
@@ -115,18 +132,14 @@ export default class Field extends Component {
 
     return (
       <Element className={fieldCSS}>
-        { label && (
+        {label && (
           <label className="field-label" htmlFor={id}>
-            { label }
-            { required && (
-              <span
-                aria-label="Required"
-                className="icon icon-required"
-                title="Required"
-              />
-            ) }
+            {label}
+            {required && (
+              <span aria-label="Required" className="icon icon-required" title="Required" />
+            )}
           </label>
-        ) }
+        )}
         <FormElement
           {...other}
           {...ariaAttrs}
@@ -136,15 +149,17 @@ export default class Field extends Component {
           onChange={this.handleChange}
           onInvalid={this.handleInvalid}
           readOnly={readOnly}
-          ref={(ref) => { this.formElem = ref; }}
+          ref={(ref) => {
+            this.formElem = ref;
+          }}
           required={required}
           style={elementStyle}
         />
-        { errorMessage && (
+        {errorMessage && (
           <Element className="field-error" id={`${id}-error`}>
-            { errorMessage }
+            {errorMessage}
           </Element>
-        ) }
+        )}
       </Element>
     );
   }
@@ -196,9 +211,20 @@ Field.propTypes = {
   step: PropTypes.number,
   tabIndex: PropTypes.number,
   type: PropTypes.oneOf([
-    'text', 'email', 'number', 'password', 'hidden',
-    'tel', 'url', 'color', 'search', 'range',
-    'date', 'datetime-local', 'week', 'month',
+    'text',
+    'email',
+    'number',
+    'password',
+    'hidden',
+    'tel',
+    'url',
+    'color',
+    'search',
+    'range',
+    'date',
+    'datetime-local',
+    'week',
+    'month',
   ]),
   validate: PropTypes.bool,
   wrap: PropTypes.oneOf(['hard', 'soft']),
