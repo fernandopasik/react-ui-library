@@ -100,12 +100,7 @@ const common = {
     hot: true,
     port: 8080,
     historyApiFallback: true,
-    stats: {
-      colors: true,
-      chunks: false,
-      reasons: true,
-      children: false,
-    },
+    quiet: true,
   },
 };
 
